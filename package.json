@@ -1,0 +1,22 @@
+{
+  "name": "ofCourse-backend",
+  "version": "0.0.0",
+  "description": "ofcourse-backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wblankenship/ofcourse-backend.git"
+  },
+  "author": "william.jblankenship@gmail.com",
+  "bugs": {
+    "url": "https://github.com/wblankenship/ofcourse-backend/issues"
+  },
+  "homepage": "https://github.com/wblankenship/ofcourse-backend",
+  "devDependencies": {
+    "mocha": "^1.21.4",
+    "should": "^4.0.4"
+  }
+}
