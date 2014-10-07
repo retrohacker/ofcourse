@@ -4,6 +4,7 @@
   "description": "ofcourse-backend",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "mocha"
   },
   "repository": {
