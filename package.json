@@ -4,7 +4,9 @@
   "description": "ofcourse-backend",
   "main": "index.js",
   "scripts": {
+    "prestart": "node frontend/compile.js",
     "start": "node index.js",
+    "pretest": "node frontend/compile.js",
     "test": "mocha"
   },
   "repository": {
