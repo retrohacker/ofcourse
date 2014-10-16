@@ -7,6 +7,19 @@ The backend REST server for ofCourse
 
 # Local Dev
 
+## Checking out the source code
+
+```
+git clone --recursive git@github.com:wblankenship/ofcourse-backend backend
+cd backend
+npm install
+cd frontend
+npm install
+cd ../
+```
+
+## Running the tests
+
 Running the tests requires that you have a local mock setup that mirrors our heroku setup. We have built a docker container to accomplish this.
 
 If you do not already have docker installed, consult [this tutorial](http://docs.docker.com/installation/).
@@ -40,4 +53,12 @@ daed94b672eb: Download complete
   ✓ should pass
 
   1 passing (8ms)
+```
+
+## Running the code
+
+Pretty much the exact same as running the tests, but instead you pass a command to the container:
+
+```
+docker run -itv ${PWD}:/usr/src/app wblankenship/npg npm start
 ```
