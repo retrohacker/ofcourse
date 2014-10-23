@@ -11,6 +11,12 @@ passport.use(new Facebook({
   },
   function(accessToken, refreshToken, profile, done) {
     //do stuff here
+    res.status(200).json({
+      accessToken:accessToken,
+      refreshToken:refreshToken,
+      profile:profile
+    })
+    done()
   }
 ))
 
