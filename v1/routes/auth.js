@@ -20,6 +20,10 @@ passport.use(new Facebook({
   }
 ))
 
+passport.serializeUser(function(user,done) {
+  done(null,user.profile.id)
+})
+
 router.use(bodyParser.json())
 router.use(session({secret:"#fuckitshipit"}))
 router.use(passport.initialize());
