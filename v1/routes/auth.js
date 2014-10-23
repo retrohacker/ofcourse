@@ -16,12 +16,17 @@ passport.use(new Facebook({
       refreshToken:refreshToken,
       profile:profile
     }
+    console.log(JSON.stringify(user))
     done(null,user)
   }
 ))
 
 passport.serializeUser(function(user,done) {
   done(null,user.profile.id)
+})
+
+passport.deserializeUser(function(id,done) {
+  done(null,{profile:{id:id}})
 })
 
 router.use(bodyParser.json())
