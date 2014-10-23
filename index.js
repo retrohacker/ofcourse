@@ -12,6 +12,6 @@ app.listen(app.get('port'), function() {
 })
 
 app.get("/",function(req,res) {
-  res.send('<html><head><script src="/min.js"></script><link href="/min.css"/><title>ofcourse</title></head><body></body></html>')
+  res.send('<html><head></script><link href="/min.css"/><title>ofcourse</title></head><body><script type="text/javascript" src="/min.js"></body></html>')
 })
 
