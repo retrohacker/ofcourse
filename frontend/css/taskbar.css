@@ -1,0 +1,45 @@
+.taskbar {
+	background: lightgray;
+	height: 35px;
+	min-height: 100%;
+	width: 100%;	
+	padding: 5px;
+}
+.right {
+	float: right;
+	}
+.left {
+	float: left;
+}
+.taskButton{
+	background-color: blue;
+	border: 1px solid black;
+	border-radius: 10px;
+	display: inline-block;
+	height: 30px;
+	width: 30px;
+
+}
+.taskButton:hover {
+	background-color: lightblue;
+}
+.viewContainer{
+	position: absolute;
+	margin-top:45px;
+	top:0px;
+	bottom:0px;
+	left: 0px;
+	right: 0px;
+	float: left;	
+	width: 100%;
+}
+.settingsDropDown{
+	position:absolute;
+	background-color: blue;
+	float: left;
+	width: 50%;
+	left:0px;
+	right:0px;
+	top:0px;
+	bottom:0px;
+}	

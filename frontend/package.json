@@ -1,0 +1,34 @@
+{
+  "name": "ofcourse-frontend",
+  "version": "0.0.0",
+  "description": "ofcourse-frontend",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha --reporter tap test/**/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wblankenship/ofcourse-frontend.git"
+  },
+  "author": "william.jblankenship",
+  "bugs": {
+    "url": "https://github.com/wblankenship/ofcourse-frontend/issues"
+  },
+  "homepage": "https://github.com/wblankenship/ofcourse-frontend",
+  "devDependencies": {
+    "fs-extra": "^0.12.0",
+    "mocha": "^1.21.4"
+  },
+  "dependencies": {
+    "async": "^0.9.0",
+    "browserify": "^6.0.3",
+    "cli-color": "^0.3.2",
+    "glob": "^4.0.6",
+    "jade": "^1.7.0",
+    "node-minify": "^0.10.5",
+    "once": "^1.3.1"
+  }
+}
