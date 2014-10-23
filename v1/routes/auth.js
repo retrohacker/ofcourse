@@ -7,7 +7,7 @@ var session = require('express-session')
 passport.use(new Facebook({
     clientID: "623965211045732",
     clientSecret: "aef606266e12688633565ce9083778b6",
-    callbackURL: "http://www.ofcourse.link/v1/auth/facebook/callback"
+    callbackURL: "https://ofcourseapp.herokuapp.com/v1/auth/facebook/callback"
   },
   function(accessToken, refreshToken, profile, done) {
     //do stuff here
