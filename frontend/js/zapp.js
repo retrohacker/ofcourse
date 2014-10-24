@@ -5,7 +5,7 @@ var Workspace = Backbone.Router.extend({
 		"usr/login" : "login"
 	},
 	'home': function(){
-		
+		radio.trigger('unrender-LoginView');
 		var wrapper = new Wrapper({
 			el: 'body',
 			model: wrapperModel
@@ -31,24 +31,12 @@ var Workspace = Backbone.Router.extend({
 		alert('bypass');
 	},
 	'login': function(){
-		var wrapper = new Wrapper({
-			el: 'body',
-			model: wrapperModel
-		});	
-		var logoView = new LogoView({
-			el: '#wrapper',
-			model: logoViewModel
-		});
-		var facebookLoginButton = new FacebookLoginButton({
-			el: '#wrapper',
-			model: facebookLoginButtonModel
-		});
-		var bypassLoginButton = new BypassLoginButton({
-			el:'#wrapper',
-			model: bypassLoginBtnModel
-		});
-	}
+		console.log('hit');
+		this.loginView = new LoginView({ radio: radio});
+		this.loginView.render();
+		}
 });
-var workspace = new Workspace();
+var workspace = new Workspace({radio: radio});
 Backbone.history.start();
 workspace.navigate('usr/login', {trigger: true});
+
