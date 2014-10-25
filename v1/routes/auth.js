@@ -11,8 +11,23 @@ passport.use(new Facebook({
   },
   function(accessToken, refreshToken, profile, done) {
     //do stuff here
+    var user = {
+      accessToken:accessToken,
+      refreshToken:refreshToken,
+      profile:profile
+    }
+    console.log(JSON.stringify(user))
+    done(null,user)
   }
 ))
+
+passport.serializeUser(function(user,done) {
+  done(null,user.profile.id)
+})
+
+passport.deserializeUser(function(id,done) {
+  done(null,{profile:{id:id}})
+})
 
 router.use(bodyParser.json())
 router.use(session({secret:"#fuckitshipit"}))
@@ -20,4 +35,8 @@ router.use(passport.initialize());
 router.use(passport.session());
 
 router.get('/facebook',passport.authenticate('facebook'))
-router.get('/facebook/callback',passport.authenticate('facebook',{ successRedirect:'/', failureRedirect:'/login'}))
+router.get('/facebook/callback',passport.authenticate('facebook',{ successRedirect:'/', failureRedirect:'/facebook'}))
+
+router.get('/',function(req,res) {
+  return res.status(200).json({"auth":"true"})
+})
