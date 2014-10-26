@@ -97,26 +97,3 @@ var SettingsButton = Backbone.View.extend({
 		}
 	}	
 });
-var wrapperView = new Wrapper({
-	el: 'body',
-	model: wrapperModel
-});
-
-var taskbarView = new TaskbarView({
-	el: '#wrapper',
-	model: taskbarModel
-});
-var viewContainer = new ViewContainer({
-	el:'#wrapper',
-	model: viewContainerModel
-});
-var settingsButton = new SettingsButton({
-	el: '#MainTaskbar',
-	model: settingsButtonModel
-});
-var addClassButton = new AddClassButton({
-	el: '#MainTaskbar',
-	model: addClassButtonModel
-});
-
-
