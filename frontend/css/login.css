@@ -1,28 +1,20 @@
-.content-wrapper {
-    overflow: hidden;
-    /* The following styles are required for the "scroll-over" effect */
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    position: fixed !important;
-	}
-.content{
-	width: 50%;
-    height: 50%;
-    margin: auto;
-    position: absolute;
-    top: 100px; left: 0; bottom: 0; right: 0;
-    text-align: center;
-	}
-.facebook{
-	top-padding: 20px;
-	width: 300px;	
-	}
-.logo{
-	width: 600px;
-	}
-img{
-	display: block;
-	margin: auto;
-	}
+.ofcourse-vcenter {
+  height: 100%;
+  overflow: hidden;
+}
+.ofcourse-vcenter1 {
+  height: 100%;
+  transform: translateY(50%)
+}
+
+.ofcourse-vcenter2 {
+  transform: translateY(-50%)
+}
+
+.ofcourse-centerImage {
+  text-align: center;
+}
+
+.ofcourse-fblogin {
+  padding-top: 2em;
+}
