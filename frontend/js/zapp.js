@@ -25,15 +25,14 @@ var Workspace = Backbone.Router.extend({
     var addClassButton = new AddClassButton({
       el: '#MainTaskbar',
       model: addClassButtonModel
-    });  
+    });
   },
   'bypass': function(){
     alert('bypass');
   },
   'login': function(){
     radio.trigger('unrender')
-    this.loginView = new LoginView({radio: radio});
-    this.loginView.render();
+    this.loginView = new LoginView({radio: radio}).render();
   }
 });
 var workspace = new Workspace({radio: radio});
