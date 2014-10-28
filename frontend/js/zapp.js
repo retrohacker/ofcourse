@@ -1,34 +1,24 @@
 var Workspace = Backbone.Router.extend({
   routes:{
     "usr/home": "home",
-    "usr/home/bypass": "bypass",
     "usr/login" : "login"
   },
   'home': function(){
     radio.trigger('unrender');
-    var wrapper = new Wrapper({
-      el: 'body',
-      model: wrapperModel
-    });
-    var taskbarview = new TaskbarView({
-      el: '#wrapper',
-      model: taskbarModel
-    });
-    var viewContainer = new ViewContainer({
-      el: '#wrapper',
-      model: viewContainerModel
-    });
-    var settingsButton = new SettingsButton({
-      el: '#MainTaskbar',
-      model: settingsButtonModel
-    });
-    var addClassButton = new AddClassButton({
-      el: '#MainTaskbar',
-      model: addClassButtonModel
-    });
-  },
-  'bypass': function(){
-    alert('bypass');
+    new TaskbarView({radio: radio})
+      .addButtonLeft(new TaskbarButtonView({
+          className:'fa fa-fw fa-bars',
+          onClick: function () {
+            console.log("Welp, its open!")
+          }
+        }))
+      .addButtonRight(new TaskbarButtonView({
+        className:'fa fa-fw fa-paper-plane-o',
+        onClick: function() {
+          console.log("Add Event!")
+        }
+      }))
+      .render()
   },
   'login': function(){
     radio.trigger('unrender')
