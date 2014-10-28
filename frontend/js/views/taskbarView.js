@@ -48,6 +48,9 @@ var TaskbarView = Backbone.View.extend({
   }
 });
 
+
+/** Need to do the same thing here we have done everywhere else
+ *
 var SettingsDropDown = Backbone.View.extend({
   render: function(){
     this.id = this.model.get('id');
@@ -73,31 +76,4 @@ var AddClassButton = Backbone.View.extend({
     this.$el.append(newNode);
   }
 });
-var SettingsButton = Backbone.View.extend({
-  initialize: function(){
-    this.settingsDropDown =  new SettingsDropDown({
-      el: '#viewContainer',
-      model: settingsDropDownModel
-    });  
-    this.model.set({"settingsOpen": false});
-    this.render();
-  },
-  render: function(){
-    this.id = this.model.get('id');
-    var css_class = this.model.get('css_class');
-    var newNode = $('<div id="' + this.id + '" class="' + css_class + '"></div>');
-    this.$el.append(newNode);
-  },
-  events: {
-    'click #settings': 'clickSettings'
-    },
-  clickSettings: function(){
-    if(this.model.get('settingsOpen') == true){
-      this.model.set({"settingsOpen": false});
-      this.settingsDropDown.close();      
-    }else{
-      this.settingsDropDown.open();
-      this.model.set({"settingsOpen":true});
-    }
-  }  
-});
+*/
