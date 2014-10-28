@@ -2,9 +2,11 @@ var express = require('express')
 var app = express();
 var path = require('path')
 var V1 = require('./v1/api.js')
+var jade = require('jade')
+var index = jade.renderFile(path.join(__dirname,'index.jade'))
 
 app.set('port', (process.env.PORT || 5000))
-app.use(express.static(__dirname + '/frontend/build'))
+app.use(express.static(path.join(__dirname,'frontend','build')))
 app.use("/v1",V1)
 
 app.listen(app.get('port'), function() {
@@ -12,10 +14,5 @@ app.listen(app.get('port'), function() {
 })
 
 app.get("/",function(req,res) {
-<<<<<<< HEAD
-  res.send('<html><head><link rel="stylesheet" href="/min.css"/><title>ofcourse</title></head><body><script src="/min.js"></script></body></html>')
-=======
-  res.send('<html><head><link rel="stylesheet" href="/min.css"/></head><body><script src="/min.js"></script></body></html>')
->>>>>>> master
+  res.send(index)
 })
-
