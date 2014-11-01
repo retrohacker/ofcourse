@@ -13,9 +13,6 @@ The backend REST server for ofCourse
 git clone --recursive git@github.com:wblankenship/ofcourse-backend backend
 cd backend
 npm install
-cd frontend
-npm install
-cd ../
 ```
 
 ## Running the tests
