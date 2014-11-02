@@ -15,6 +15,16 @@ cd backend
 npm install
 ```
 
+## Database
+
+We use postgresql. The easiest way to get up and running is to use the docker postgres container:
+
+```
+docker run -dp 5432:5432 postgres:9.3
+```
+
+At this point you have a default docker setup running on port 5432 of your local host. The default username is postgres as is the default database.
+
 ## Running the tests
 
 Running the tests requires that you have a local mock setup that mirrors our heroku setup. We have built a docker container to accomplish this.
