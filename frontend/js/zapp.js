@@ -1,15 +1,27 @@
+var testing
 var Workspace = Backbone.Router.extend({
   routes:{
     "usr/home": "home",
     "usr/login" : "login"
   },
   'home': function(){
+    var sidebarState = false; //hidden
     radio.trigger('unrender');
-    new TaskbarView({radio: radio})
+    var sidebar = new SidebarView({radio:radio})
+      .render()
+    var taskbar = new TaskbarView({radio: radio})
       .addButtonLeft(new TaskbarButtonView({
           className:'fa fa-fw fa-bars',
           onClick: function () {
-            console.log("Welp, its open!")
+            testing = this
+            if(!sidebarState) {
+              taskbar.$el.css('transform','translateX(25%)')
+              sidebar.$el.css('transform','translateX(0)')
+            } else {
+              taskbar.$el.css('transform','translateX(0)')
+              sidebar.$el.css('transform','translateX(-100%)')
+            }
+            sidebarState = !sidebarState
           }
         }))
       .addButtonRight(new TaskbarButtonView({

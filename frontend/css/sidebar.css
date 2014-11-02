@@ -1,0 +1,21 @@
+.ofcourse-sidebar {
+  position: fixed;
+  height: 100%;
+  background-color: #222;
+  top: 0;
+  left: 0;
+  width: 25%;
+  transform: translateX(-100%);
+  overflow-x: hidden;
+}
+
+.ofcourse-sidebar .ofcourse-menu-item {
+  font-size: 1.5em;
+  padding: .5em;
+  color: #EEE;
+  border-bottom: #555 groove .1em;
+}
+
+.ofcourse-sidebar .ofcourse-menu-item:hover {
+  background-color: #494949;
+}
