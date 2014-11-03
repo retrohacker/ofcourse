@@ -9,7 +9,7 @@ var FormView = Backbone.View.extend({
     radio.on('unrender:FormView',this.unrender, this);
     radio.on('render:FormView',this.render,this);
     radio.on('unrender',this.unrender,this);
-    radio.on('submit form',this.formSubmitted,this);
+    //radio.on('form submit',this.formSubmitted('form submit'),this);
   },
   render: function(collect, location) {
     //Create a JSON object from the passed collection
@@ -21,23 +21,21 @@ var FormView = Backbone.View.extend({
     //Set the DOM element to be rendered in
     var location = location || this.defaultLocation
     //Add the view to the DOM
-    $(location).append(this.template);
+    $(location).append(this.$el);
     return this;
   },
-  events: {
-    'submit form': 'formSubmitted'
-  },
+  //events: {
+  //  'form submit': 'formSubmitted'
+  //},
   formSubmitted: function(e){
+    //e.preventDefault();
     console.log("hi");
-    e.preventDefault();
     var data = Backbone.Syphon.serialize(this);
+    console.log(data);
     var user = new User();
     user.set(data);
     user.save();
-    router.post('/v1/user/5555');
-    console.log(user.toJSON());
     workspace.navigate('usr/home', {trigger: true});
-    return false;
   },
   unrender: function() {
     this.$el.remove();

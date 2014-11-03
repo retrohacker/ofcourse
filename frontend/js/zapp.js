@@ -27,7 +27,7 @@ var Workspace = Backbone.Router.extend({
   },
   'register': function(){
     radio.trigger('unrender');
-    this.registerView = new FormView({radio:radio}).render(registrationCollection());
+    this.registerView = new FormView({radio: radio}).render(registrationCollection());
   }
 });
 var workspace = new Workspace({radio: radio});
