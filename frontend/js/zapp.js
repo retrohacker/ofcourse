@@ -1,7 +1,8 @@
 var Workspace = Backbone.Router.extend({
   routes:{
     "usr/home": "home",
-    "usr/login" : "login"
+    "usr/login" : "login",
+    "usr/register": "register"
   },
   'home': function(){
     radio.trigger('unrender');
@@ -21,8 +22,12 @@ var Workspace = Backbone.Router.extend({
       .render()
   },
   'login': function(){
-    radio.trigger('unrender')
+    radio.trigger('unrender');
     this.loginView = new LoginView({radio: radio}).render();
+  },
+  'register': function(){
+    radio.trigger('unrender');
+    this.registerView = new FormView({radio:radio}).render(registrationCollection());
   }
 });
 var workspace = new Workspace({radio: radio});
