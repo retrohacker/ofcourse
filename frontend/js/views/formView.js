@@ -9,33 +9,31 @@ var FormView = Backbone.View.extend({
     radio.on('unrender:FormView',this.unrender, this);
     radio.on('render:FormView',this.render,this);
     radio.on('unrender',this.unrender,this);
-    //radio.on('form submit',this.formSubmitted('form submit'),this);
+    radio.on('form submit',this.formSubmitted, this);
+    var formVals = [];
   },
   render: function(collect, location) {
     //Create a JSON object from the passed collection
-    var formVals = collect.toJSON();
+    formVals = collect.toJSON();
     //Send collection JSON to template to render form
     //with desired values
     this.template = JADE.regForm(formVals);
-    this.setElement(this.template);
+    //this.setElement(this.template);
     //Set the DOM element to be rendered in
     var location = location || this.defaultLocation
     //Add the view to the DOM
-    $(location).append(this.$el);
+    $(location).append(this.template);
     return this;
   },
-  //events: {
-  //  'form submit': 'formSubmitted'
-  //},
-  formSubmitted: function(e){
-    //e.preventDefault();
-    console.log("hi");
-    var data = Backbone.Syphon.serialize(this);
-    console.log(data);
+  formSubmitted: function(){
     var user = new User();
-    user.set(data);
-    user.save();
-    workspace.navigate('usr/home', {trigger: true});
+    jQuery.each(formVals, function(i, item){
+      var name = document.getElementById(item.id).name;
+      var value = document.getElementById(item.id).value;
+      user.set(name, value);
+    });
+    //user.save();
+    workspace.navigate('usr/home',{trigger: true});
   },
   unrender: function() {
     this.$el.remove();
