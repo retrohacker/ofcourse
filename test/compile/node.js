@@ -3,7 +3,7 @@ var fs = require('fs-extra')
 var exec = require('child_process').exec
 var assert = require('assert')
 var async = require('async')
-var Node = require('../../compile/node.js')
+var Node = require('../../frontend/compile/node.js')
 
 var dir = path.join(__dirname,"_node")
 var glob = path.join(dir,"*.js")
