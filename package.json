@@ -7,7 +7,7 @@
     "prestart": "node frontend/compile.js",
     "start": "node index.js",
     "pretest": "node frontend/compile.js",
-    "test": "mocha"
+    "test": "mocha --reporter tap test/**/*.js frontend/test/**/*.js"
   },
   "repository": {
     "type": "git",
