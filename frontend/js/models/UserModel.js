@@ -3,6 +3,7 @@
 var UserModel = Backbone.Model.extend({
   url: '/v1/user/5555',
 	defualts:{
+  	url: '/v1/user/5555',
 		id: -1,
 		firstName: 'First Name',
 		lastName: 'Last Name',
