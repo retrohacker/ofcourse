@@ -33,4 +33,7 @@ var UserModel = Backbone.Model.extend({
 
 var module = module || {}
 module.exports = UserModel
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6df6357b99aad628e81f3ceb48a2069e864e383d

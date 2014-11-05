@@ -25,6 +25,11 @@ docker run -dp 5432:5432 postgres:9.3
 
 At this point you have a default docker setup running on port 5432 of your local host. The default username is postgres as is the default database.
 
+
+sample database insert:
+  curl -X POST --header "Content-Type: application/json" -d '{"fitName":"testfirst","lastName":"testlast","university":"siu","id":1234,"email":"testemail@mytestemail.com"}' localhost:5000/v1/user
+
+
 ## Running the tests
 
 Running the tests requires that you have a local mock setup that mirrors our heroku setup. We have built a docker container to accomplish this.

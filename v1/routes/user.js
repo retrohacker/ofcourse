@@ -8,8 +8,8 @@ router.use(bodyParser.json())
 router.post('/',function(req,res) {
   var user = new UserModel()
   if(!user.set(req.body,{validate:true}))
-	  return res.status(400).json({e:user.validationError})
-  db('INSERT INTO "users" ("fname", "lname", "university", "id", "email") VALUES ($1, $2, $3, $4, $5)', user.firstName, user.lastName, user.university, user.id, user.email)
+    return res.status(400).json({e:user.validationError})
+  db('INSERT INTO users("fname", "lname", "id", "email", "university") VALUES(\'' + user.attributes.firstName + '\', \'' + user.attributes.lastName + '\', \'' +user.attributes.id + '\', \'' + user.attributes.email + '\', \'' + user.attributes.university + '\')')
   res.status(501).json(new Error("Endpoint not implemented"))
 })
 
