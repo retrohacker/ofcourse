@@ -6,7 +6,6 @@ var UserModel = require('../models/UserModel.js')
 router.use(bodyParser.json())
 
 router.post('/',function(req,res) {
-  console.log('recieved a POST at "/", inserting VALUES into database')
   var user = new UserModel()
   if(!user.set(req.body,{validate:true}))
     return res.status(400).json({e:user.validationError})
