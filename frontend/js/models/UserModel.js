@@ -1,12 +1,8 @@
 //User model
 //This is data that will be stored in the database
-<<<<<<< HEAD
 var User = Backbone.Model.extend({
-  url: '/v1/user/5555',
-=======
-var UserModel = Backbone.Model.extend({
->>>>>>> a4c5f3d628c282e9a66d0c09310ec4aaf08557ee
 	defualts:{
+  	url: '/v1/user/5555',
 		id: -1,
 		firstName: 'First Name',
 		lastName: 'Last Name',
