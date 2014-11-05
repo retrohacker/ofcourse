@@ -7,7 +7,13 @@ var SidebarView = Backbone.View.extend({
     radio.on('unrender',this.unrender,this)
     return this
   },
+  events: {
+    "click #calendar": "openCalendar"
+  },
   template: JADE.sidebar,
+  openCalendar: function() {
+    workspace.navigate('usr/calendar',{trigger:true})
+  },
   render: function() {
     var location = location || this.defaultLocation
     $(location).append(this.$el)

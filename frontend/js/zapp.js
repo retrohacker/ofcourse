@@ -2,7 +2,8 @@ var testing
 var Workspace = Backbone.Router.extend({
   routes:{
     "usr/home": "home",
-    "usr/login" : "login"
+    "usr/login" : "login",
+    "usr/calendar" : "calendar"
   },
   'home': function(){
     var sidebarState = false; //hidden
@@ -35,6 +36,11 @@ var Workspace = Backbone.Router.extend({
   'login': function(){
     radio.trigger('unrender')
     this.loginView = new LoginView({radio: radio}).render();
+  },
+  'calendar': function(){
+    radio.trigger('unrender')
+    this.calendarView = new CalendarView({radio: radio}).render();
+    _.bindAll(this.calendarView, 'fullCalendar');
   }
 });
 var workspace = new Workspace({radio: radio});
