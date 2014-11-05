@@ -22,16 +22,16 @@ var FormView = Backbone.View.extend({
   },
   formSubmitted: function(){
     var user = new UserModel()
+    var view = this
     jQuery.each(this.formVals, function(i, item){
-      var name = document.getElementById(item.id).name
-      var value = document.getElementById(item.id).value
+      var name = view.$('#' + item.id).value
+      var value = view.$('#' + item.id).value
       user.set(name, value)
     });
     //user.save();
     workspace.navigate('usr/home',{trigger: true})
   },
   unrender: function() {
-    console.log("UNRENDERED")
     this.$el.remove()
   }
 });
