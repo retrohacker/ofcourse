@@ -1,5 +1,5 @@
 var assert = require('assert')
-var Jade = require('../../compile/jade.js')
+var Jade = require('../../frontend/compile/jade.js')
 var jade = require('jade')
 var async = require('async')
 var fs = require('fs-extra')

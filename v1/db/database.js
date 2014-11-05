@@ -6,7 +6,7 @@ var init = require('./init.js')
 if(isDev)
   connString = "postgres://postgres@127.0.0.1:5432/postgres"
 else
-  ; //TODO fill in stub for heroku
+  connString = "postgres://gfsfillahxrvsa:40mI24y9S5M66bOYQxGWz5og4w@ec2-54-197-227-238.compute-1.amazonaws.com:5432/d30k7bgpai6hjm"
 
 pg.connectionParameters = connString
 
