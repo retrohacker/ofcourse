@@ -1,7 +1,17 @@
 var gaze = require('gaze')
+var path = require('path')
+
+var ignore = [
+  'jade.js',
+
+]
 
 var spawn = require('child_process').spawn
-spawn('node',['index.js']).stdout.on('data',function(chunk) {
+var node = spawn('node',['index.js'])
+node.stdout.on('data',function(chunk) {
+  process.stdout.write(chunk)
+})
+node.stderr.on('data',function(chunk) {
   process.stdout.write(chunk)
 })
 
@@ -20,8 +30,17 @@ gaze(paths, function(err, watcher) {
   console.log("Watching directory for changes...")
   // On changed/added/deleted
   this.on('all', function(event, filepath) {
+    if(ignore.indexOf(path.basename(filepath))!==-1) return null
     console.log(filepath + ' was ' + event);
     spawn('node',['frontend/compile.js']).stdout.on('data',function(chunk) {
+      process.stdout.write(chunk)
+    })
+    node.kill()
+    node = spawn('node',['index.js'])
+    node.stdout.on('data',function(chunk) {
+      process.stdout.write(chunk)
+    })
+    node.stderr.on('data',function(chunk) {
       process.stdout.write(chunk)
     })
   });
