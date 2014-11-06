@@ -29,3 +29,6 @@ node_modules
 
 # Our build directory
 frontend/build
+
+# Random stuff
+*.swp
