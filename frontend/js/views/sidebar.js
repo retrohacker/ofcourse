@@ -8,7 +8,7 @@ var SidebarView = Backbone.View.extend({
     return this
   },
   events: {
-    "click #calendar": "openCalendar"
+    "click #sidebar-calendar": "openCalendar"
   },
   template: JADE.sidebar,
   openCalendar: function() {
