@@ -68,7 +68,6 @@ var Workspace = Backbone.Router.extend({
       }))
       .render()
     calendarView.render();
-    _.bindAll(this.calendarView, 'fullCalendar');
   }
 });
 var workspace = new Workspace({radio: radio});
