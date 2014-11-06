@@ -1,4 +1,3 @@
-var testing
 var Workspace = Backbone.Router.extend({
   routes:{
     "usr/home": "home",
@@ -13,7 +12,6 @@ var Workspace = Backbone.Router.extend({
       .addButtonLeft(new TaskbarButtonView({
           className:'fa fa-fw fa-bars',
           onClick: function () {
-            testing = this
             if(!sidebarState) {
               taskbar.$el.css('transform','translateX(25%)')
               sidebar.$el.css('transform','translateX(0)')
