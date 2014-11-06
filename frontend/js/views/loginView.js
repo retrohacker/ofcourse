@@ -17,8 +17,10 @@ var LoginView = Backbone.View.extend({
   render: function(location) {
     var location = location || this.defaultLocation
     $(location).append(this.$el)
+    console.log("I WAS RENDERED!!!!");
   },
   unrender: function(){
+    console.log("I WAS UNRENDERED");
     this.$el.remove()
   }
 });
