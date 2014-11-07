@@ -11,7 +11,7 @@ var FormView = Backbone.View.extend({
     radio.on('unrender:FormView',this.unrender, this)
     radio.on('render:FormView',this.render,this)
     radio.on('unrender',this.unrender,this)
-    radio.on('form submit',this.formSubmitted, this)
+    radio.on('formSubmit',this.formSubmitted, this)
   },
   render: function(location) {
     //Set the DOM element to be rendered in

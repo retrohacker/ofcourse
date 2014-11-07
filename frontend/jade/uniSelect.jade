@@ -1,8 +1,10 @@
-div
+div.oc-uniSelect-pageWrapper
   h1 Select Your University!
-  div.oc-xl-listContainer
+  div.oc-uniSelect-listContainer
     - each item in locals
-      div poop
+      div.oc-uniSelect-listItem(onclick="radio.trigger('submit:University',this.id)" id="#{item.name}")
+        h2 #{item.name}
+        h3 #{item.location}
 
 
 

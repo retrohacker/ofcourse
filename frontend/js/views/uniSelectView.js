@@ -8,7 +8,7 @@ var UniSelectView = Backbone.View.extend({
     radio.on('unrender:UniSelect',this.unrender, this)
     radio.on('render:UniSelect',this.render,this)
     radio.on('unrender',this.unrender,this)
-    radio.on('submit university',this.submitted,this)
+    radio.on('submit:University',this.submitted,this)
   },
   render: function(location) {
     //Set the DOM element to be rendered in
@@ -17,11 +17,11 @@ var UniSelectView = Backbone.View.extend({
     $(location).append(this.$el)
     return this;
   },
-  submitted: function(){
-    console.log("hi 1")
-    var university = this.$('.selected').value
+  submitted: function(options){
+    var university = options
     user.set({university: university})
     //user.save();
+    console.log(user.toJSON())
     workspace.navigate('usr/home',{trigger: true})
   },
   unrender: function() {

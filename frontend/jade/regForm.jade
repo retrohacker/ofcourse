@@ -9,4 +9,4 @@ div.ofcourse-form.ofcourse-centerImage
     fieldset.pure-group
       - each item in locals
         input.pure-input-1(id='#{item.id}' name='#{item.name}' type='text' placeholder='#{item.desc}')
-    button(type='button' class=['pure-button pure-input-1 pure-button-primary'] onclick="radio.trigger('form submit')") Register
+    button(type='button' class=['pure-button pure-input-1 pure-button-primary'] onclick="radio.trigger('formSubmit')") Register

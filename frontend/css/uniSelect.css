@@ -5,8 +5,14 @@
 }
 
 .oc-uniSelect-listContainer {
-  width: 90%;
+  width: 60%;
   margin: 0 auto;
   height: 70%;
   background-color: blue;
+}
+
+.oc-uniSelect-listItem {
+  width: 100%;
+  background-color: red;
+  border: 1px solid black;
 }
