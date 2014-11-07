@@ -1,0 +1,12 @@
+.oc-uniSelect-pageWrapper {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+
+.oc-uniSelect-listContainer {
+  width: 90%;
+  margin: 0 auto;
+  height: 70%;
+  background-color: blue;
+}
