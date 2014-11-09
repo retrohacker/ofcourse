@@ -1,10 +1,8 @@
-var me = null;
 var CalendarView = Backbone.View.extend({
 
   defaultLocation: "body",
   template: JADE.calendar,
   initialize: function(){
-    me = this;
     this.setElement(this.template()); 
     radio.on('unrender:CalendarView',this.unrender,this)
     radio.on('render:CalendarView', this.render, this)
