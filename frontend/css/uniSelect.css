@@ -8,11 +8,11 @@
   width: 60%;
   margin: 0 auto;
   height: 70%;
-  background-color: blue;
+  overflow-y: auto;
 }
 
 .oc-uniSelect-listItem {
-  width: 100%;
-  background-color: red;
+  width: 99%;
+  background-color: #D8D8D8;
   border: 1px solid black;
 }
