@@ -7,6 +7,7 @@ var FormView = Backbone.View.extend({
   template: JADE.regForm,
   initialize: function(opts){
     this.formVals = opts.formVals || []
+    this.user = opts.user
     this.setElement(this.template(this.formVals))
     radio.on('unrender:FormView',this.unrender, this)
     radio.on('render:FormView',this.render,this)
@@ -21,14 +22,13 @@ var FormView = Backbone.View.extend({
     return this;
   },
   formSubmitted: function(){
-    var user = new UserModel()
     var view = this
-    jQuery.each(this.formVals, function(i, item){
-      var name = view.$('#' + item.id).value
-      var value = view.$('#' + item.id).value
-      user.set(name, value)
+    jQuery.each(view.formVals, function(i, item){
+      var name = item.name
+      var value = view.$('#' + item.id).val()
+      view.user.set(name, value)
     });
-    //user.save();
+    //this.user.save();
     workspace.navigate('usr/uniSelect',{trigger: true})
   },
   unrender: function() {

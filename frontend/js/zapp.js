@@ -1,5 +1,3 @@
-var user = new UserModel({fname: "Mr. D", lname: "Ev", email: "mrdev@dev.com"})
-
 var Workspace = Backbone.Router.extend({
   routes:{
     "usr/home": "home",
@@ -40,7 +38,8 @@ var Workspace = Backbone.Router.extend({
   },
   'register': function(){
     radio.trigger('unrender')
-    this.registerView = new FormView({radio: radio,formVals:registrationCollection().toJSON()}).render()
+    this.user = new UserModel()
+    this.registerView = new FormView({radio: radio,formVals:registrationCollection().toJSON(), user:this.user}).render()
   },
   'uniSelect': function(){
     var sidebarState = false; //hidden
@@ -68,7 +67,7 @@ var Workspace = Backbone.Router.extend({
         }
       }))
       .render()
-      this.uniSelectView = new UniSelectView({radio: radio, universities: universityCollection.toJSON(), user: user}).render()
+      this.uniSelectView = new UniSelectView({radio: radio, universities: universityCollection.toJSON(), user: this.user}).render()
   }
 });
 var workspace = new Workspace({radio: radio});

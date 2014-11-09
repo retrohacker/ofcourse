@@ -19,9 +19,8 @@ var UniSelectView = Backbone.View.extend({
   },
   submitted: function(options){
     var university = options
-    user.set({university: university})
+    this.user.set({university: university})
     //user.save();
-    console.log(user.toJSON())
     workspace.navigate('usr/home',{trigger: true})
   },
   unrender: function() {
