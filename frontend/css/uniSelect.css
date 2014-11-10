@@ -1,0 +1,18 @@
+.oc-uniSelect-pageWrapper {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+
+.oc-uniSelect-listContainer {
+  width: 60%;
+  margin: 0 auto;
+  height: 70%;
+  overflow-y: auto;
+}
+
+.oc-uniSelect-listItem {
+  width: 99%;
+  background-color: #D8D8D8;
+  border: 1px solid black;
+}
