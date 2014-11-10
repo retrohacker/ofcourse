@@ -1,13 +1,10 @@
-var Backbone = require('backbone')
+var module = module || {}
+var Backbone = Backbone || require('backbone')
+
 //User model
 //This is data that will be stored in the database
-var UserModel = Backbone.Model.extend({
-  defualts:{
-    id: -1,
-    firstName: 'First Name',
-    lastName: 'Last Name',
-    university: 'University',
-    email: 'Email Address'
+var UserModel = module.exports = Backbone.Model.extend({
+  defaults:{
   },
   validate:function(attributes,options){
 	  if(typeof attributes.id != 'number')
@@ -31,5 +28,12 @@ var UserModel = Backbone.Model.extend({
   }
 });
 
-var module = module || {}
-module.exports = UserModel
+module.exports.types = {
+  id: 'SERIAL PRIMARY KEY',
+  firstName: 'VARCHAR(50) NOT NULL',
+  lastName: 'VARCHAR(50) NOT NULL',
+  university: 'VARCHAR(50)',
+  email: 'VARCHAR(254)'
+}
+
+module.exports.tableName = "users"
