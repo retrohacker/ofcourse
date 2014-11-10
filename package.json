@@ -20,10 +20,10 @@
   "homepage": "https://github.com/wblankenship/ofcourse-backend",
   "devDependencies": {
     "mocha": "^1.21.4",
-    "fs-extra": "^0.12.0",
     "should": "^4.0.4"
   },
   "dependencies": {
+    "fs-extra": "^0.12.0",
     "async": "^0.9.0",
     "body-parser": "^1.9.0",
     "browserify": "^6.0.3",
