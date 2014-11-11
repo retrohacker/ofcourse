@@ -18,3 +18,9 @@
 .ofcourse-fblogin {
   padding-top: 2em;
 }
+
+.ofcourse-form {
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+}

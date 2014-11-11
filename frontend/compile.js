@@ -41,8 +41,6 @@ var infos = [
     "Creating Directories... ",
     "Building Jade JSON... ",
     "Saving Jade JSON... ",
-    "Browserifying Node... ",
-    "Saving Browserified Node... ",
     "Minifying JS Files... ",
     "Minifying CSS Files... ",
     "Cleaning Up Generated Files... "
@@ -78,6 +76,7 @@ async.waterfall([
     log("yellow","INFO",infos.getNext())
     fs.writeFile(jadeJSON,"var JADE = "+JSON.stringify(contents),cb)
   },
+  /**
   function browserifyNode(cb) {
     success()
     log("yellow","INFO",infos.getNext())
@@ -88,6 +87,7 @@ async.waterfall([
     log("yellow","INFO",infos.getNext())
     fs.writeFile(nodeOutput,file,cb)
   },
+  **/
   function minifyJS(cb) {
     success()
     log("yellow","INFO",infos.getNext())
