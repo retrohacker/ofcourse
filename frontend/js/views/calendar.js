@@ -7,6 +7,7 @@ var CalendarView = Backbone.View.extend({
     radio.on('unrender:CalendarView',this.unrender,this)
     radio.on('render:CalendarView', this.render, this)
     radio.on('unrender',this.unrender,this)
+    radio.on('unrender:page', this.unrender,this)
   },
   render: function(location) {
     var location = location || this.defaultLocation;
