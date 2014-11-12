@@ -18,7 +18,7 @@ var SidebarView = Backbone.View.extend({
       $('body').css('transform','translateX(0)')
       this.sidebarState = !this.sidebarState
     }
-    workspace.navigate('usr/calendar',{trigger:true})
+    workspace.navigate('calendar',{trigger:true})
   },
   render: function() {
     var location = location || this.defaultLocation

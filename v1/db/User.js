@@ -10,6 +10,13 @@ user.insert = function insert(values,cb) {
   })
 }
 
+user.get = function get(id,cb) {
+  db("select * from users where id="+id,function(e,rows,result) {
+    if(e) return cb(e)
+    cb(null,result.rows[0])
+  })
+}
+
 function insertCommand(model,values) {
   var result = 'INSERT INTO '+model.tableName+' ('
   var modelVals = Object.keys(model.types)
