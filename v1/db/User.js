@@ -25,6 +25,6 @@ function insertCommand(model,values) {
   })
   result = result.slice(0,-1) // remove trailing comma
   result += ') RETURNING id'
-  console.log(result)
+  //console.log(result)
   return result
 }
