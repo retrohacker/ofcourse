@@ -11,7 +11,17 @@ router.post('/5555',function(req,res) {
   if(!user.set(req.body,{validate:true}))
     return res.status(400).json({e:user.validationError})
   User.insert(user,function(e,id) {
-    if(e) return res.status(500).json(e)
+    if(e) return res.status(500).json(e)//dont do this, remove this for production build
+    else return res.status(201).json({id:id})
+  })
+})
+
+router.put('/5555',function(req,res) {
+   var user = new UserModel()
+  if(!user.set(req.body,{validate:true}))
+    return res.status(400).json({e:user.validationError})
+  User.update(user,function(e,id) {
+    if(e) return res.status(500).json(e)//dont do this, remove this for production build
     else return res.status(201).json({id:id})
   })
 })
