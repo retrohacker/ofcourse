@@ -2,9 +2,15 @@ var bodyParser = require('body-parser')
 var router = module.exports = require('express').Router()
 var db = require('../db/database.js')
 var UserModel = require('../models/UserModel.js')
+var session = require('../db/session.js')
+var passport = require('passport')
 var User = require('../db/User.js')
 
 router.use(bodyParser.json())
+router.use(session)
+router.use(passport.initialize())
+router.use(passport.session())
+
 
 router.post('/5555',function(req,res) {
   var user = new UserModel()
@@ -12,7 +18,10 @@ router.post('/5555',function(req,res) {
     return res.status(400).json({e:user.validationError})
   User.insert(user,function(e,id) {
     if(e) return res.status(500).json(e)
-    else return res.status(201).json({id:id})
+    req.login(id,function(e) {
+      if(e) return res.status(500).json(e)
+      return res.status(201).json({id:id})
+    })
   })
 })
 
