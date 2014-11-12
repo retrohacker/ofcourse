@@ -5,7 +5,7 @@
 //IF REUSING, SUBMIT BUTTON TEXT MUST BE REPLACED
 div.ofcourse-form.ofcourse-centerImage.ofcourse-vcenter3
   !{JADE['xl-logo']()}
-  form.pure-form(method='post' action='/login' onsubmit='')
+  form.pure-form(method='post' action='/v1/user/login' onsubmit='')
     fieldset.pure-group
       - each item in locals
         input.pure-input-1(id='#{item.id}' name='#{item.name}' type='text' placeholder='#{item.desc}')

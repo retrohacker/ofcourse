@@ -25,6 +25,16 @@ router.post('/5555',function(req,res) {
   })
 })
 
+router.post('/login',passport.authenticate('local'),function(req,res) {
+  var user = new UserModel()
+  if(!user.set(req.body,{validate:true}))
+    return res.status(400).json({e:user.validationError})
+    req.login(user.email,function(e) {
+      if(e) return res.status(500).json(e)
+      return res.status(201).json({id:id})
+    })
+})
+
 router.get('/:id',function(req,res) {
   /*
   if(Number.isNaN(Number(req.params.id)))
