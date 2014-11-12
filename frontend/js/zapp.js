@@ -7,28 +7,9 @@ var Workspace = Backbone.Router.extend({
     "usr/calendar" : "calendar"
   },
   'home': function(){
-//    var sidebarState = false; //hidden
     radio.trigger('unrender');
-    var  sidebar = new SidebarView({radio:radio})
-      .render()
     var taskbar = new TaskbarView({radio: radio})
-      .addButtonLeft(new TaskbarButtonView({
-          className:'fa fa-fw fa-bars',
-          onClick: function () {
-            if(!sidebar.getState()){
-              $('body').css('transform','translateX(25%)')
-            } else {
-              $('body').css('transform','translateX(0)')
-            }
-            radio.trigger('sidebar:changeState') 
-          }
-        }))
-      .addButtonRight(new TaskbarButtonView({
-        className:'fa fa-fw fa-paper-plane-o',
-        onClick: function() {
-          console.log("Add Event!")
-        }
-      }))
+      .createBasicTaskbar()
       .render()
   },
   'login': function(){
