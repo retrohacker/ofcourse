@@ -7,19 +7,16 @@ var UserModel = module.exports = Backbone.Model.extend({
   defaults:{
   },
   validate:function(attributes,options){
-	  if(typeof attributes.id != 'number')
+	  if(attributes.id && (typeof attributes.id != 'number' || attributes.id < 0))
       return 'expected number for id'
     if(typeof attributes.firstName != 'string')
       return 'expected string for firstName'
 	  if(typeof attributes.lastName != 'string')
       return 'expected string for lastName'
-	  if(typeof attributes.university != 'string')
+	  if(attributes.university && typeof attributes.university != 'string')
       return 'expected string for university'
     if(typeof attributes.email != 'string')
       return 'expected string for email'
-    if(attributes.id < 0){
-      return 'id error'
-    }
     if(attributes.email){
       var re = new RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
       if(typeof attributes.email != 'string' || !attributes.email.match(re))
