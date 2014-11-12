@@ -33,7 +33,7 @@ docker run -dp 6379:6379 redis:2.8.12
 
 
 sample database insert:
-  curl -X POST --header "Content-Type: application/json" -d '{"fitName":"testfirst","lastName":"testlast","university":"siu","id":1234,"email":"testemail@mytestemail.com"}' localhost:5000/v1/user
+  curl -X POST --header "Content-Type: application/json" -d '{"firstName":"testfirst","lastName":"testlast","university":"siu","id":1234,"email":"testemail@mytestemail.com"}' localhost:5000/v1/user
 
 
 ## Running the tests

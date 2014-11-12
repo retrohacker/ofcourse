@@ -2,15 +2,18 @@ var bodyParser = require('body-parser')
 var router = module.exports = require('express').Router()
 var db = require('../db/database.js')
 var UserModel = require('../models/UserModel.js')
+var User = require('../db/User.js')
 
 router.use(bodyParser.json())
 
-router.post('/',function(req,res) {
+router.post('/5555',function(req,res) {
   var user = new UserModel()
   if(!user.set(req.body,{validate:true}))
     return res.status(400).json({e:user.validationError})
-  db('INSERT INTO users("fname", "lname", "id", "email", "university") VALUES(\'' + user.attributes.firstName + '\', \'' + user.attributes.lastName + '\', \'' +user.attributes.id + '\', \'' + user.attributes.email + '\', \'' + user.attributes.university + '\')')
-  res.status(501).json(new Error("Endpoint not implemented"))
+  User.insert(user,function(e,id) {
+    if(e) return res.status(500).json(e)
+    else return res.status(201).json({id:id})
+  })
 })
 
 router.get('/:id',function(req,res) {
