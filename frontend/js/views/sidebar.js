@@ -14,7 +14,6 @@ var SidebarView = Backbone.View.extend({
   },
   template: JADE.sidebar,
   openCalendar: function() {
-    console.log(this.sidebarState)
     if(this.sidebarState) {
       $('body').css('transform','translateX(0)')
       this.sidebarState = !this.sidebarState

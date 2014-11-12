@@ -15,7 +15,6 @@ var Workspace = Backbone.Router.extend({
       .addButtonLeft(new TaskbarButtonView({
           className:'fa fa-fw fa-bars',
           onClick: function () {
-            console.log(sidebar.getState())
             if(!sidebar.getState()){
               $('body').css('transform','translateX(25%)')
             } else {
@@ -70,14 +69,6 @@ var Workspace = Backbone.Router.extend({
     this.uniSelectView = new UniSelectView({radio: radio, universities: universityCollection.toJSON(), user: this.user}).render()
   },
   'calendar': function(){
-   /* if(!sidebarState) {
-      $('body').css('transform','translateX(25%)')
-    } else {
-      $('body').css('transform','translateX(0)')
-    }
-    sidebarState = !sidebarState
-    }*/
-
     radio.trigger('unrender:page');
     var calendarView = new CalendarView({radio: radio})
     calendarView.render();
