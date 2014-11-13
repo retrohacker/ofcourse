@@ -1,24 +1,25 @@
+//This is a view to be used with Forms collections
+//and the *Form JADE templates.
+//Instantiation: var variable = new FormView({radio:radio})
+//Rendering: variable.render([Form Collection],[Optional DOM location])
 var LoginView = Backbone.View.extend({
   defaultLocation: "body",
-  initialize: function(){
-    this.setElement(this.template())
-    // Create temporary bypass button
-    var button = document.createElement('button')
-    this.$('.ofcourse-vcenter2').append(button)
-    this.$('button').on('click',function() {
-      workspace.navigate('home',{trigger:true})
-    })
-    // end button
+  template: JADE.login,
+  initialize: function(opts){
+    this.formVals = opts.formVals || []
+    this.setElement(this.template(this.formVals))
     radio.on('unrender:LoginView',this.unrender, this)
     radio.on('render:LoginView',this.render,this)
     radio.on('unrender',this.unrender,this)
   },
-  template: JADE.login,
   render: function(location) {
+    //Set the DOM element to be rendered in
     var location = location || this.defaultLocation
+    //Add the view to the DOM
     $(location).append(this.$el)
+    return this;
   },
-  unrender: function(){
+  unrender: function() {
     this.$el.remove()
   }
 });

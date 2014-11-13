@@ -33,7 +33,7 @@ var Workspace = Backbone.Router.extend({
   },
   'login': function(){
     radio.trigger('unrender')
-    this.loginView = new LoginView({radio: radio}).render()
+    this.loginView = new LoginView({radio: radio,formVals:loginCollection().toJSON()}).render()
   },
   'register': function(){
     radio.trigger('unrender')

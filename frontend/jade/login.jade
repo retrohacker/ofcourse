@@ -1,7 +1,16 @@
-div(class=['pure-g','ofcourse-vcenter'])
-  div(class='pure-u-1-3')
-  div(class=['pure-u-1-3','ofcourse-vcenter1'])
-    div(class=['ofcourse-vcenter2','ofcourse-centerImage'])
-      !{JADE['xl-logo']()}
-      button(type='button' class='pure-button' onclick="workspace.navigate('register',{trigger:true})") Register
-      !{JADE['fblogin']()}
+//This template is virtualy generic to any text submission form that
+//needs to be generated.
+//Call with: JADE.regForm(formVals) where 'formVals' is a 'Forms' Collection
+//JSON object containing 'Entry' models.
+//IF REUSING, SUBMIT BUTTON TEXT MUST BE REPLACED
+div.ofcourse-form.ofcourse-centerImage.ofcourse-vcenter3
+  !{JADE['xl-logo']()}
+  form.pure-form(method='post' action='/v1/user/login')
+    fieldset.pure-group
+      - each item in locals
+        input.pure-input-1(id='#{item.id}' name='#{item.id}' type='text' placeholder='#{item.desc}')
+    button(type='submit' class=['pure-button pure-input-1 pure-button-primary']) Login
+    h2 -OR-
+    button(type='button' class='pure-button pure-input-1 pure-button-primary' onclick="workspace.navigate('usr/register',{trigger:true})") Register
+
+  !{JADE['fblogin']()}
