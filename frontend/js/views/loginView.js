@@ -6,7 +6,7 @@ var LoginView = Backbone.View.extend({
     var button = document.createElement('button')
     this.$('.ofcourse-vcenter2').append(button)
     this.$('button').on('click',function() {
-      workspace.navigate('usr/home',{trigger:true})
+      workspace.navigate('home',{trigger:true})
     })
     // end button
     radio.on('unrender:LoginView',this.unrender, this)
