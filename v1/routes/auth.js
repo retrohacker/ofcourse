@@ -6,9 +6,6 @@ var session = require('../db/session.js')
 var UserModel = require('../models/UserModel.js')
 var FacebookModel = require('../models/FacebookModel.js')
 var facebookDB = require('../db/Facebook.js')
-var passport = require('passport')
-  , LocalStrategy = require('passport-local').Strategy;
-
 
 router.use(bodyParser.json())
 router.use(session)
@@ -35,24 +32,6 @@ passport.use(new Facebook({
     updateFacebookUser(obj,done)
   }
 ))
-
-passport.use(new LocalStrategy({
-    usernameField: 'email',
-    passwordField: 'email'
-  },
-  function(username, password, done) {
-    User.findOne({ username: username }, function(err, user) {
-      if (err) { return done(err); }
-      if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
-      }
-      if (!user.validPassword(password)) {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-      return done(null, user);
-    });
-  }
-));
 
 passport.serializeUser(function(id,done) {
   done(null,id)
