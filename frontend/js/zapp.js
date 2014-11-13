@@ -85,10 +85,14 @@ var workspace = new Workspace({radio: radio});
 Backbone.history.start();
 
 function init() {
-  if(!App.user.isLoggedIn())
+  if(!App.user.isLoggedIn()){
+    console.log('zapp.js: user is not logged in')
     workspace.navigate('login', {trigger: true});
-  else if(!App.user.hasUniversity())
+  }
+  else if(App.user.isLoggedIn() && !App.user.hasUniversity()){
+    console.log('zapp.js: user has no university')
     workspace.navigate('uniSelect', {trigger: true});
+  }
   else
     workspace.navigate('home', {trigger: true});
 }
