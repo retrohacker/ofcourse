@@ -42,7 +42,7 @@
     "passport-facebook": "^1.0.3",
     "pg": "^3.6.2",
     "pg-query": "^0.10.1",
-    "redis": "^0.12.1"
+    "redis": "^0.12.1",
     "passport-local": "^1.0.0"
   }
 }
