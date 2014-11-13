@@ -20,7 +20,7 @@ var UniSelectView = Backbone.View.extend({
   submitted: function(options){
     var university = options
     this.user.set({university: university})
-    //user.save();
+    this.user.save();
     workspace.navigate('usr/home',{trigger: true})
   },
   unrender: function() {
