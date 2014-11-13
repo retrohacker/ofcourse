@@ -1,10 +1,10 @@
 var Workspace = Backbone.Router.extend({
   routes:{
-    "usr/home": "home",
-    "usr/login" : "login",
-    "usr/register" : "register",
-    "usr/uniSelect" : "uniSelect",
-    "usr/calendar" : "calendar"
+    "home": "home",
+    "login" : "login",
+    "register" : "register",
+    "uniSelect" : "uniSelect",
+    "calendar" : "calendar"
   },
   'home': function(){
 //    var sidebarState = false; //hidden
@@ -74,6 +74,21 @@ var Workspace = Backbone.Router.extend({
     calendarView.render();
   }
 });
+var App = App || {}
+App.user = new UserModelApp()
+App.user.fetch({
+  success: init,
+  error: init,
+})
+
 var workspace = new Workspace({radio: radio});
 Backbone.history.start();
-workspace.navigate('usr/login', {trigger: true});
+
+function init() {
+  if(!App.user.isLoggedIn())
+    workspace.navigate('login', {trigger: true});
+  else if(!App.user.hasUniversity())
+    workspace.navigate('uniSelect', {trigger: true});
+  else
+    workspace.navigate('home', {trigger: true});
+}
