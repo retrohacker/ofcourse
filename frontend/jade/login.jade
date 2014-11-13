@@ -5,12 +5,12 @@
 //IF REUSING, SUBMIT BUTTON TEXT MUST BE REPLACED
 div.ofcourse-form.ofcourse-centerImage.ofcourse-vcenter3
   !{JADE['xl-logo']()}
-  form.pure-form(method='post' action='/v1/user/login')
+  form.pure-form(method='post' action='/v1/auth/login')
     fieldset.pure-group
       - each item in locals
         input.pure-input-1(id='#{item.id}' name='#{item.id}' type='text' placeholder='#{item.desc}')
-    button(type='submit' class=['pure-button pure-input-1 pure-button-primary']) Login
+    button(type='submit' class=['pure-button pure-input-1 pure-button-primary'] onclick="workspace.navigate('home',{trigger:true})") Login
     h2 -OR-
-    button(type='button' class='pure-button pure-input-1 pure-button-primary' onclick="workspace.navigate('usr/register',{trigger:true})") Register
+    button(type='button' class='pure-button pure-input-1 pure-button-primary' onclick="workspace.navigate('register',{trigger:true})") Register
 
   !{JADE['fblogin']()}

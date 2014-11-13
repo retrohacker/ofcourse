@@ -17,6 +17,37 @@ user.update = function update(values,cb) {
   })
 }
 
+ user.get = function get(id,cb) {
+   db("select * from users where id="+id,function(e,rows,result) {
+     if(e) return cb(e)
+     cb(null,result.rows[0])
+   })
+ }
+
+user.getUserByEmail = function getUserByEmail(email,done) {
+  var results = db(getUserByEmailCommand(email), function(err, rows, result) {
+    if(err) return done(err,null)
+    if(result.rowCount == 0) {
+      return done('no users with that email address',null)
+    }
+    if(result.rowCount > 1) {
+      return done('error: multiple users with that email address',rows[0])
+    }
+    //console.log(rows)
+    //console.log(result)
+    
+    //this still needs work....
+    return done(null,rows)
+  });
+}
+
+function getUserByEmailCommand(email){
+  var result = "SELECT * FROM users WHERE email='"
+  result += email
+  result += "'"
+  return result
+}
+
 function insertCommand(model,values) {
   var result = 'INSERT INTO '+model.tableName+' ('
   var modelVals = Object.keys(model.types)

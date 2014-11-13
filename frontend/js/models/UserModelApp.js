@@ -4,9 +4,9 @@ var UserModelApp = Backbone.Model.extend({
   url: '/v1/user/self',
   defaults: {},
   isLoggedIn: function() {
-    return this.id != null
+    return this.attributes.id != null
   },
   hasUniversity: function() {
-    return this.university != null
+    return this.attributes.university != null
   }
 })
