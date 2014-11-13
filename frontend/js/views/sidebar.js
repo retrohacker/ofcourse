@@ -5,6 +5,8 @@ var SidebarView = Backbone.View.extend({
     radio.on('unrender:SidebarView',this.unrender,this)
     radio.on('render:TaskbarView',this.render,this)
     radio.on('unrender',this.unrender,this)
+    radio.on('sidebar:changeState',this.changeState, this) 
+    this.sidebarState = false
     return this
   },
   events: {
@@ -12,6 +14,10 @@ var SidebarView = Backbone.View.extend({
   },
   template: JADE.sidebar,
   openCalendar: function() {
+    if(this.sidebarState) {
+      $('body').css('transform','translateX(0)')
+      this.sidebarState = !this.sidebarState
+    }
     workspace.navigate('usr/calendar',{trigger:true})
   },
   render: function() {
@@ -22,5 +28,11 @@ var SidebarView = Backbone.View.extend({
   unrender: function() {
     this.$el.remove()
     return this
+  },
+  changeState: function(){
+    this.sidebarState = !this.sidebarState
+  },
+  getState: function(){
+    return this.sidebarState
   }
 });
