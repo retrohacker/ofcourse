@@ -1,8 +1,10 @@
 var CourseModel = Backbone.Model.extend({
   defaults:{
-    name: '',
+    id: '',     //This will link all occurances of this class
+    title: '',  //Event title on the calendar
     number: '',
     section: '',
-    dates: [] // array of dates that the class is on including start time
+    start: '',   //Start date time. YYYY-MM-DD'T'HH:MM:SS
+    end: ''      //End date time
   }
 });
