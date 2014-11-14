@@ -8,7 +8,8 @@ var UserModel = Backbone.Model.extend({
 		firstName: 'First Name',
 		lastName: 'Last Name',
 		university: 'University',
-		email: 'Email Address'
+		email: 'Email Address',
+		courses: ''
 	},
 	validate:function(attributes,options){
 		console.log("VALIDATING")
