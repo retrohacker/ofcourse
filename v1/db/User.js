@@ -23,6 +23,14 @@ user.update = function update(values,cb) {
      cb(null,result.rows[0])
    })
  }
+ 
+ user.getEvents = function get(id,cb) {
+   db("select * from events where userid="+id,function(e,rows,result) {
+     console.log('db/User.js: ',result.rows)
+     if(e) return cb(e)
+     cb(null,result.rows)
+   })
+ }
 
 user.getUserByEmail = function getUserByEmail(email,done) {
   var results = db(getUserByEmailCommand(email), function(err, rows, result) {

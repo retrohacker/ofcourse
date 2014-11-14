@@ -44,6 +44,15 @@ router.get('/self',function(req,res) {
   })
 })
 
+router.get('/events',function(req,res) {
+  if(!req.user || !req.user.profile || !req.user.profile.id) return res.status(401).json(new Error("Please login"))
+  User.getEvents(req.user.profile.id,function(e,user) {
+    if(e) return res.status(500).json(e)
+    if(!user) res.status(500).json(new Error('user not found'))
+    res.status(200).json(user)
+  })
+})
+
 router.get('/:id',function(req,res) {
   /*
   if(Number.isNaN(Number(req.params.id)))

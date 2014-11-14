@@ -7,6 +7,7 @@
  */
 var UserModel = require('../models/UserModel.js')
 var FacebookModel = require('../models/FacebookModel.js')
+var EventModel = require('../models/EventModel.js')
 
 module.exports = function(db) {
   db(createTable(UserModel.tableName,UserModel.types),function(e) {
@@ -14,6 +15,9 @@ module.exports = function(db) {
     db(createTable(FacebookModel.tableName,FacebookModel.types),function(e) {
       if(e) throw e
     })
+  })
+  db(createTable(EventModel.tableName,EventModel.types),function(e) {
+    if(e) throw e
   })
 }
 

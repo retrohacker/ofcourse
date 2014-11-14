@@ -3,6 +3,7 @@ var CalendarView = Backbone.View.extend({
   defaultLocation: "body",
   template: JADE.calendar,
   initialize: function(){
+    this.collection.bind('reset', this.addAll);
     this.setElement(this.template());
     radio.on('unrender:CalendarView',this.unrender,this)
     radio.on('render:CalendarView', this.render, this)
@@ -19,7 +20,10 @@ var CalendarView = Backbone.View.extend({
         right: 'agendaDay,agendaWeek,month'
       }
     });
-    $('#calendar').fullCalendar('addEventSource',courseCollection.toJSON())
+   
+  },
+  addAll: function() {
+      $('#calendar').fullCalendar('addEventSource',courseCollection.toJSON())
   },
   unrender: function(){
     this.$el.remove()

@@ -1,5 +1,6 @@
 var CourseModel = Backbone.Model.extend({
   defaults:{
+    userid: -1,
     id: '',     //This will link all occurances of this class
     title: '',  //Event title on the calendar
     number: '',
