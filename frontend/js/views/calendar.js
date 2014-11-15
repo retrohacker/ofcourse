@@ -23,7 +23,7 @@ var CalendarView = Backbone.View.extend({
    
   },
   addAll: function() {
-      $('#calendar').fullCalendar('addEventSource',courseCollection.toJSON())
+      $('#calendar').fullCalendar('addEventSource',eventCollection.toJSON())
   },
   unrender: function(){
     this.$el.remove()

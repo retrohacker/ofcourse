@@ -26,7 +26,14 @@ user.update = function update(values,cb) {
  
  user.getEvents = function get(id,cb) {
    db("select * from events where userid="+id,function(e,rows,result) {
-     console.log('db/User.js: ',result.rows)
+     //console.log('db/User.js: ',result.rows)
+     if(e) return cb(e)
+     cb(null,result.rows)
+   })
+ }
+ 
+  user.getCoursesByUniversity = function get(university,cb) {
+   db("select * from courses where university='"+university+"'",function(e,rows,result) {
      if(e) return cb(e)
      cb(null,result.rows)
    })

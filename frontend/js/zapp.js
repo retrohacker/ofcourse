@@ -4,7 +4,9 @@ var Workspace = Backbone.Router.extend({
     "login" : "login",
     "register" : "register",
     "uniSelect" : "uniSelect",
-    "calendar" : "calendar"
+    "calendar" : "calendar",
+    "addCourse": "addCourse",
+    "createCourse": "createCourse"
   },
   'home': function(){
 //    var sidebarState = false; //hidden
@@ -70,13 +72,25 @@ var Workspace = Backbone.Router.extend({
   },
   'calendar': function(){
     radio.trigger('unrender:page');
-    var calendarView = new CalendarView({radio: radio, collection: courseCollection})
+    var calendarView = new CalendarView({radio: radio, collection: eventCollection})
     calendarView.render();
-    courseCollection.fetch({reset:true})//not the most efficient way to populate collection, but needed because of calender.js events
-  }
+    eventCollection.fetch({reset:true})//not the most efficient way to populate collection, but needed because of calender.js events
+  },
+  'addCourse': function(){
+    radio.trigger('unrender:page');
+    var addCourse = new AddCourseView({radio: radio})
+      .render()
+    lol =  courseContainer = new CourseContainerView({radio: radio, collection: courseCollection, model: App.user})
+      .render()
+    courseCollection.fetch({reset:true})//not the most efficient way to populate collection
+   },  
+  'createCourse':function(){
+    radio.trigger('unrender:page')
+    this.createCourseView = new CreateCourseView({collection: courseCollection, radio: radio, formVals:createCourseCollection().toJSON(), user: App.user}).render()
+   }
 });
 var App = App || {}
-App.user = new UserModelApp()
+App.user = new UserModel()
 App.user.fetch({
   success: init,
   error: init,
