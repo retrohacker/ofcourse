@@ -2,6 +2,7 @@ var bodyParser = require('body-parser')
 var router = module.exports = require('express').Router()
 var db = require('../db/database.js')
 var UserModel = require('../models/UserModel.js')
+var CourseModel = require('../models/CourseModel.js')
 var session = require('../db/session.js')
 var passport = require('passport')
 var User = require('../db/User.js')
@@ -28,7 +29,6 @@ router.post('/user',function(req,res) {
 
 router.put('/user',function(req,res) {
   if(!req.user || !req.user.profile || !req.user.profile.id) return res.status(401).json(new Error("Please login"))
-  console.log('user.js: ', req.body)
    var user = new UserModel()
   if(!user.set(req.body,{validate:true}))
     return res.status(400).json({e:user.validationError})
@@ -59,20 +59,31 @@ router.get('/events',function(req,res) {
 
 router.get('/courses',function(req,res) {
   if(!req.user || !req.user.profile || !req.user.profile.id) return res.status(401).json(new Error("Please login"))
-  console.log(User.get(req.user.profile.id,function(e,user) {
+  User.get(req.user.profile.id,function(e,user) {
     //console.log('user.js: ', e)
-    console.log('user.js: user: ', user)
+    //console.log('user.js: user: ', user)
     if(e) return res.status(500).json(e)//dont do this, remove this for production build, gives attackers too much info
     if(!user) res.status(500).json(new Error('user not found'))
     User.getCoursesByUniversity(user.university,function(e,courses) {
       //console.log('user.js: ', e)
-      console.log('user.js: courses: ', courses)
+      //console.log('user.js: courses: ', courses)
       if(e) return res.status(500).json(e)//dont do this, remove this for production build, gives attackers too much info
       if(!courses) res.status(500).json(new Error('user not found'))
         res.status(200).json(courses)
     })
-  }))
-  
+  })
+})
+
+router.post('/addCourse',function(req,res) {
+  if(!req.user || !req.user.profile || !req.user.profile.id) return res.status(401).json(new Error("Please login"))
+  var course = new CourseModel()        
+  //console.log('user.js: req.body ', req.body)         
+  if(!course.set(req.body,{validate:true}))       
+    return res.status(400).json({e:user.validationError})
+  User.addCourse(course,req.user.profile.id,function(e,id) {
+    if(e) return res.status(500).json(e)//dont do this, remove this for production build, gives attackers too much info
+    else return res.status(201).json({id:id})
+  })
 })
 
 router.get('/:id',function(req,res) {

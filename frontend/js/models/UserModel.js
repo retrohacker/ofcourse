@@ -12,7 +12,7 @@ var UserModel = Backbone.Model.extend({
 		courses: []
 	},
 	validate:function(attributes,options){
-		console.log("VALIDATING")
+		console.log("UserModel.js: VALIDATING (twice?)")
 		if(attributes.id < 0){
 			return 'id error'
 		}

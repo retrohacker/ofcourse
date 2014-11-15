@@ -8,12 +8,12 @@ var CreateCourseView = Backbone.View.extend({
   initialize: function(opts){
     this.formVals = opts.formVals || [] 
     this.setElement(this.template(this.formVals))
-    this.course = new CourseModel({radio:radio});
+    this.course = new CourseModel();
     radio.on('unrender:FormView',this.unrender, this)
     radio.on('render:FormView',this.render,this)
     radio.on('unrender',this.unrender,this)
     radio.on('unrender:page',this.unrender,this)
-    radio.on('createCourse',this.formSubmitted, this)
+    radio.on('courseSubmit',this.formSubmitted, this)
   },
   render: function(location) {
     //Set the DOM element to be rendered in
@@ -23,22 +23,22 @@ var CreateCourseView = Backbone.View.extend({
     return this;
   },
   formSubmitted: function(){
-    console.log('createCourseView.js: formVals: ',this.formVals)
+    //console.log('createCourseView.js: formVals: ',this.formVals)
+    //console.log('createCourseView.js: course: ',this.course)
+    this.course = new CourseModel()
     var view = this
     jQuery.each(view.formVals, function(i, item){
       var name = item.name
       var value = view.$('#' + item.id).val()
-      console.log('createCourseView.js: name: ', name)
-      console.log('createCourseView.js: value: ', value)
+      //console.log('createCourseView.js: name: ', name)
+      //console.log('createCourseView.js: value: ', value)
       view.course.set(name, value)
     });
-//    console.log('createCourseView.js: ', this.course)
-//    this.course.save();
-    this.collection.add([this.course]);
-    this.model.save();
+    //this.collection.add([this.course]);
+    this.course.save();
     //TODO: V add course to user's courses V
-    //this.user.set({'courses' : userCourses})
-    //this.user.save()
+    //this.model.set({'courses' : userCourses})
+    //this.model.save()
   },
   unrender: function() {
     this.$el.remove()

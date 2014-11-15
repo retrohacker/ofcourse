@@ -1,6 +1,7 @@
 var user = module.exports = {}
 var db = require('../db/database.js')
 var UserModel = require('../models/UserModel.js')
+var CourseModel = require('../models/CourseModel.js')
 
 //USING POSTGRES
 user.insert = function insert(values,cb) {
@@ -24,7 +25,7 @@ user.update = function update(values,cb) {
    })
  }
  
- user.getEvents = function get(id,cb) {
+ user.getEvents = function getEvents(id,cb) {
    db("select * from events where userid="+id,function(e,rows,result) {
      //console.log('db/User.js: ',result.rows)
      if(e) return cb(e)
@@ -32,7 +33,7 @@ user.update = function update(values,cb) {
    })
  }
  
-  user.getCoursesByUniversity = function get(university,cb) {
+  user.getCoursesByUniversity = function getCoursesByUniversity(university,cb) {
    db("select * from courses where university='"+university+"'",function(e,rows,result) {
      if(e) return cb(e)
      cb(null,result.rows)
@@ -55,6 +56,27 @@ user.getUserByEmail = function getUserByEmail(email,done) {
     return done(null,rows)
   });
 }
+
+user.addCourse = function addCourse(course,userid,done) {
+  /*var university
+  db("select * from users where id="+userid, function(err, rows, result) {
+    if(err) return done(err,null)
+    console.log(result.rows[0].university)
+    university = result.rows[0].university
+  })*/
+  course.set('university','Southern Illinois University')// need to get university by user id instead
+  var results = db(insertCommand(CourseModel,course.toJSON()), function(err, rows, result) {
+    if(err) return done(err,null)
+    return done(null,result.rows[0].id)
+  });
+}
+ /*user.getUniversity = function getUniversity(id,cb) {
+   db("select * from users where id="+id,function(e,rows,result) {
+     //console.log('db/User.js: ',result.rows)
+     if(e) return cb(e)
+     cb(null,result.rows[0].university)
+   })
+ }*/
 
 function getUserByEmailCommand(email){
   var result = "SELECT * FROM users WHERE email='"
