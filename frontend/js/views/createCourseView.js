@@ -32,8 +32,10 @@ var CreateCourseView = Backbone.View.extend({
       console.log('createCourseView.js: value: ', value)
       view.course.set(name, value)
     });
-    console.log('createCourseView.js: ', this.course)
-    this.course.save();
+//    console.log('createCourseView.js: ', this.course)
+//    this.course.save();
+    this.collection.add([this.course]);
+    this.model.save();
     //TODO: V add course to user's courses V
     //this.user.set({'courses' : userCourses})
     //this.user.save()

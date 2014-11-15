@@ -2,7 +2,7 @@ var CourseModel = Backbone.Model.extend({
   url: '/v1/user/addCourse',
   defaults:{
     university: '',
-    id: '',     //This will link all occurances of this class
+    id: '-1',     //This will link all occurances of this class
     title: '',  //Event title on the calendar
     number: '',
     section: '',

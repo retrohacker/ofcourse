@@ -11,6 +11,7 @@ var LoginView = Backbone.View.extend({
     radio.on('unrender:LoginView',this.unrender, this)
     radio.on('render:LoginView',this.render,this)
     radio.on('unrender',this.unrender,this)
+    radio.on('unrender:page',this.unrender,this)
   },
   render: function(location) {
     //Set the DOM element to be rendered in
