@@ -74,7 +74,7 @@ router.get('/courses',function(req,res) {
   })
 })
 
-router.post('/addCourse',function(req,res) {
+router.post('/course',function(req,res) {
   if(!req.user || !req.user.profile || !req.user.profile.id) return res.status(401).json(new Error("Please login"))
   var course = new CourseModel()        
   //console.log('user.js: req.body ', req.body)         
