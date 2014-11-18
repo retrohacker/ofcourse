@@ -6,7 +6,8 @@ var Workspace = Backbone.Router.extend({
     "uniSelect" : "uniSelect",
     "calendar" : "calendar",
     "addCourse": "addCourse",
-    "createCourse": "createCourse"
+    "createCourse": "createCourse",
+    "courses":"courses"
   },
   'home': function(){
 //    var sidebarState = false; //hidden
@@ -80,14 +81,20 @@ var Workspace = Backbone.Router.extend({
     radio.trigger('unrender:page');
     var addCourse = new AddCourseView({radio: radio})
       .render()
-    lol =  courseContainer = new CourseContainerView({radio: radio, collection: courseCollection, model: App.user})
+    lol =  courseContainer = new CourseContainerView({radio: radio, collection: App.courses, model: App.user})
       .render()
-    courseCollection.fetch({reset:true})//not the most efficient way to populate collection
+    App.courses.fetch({reset:true})//not the most efficient way to populate collection
    },  
   'createCourse':function(){
     radio.trigger('unrender:page')
-    this.createCourseView = new CreateCourseView({collection: courseCollection, radio: radio, formVals:createCourseCollection().toJSON(), model: App.user}).render()
-   }
+    this.createCourseView = new CreateCourseView({collection: App.courses, radio: radio, formVals:createCourseCollection().toJSON(), model: App.user}).render()
+   },
+  'courses':function(){
+    radio.trigger('unrender:page')
+    App.courses.fetch({reset:true})
+    this.userCoursesView = new UserCoursesView({radio: radio, collection: App.courses})
+      .render()
+  }     
 });
 var App = App || {}
 App.user = new UserModel()
@@ -95,6 +102,8 @@ App.user.fetch({
   success: init,
   error: init,
 })
+App.courses = new CourseCollection()
+
 
 var workspace = new Workspace({radio: radio});
 Backbone.history.start();
