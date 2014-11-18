@@ -92,7 +92,9 @@ var Workspace = Backbone.Router.extend({
   'courses':function(){
     radio.trigger('unrender:page')
     App.courses.fetch({reset:true})
-    this.userCoursesView = new UserCoursesView({radio: radio, collection: App.courses})
+    var userCoursesView = new UserCoursesView({radio: radio})
+      .render()
+    var userCoursesContainer = new UserCoursesContainerView({radio: radio, collection: App.courses})
       .render()
   }     
 });
