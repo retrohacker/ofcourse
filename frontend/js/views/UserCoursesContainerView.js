@@ -26,8 +26,8 @@ var UserCoursesContainerView = Backbone.View.extend({
         new UserCoursesDivView({model: this.collection.at(i)}).render()
       }
     },
-    rerenderCourseViews: function() {
-      radio.trigger('unrender:UserCourse')
+    rerender: function() {
+      radio.trigger('unrender:userCourseDivView')
       this.renderCourseViews()
     }
 });
