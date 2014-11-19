@@ -48,10 +48,10 @@ var Workspace = Backbone.Router.extend({
   },
   'calendar': function(){
     radio.trigger('unrender:page');
-    var eventCollection = new EventCollection([])
-    var calendarView = new CalendarView({radio: radio, collection: eventCollection})
+    App.eventCollection = new EventCollection([])
+    var calendarView = new CalendarView({radio: radio, collection: App.eventCollection})
       .render();
-    eventCollection.fetch({reset:true})//not the most efficient way to populate collection, but needed because of calender.js events
+    App.eventCollection.fetch({reset:true})//not the most efficient way to populate collection, but needed because of calender.js events
   },
   'addCourse': function(){
     radio.trigger('unrender:page');
