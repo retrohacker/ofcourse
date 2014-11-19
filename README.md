@@ -43,33 +43,15 @@ sample database insert:
   curl -X POST --header "Content-Type: application/json" -d '{"firstName":"testfirst","lastName":"testlast","university":"siu","id":1234,"email":"testemail@mytestemail.com"}' localhost:5000/v1/user
 ```
 
-sample Events:
-
- id: 'serial primary key',
-  userid: 'integer references users(id) not null',
-  parentid: 'integer references parent_events(id) not null',
-  courseid: 'integer references courses(id) not null',
-  title: 'varchar(150) not null',//Event title on the calendar
-  start: 'timestamp not null',   //Start date time YYYY-MM-DD HH:MM:SS
-  end: 'timestamp not null',     //End date time
-  type: 'integer not null',      // Eventually will be a real enumeration
-  data: 'text'      
+sample Events: 
 ```
-  OLD WAY:
-    id: 'serial primary key',
-  cid: 'integer references courses(id) not null',
-  start: 'timestamp not null', //Start date time YYYY-MM-DD HH:MM:SS
-  end: 'timestamp not null',   //End date time
-  recurrence: 'text'           //unkown format... maybe json?
-  
-  
-    insert into parent_events (cid,start,"end") values
-    (1,'2014-11-01','2014-11-29');
-    insert into events (userid, title, parentid, courseid, start, "end",type) values 
-    (7,'Test Event 1',1,1,'2014-11-07','2014-11-07',1),(7,'Test Event 2',1,1,'2014-11-08','2014-11-08',1),
-    (7,'Test Event 3',1,1,'2014-11-09','2014-11-09',1),(7,'Test Event 4',1,1,'2014-11-10','2014-11-10',1),
-    (7,'Test Event 5',1,1,'2014-11-11','2014-11-11',1),(7,'Test Event 6',1,1,'2014-11-12','2014-11-12',1),
-    (7,'Test Event 7',1,1,'2014-11-13','2014-11-14',1),(7,'Week Long Event Test',1,1,'2014-11-01','2014-11-07',1);
+  insert into parent_events (cid,start,"end") values
+  (1,'2014-11-01','2014-11-29');
+  insert into events (userid, title, parentid, courseid, start, "end",type) values 
+  (9,'Test Event 1',1,1,'2014-11-07','2014-11-07',1),(9,'Test Event 2',1,1,'2014-11-08','2014-11-08',1),
+  (9,'Test Event 3',1,1,'2014-11-09','2014-11-09',1),(9,'Test Event 4',1,1,'2014-11-10','2014-11-10',1),
+  (9,'Test Event 5',1,1,'2014-11-11','2014-11-11',1),(9,'Test Event 6',1,1,'2014-11-12','2014-11-12',1),
+  (9,'Test Event 7',1,1,'2014-11-13','2014-11-14',1),(9,'Week Long Event Test',1,1,'2014-11-01','2014-11-07',1);
 ```
 
 sample Courses:
