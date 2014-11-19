@@ -45,6 +45,13 @@ sample Courses:
  ('Southern Illinois University', 'test course 2', '2', '002'),('Southern Illinois University', 'test course 5', '5', '005'),
  ('Southern Illinois University', 'test course 3', '3', '003'),('Southern Illinois University', 'test course 6', '6', '006'),
  ('Southern Illinois University', 'test course 4', '4', '004'),('Southern Illinois University', 'test course 7', '7', '007')
+clear database:
+  drop table courses cascade; drop table events cascade; drop table fb cascade; drop table parent_events cascade; 
+  drop table universities cascade; drop table users cascade; drop table course_user cascade;
+
+
+ 
+ 
 ## Running the tests
 
 *REMEMBER* running the tests requires postgres to be running on your localhost. Refer to the section above.

@@ -74,13 +74,14 @@ router.get('/courses',function(req,res) {
   })
 })
 
-router.post('/addCourse',function(req,res) {
+router.post('/course',function(req,res) {
   if(!req.user || !req.user.profile || !req.user.profile.id) return res.status(401).json(new Error("Please login"))
   var course = new CourseModel()        
   //console.log('user.js: req.body ', req.body)         
   if(!course.set(req.body,{validate:true}))       
     return res.status(400).json({e:user.validationError})
   User.addCourse(course,req.user.profile.id,function(e,id) {
+    console.log(e)
     if(e) return res.status(500).json(e)//dont do this, remove this for production build, gives attackers too much info
     else return res.status(201).json({id:id})
   })
