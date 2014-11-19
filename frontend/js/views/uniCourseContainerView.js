@@ -1,11 +1,11 @@
-var CourseContainerView = Backbone.View.extend({
+var UniCourseContainerView = Backbone.View.extend({
   defaultLocation: ".oc-addCourse-pageWrapper",
-  template: JADE.courseContainer,
+  template: JADE.uniCourseContainer,
   initialize: function(opts){
     this.user = opts.user || []
     this.setElement(this.template())
-    radio.on('unrender:courseContainer', this.unrender, this)
-    radio.on('render:courseContainer', this.render, this)
+    radio.on('unrender:uniCourseContainer', this.unrender, this)
+    radio.on('render:uniCourseContainer', this.render, this)
     radio.on('unrender', this.unrender, this)
     radio.on('unrender:page', this.unrender)
     radio.on('addClass', this.addClass,this)
@@ -14,18 +14,17 @@ var CourseContainerView = Backbone.View.extend({
     this.listenTo(this.collection, 'reset', this.rerender)
   },
   addClass: function(course) {
-    console.log('courseContainerView.js: ', this.model)
-    var userCourses = this.model.get('courses')
+   /* var userCourses = this.model.get('courses')
     if(typeof userCourses == 'undefined'){
       userCourses = [course]
     }else{
       userCourses.push(course)
     }
-    //console.log('courseContainerView.js: ', userCourses)
-    //console.log('courseContainerView.js: ', course)
-    //console.log('courseContainerView.js: ', this.collection)
     this.model.set({'courses' : userCourses})
-    this.model.save()
+    this.model.save()*/
+
+    //This needs to be reworked
+    //Todo: associate cousre with user
   },
   render: function(location) {
     var location = location || this.defaultLocation

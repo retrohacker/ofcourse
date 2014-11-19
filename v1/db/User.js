@@ -27,7 +27,6 @@ user.update = function update(values,cb) {
  
  user.getEvents = function getEvents(id,cb) {
    db("select * from events where userid="+id,function(e,rows,result) {
-     //console.log('db/User.js: ',result.rows)
      if(e) return cb(e)
      cb(null,result.rows)
    })
@@ -49,15 +48,13 @@ user.getUserByEmail = function getUserByEmail(email,done) {
     if(result.rowCount > 1) {
       return done('error: multiple users with that email address',rows[0])
     }
-    //console.log(rows)
-    //console.log(result)
-    
     //this still needs work....
     return done(null,rows)
   });
 }
 
 user.addCourse = function addCourse(course,userid,done) {
+  //HIGH PRIORITY BUG FIX
   /*var university
   db("select * from users where id="+userid, function(err, rows, result) {
     if(err) return done(err,null)
@@ -100,7 +97,6 @@ function insertCommand(model,values) {
   })
   result = result.slice(0,-1) // remove trailing comma
   result += ') RETURNING id'
-  //console.log(result)
   return result
 }
 
@@ -117,6 +113,5 @@ function updateCommand(model,values) {
   result += ' WHERE id='
   result += values['id'] //conditions - optional
   result += ' RETURNING id'
-  //console.log(result)
   return result
 }

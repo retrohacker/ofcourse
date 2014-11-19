@@ -1,3 +1,4 @@
+// This is the view for each individual course at a university to be displayed on the add Course page
 var CourseView = Backbone.View.extend({
   defaultLocation: ".oc-addcourse-courseContainer",
   template: JADE.courseDiv,

@@ -10,7 +10,6 @@ var Workspace = Backbone.Router.extend({
     "courses":"courses"
   },
   'home': function(){
-//    var sidebarState = false; //hidden
     radio.trigger('unrender');
     var  sidebar = new SidebarView({radio:radio})
       .render()
@@ -44,44 +43,21 @@ var Workspace = Backbone.Router.extend({
     this.registerView = new FormView({radio: radio,formVals:registrationCollection().toJSON(), user:this.user}).render()
   },
   'uniSelect': function(){
-    var sidebarState = false; //hidden
-    radio.trigger('unrender')
-    var sidebar = new SidebarView({radio:radio})
-      .render()
-    var taskbar = new TaskbarView({radio: radio})
-      .addButtonLeft(new TaskbarButtonView({
-        className:'fa fa-fw fa-bars',
-        onClick: function () {
-          if(!sidebarState) {
-            taskbar.$el.css('transform','translateX(25%)')
-            sidebar.$el.css('transform','translateX(0)')
-          } else {
-            taskbar.$el.css('transform','translateX(0)')
-            sidebar.$el.css('transform','translateX(-100%)')
-          }
-          sidebarState = !sidebarState
-        }
-      }))
-      .addButtonRight(new TaskbarButtonView({
-        className:'fa fa-fw fa-paper-plane-o',
-        onClick: function() {
-          console.log("Add Event!")
-        }
-      }))
-      .render()
+    radio.trigger('unrender:page')
     this.uniSelectView = new UniSelectView({radio: radio, universities: universityCollection.toJSON(), user: this.user}).render()
   },
   'calendar': function(){
     radio.trigger('unrender:page');
+    var eventCollection = new EventCollection([])
     var calendarView = new CalendarView({radio: radio, collection: eventCollection})
-    calendarView.render();
+      .render();
     eventCollection.fetch({reset:true})//not the most efficient way to populate collection, but needed because of calender.js events
   },
   'addCourse': function(){
     radio.trigger('unrender:page');
     var addCourse = new AddCourseView({radio: radio})
       .render()
-    lol =  courseContainer = new CourseContainerView({radio: radio, collection: App.courses, model: App.user})
+    var uniCourseContainer = new UniCourseContainerView({radio: radio, collection: App.courses, model: App.user})
       .render()
     App.courses.fetch({reset:true})//not the most efficient way to populate collection
    },  

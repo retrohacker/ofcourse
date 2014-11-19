@@ -5,7 +5,6 @@ var CourseModel =  module.exports = Backbone.Model.extend({
   validate:function(attributes,options){
   }
 })
-
 module.exports.tableName = "courses"
 module.exports.types = {
   university: 'integer references universities(id) not null',
