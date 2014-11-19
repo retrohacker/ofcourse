@@ -9,6 +9,7 @@ var UniSelectView = Backbone.View.extend({
     radio.on('render:UniSelect',this.render,this)
     radio.on('unrender',this.unrender,this)
     radio.on('submit:University',this.submitted,this)
+    radio.on('unrender:page',this.unrender,this)
   },
   render: function(location) {
     //Set the DOM element to be rendered in
