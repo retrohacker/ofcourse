@@ -58,7 +58,7 @@ var Workspace = Backbone.Router.extend({
   },
   'viewCourse':function(){
     radio.trigger('unrender:page')
-    
+  }  
 });
 var App = App || {}
 App.user = new UserModel()
