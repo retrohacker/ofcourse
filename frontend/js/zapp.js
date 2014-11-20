@@ -58,6 +58,8 @@ var Workspace = Backbone.Router.extend({
   },
   'viewCourse':function(){
     radio.trigger('unrender:page')
+    var course = new UserCourseView({radio: radio, model: App.course})
+      .render()
   }  
 });
 var App = App || {}
@@ -67,7 +69,7 @@ App.user.fetch({
   error: init,
 })
 App.courses = new CourseCollection()
-
+App.course
 
 var workspace = new Workspace({radio: radio});
 Backbone.history.start();

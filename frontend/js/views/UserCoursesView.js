@@ -18,6 +18,6 @@ var UserCoursesView = Backbone.View.extend({
     this.$el.remove()
   },
   openCourse: function() {
-    workspace.navigate('course',{trigger:true})
+    workspace.navigate('viewCourse',{trigger:true})
   }
 });
