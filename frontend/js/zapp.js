@@ -7,7 +7,8 @@ var Workspace = Backbone.Router.extend({
     "calendar" : "calendar",
     "addCourse": "addCourse",
     "createCourse": "createCourse",
-    "courses":"courses"
+    "courses":"courses",
+    "viewCourse":"viewCourse"
   },
   'home': function(){
 //    var sidebarState = false; //hidden
@@ -94,7 +95,10 @@ var Workspace = Backbone.Router.extend({
     App.courses.fetch({reset:true})
     this.userCoursesView = new UserCoursesView({radio: radio, collection: App.courses})
       .render()
-  }     
+  },
+  'viewCourse':function(){
+    radio.trigger('unrender:page')
+    
 });
 var App = App || {}
 App.user = new UserModel()
