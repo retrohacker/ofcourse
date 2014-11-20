@@ -1,5 +1,9 @@
 var CourseModel = Backbone.Model.extend({
-  url: '/v1/user/course',
+  url: '/v1/course/course',
+  defaults:{
+    university:1,//SHOULD NOT BE LIKE THIS
+    department:'UCOL-TEST'//SHOULD NOT BE LIKE THIS
+  }
     /* Expected Values
     university: //this is the university that the class belongs too
     id:         //This will link all occurances of this class (Primary Key from Server) NOT NEEDED IN USER INPUT FORM
