@@ -7,7 +7,7 @@ var UniCourseContainerView = Backbone.View.extend({
     radio.on('unrender:uniCourseContainer', this.unrender, this)
     radio.on('render:uniCourseContainer', this.render, this)
     radio.on('unrender', this.unrender, this)
-    radio.on('unrender:page', this.unrender)
+    radio.on('unrender:page', this.unrender, this)
     radio.on('addClass', this.addClass,this)
     this.listenTo(this.collection, 'add', this.rerender)
     this.listenTo(this.collection, 'remove', this.rerender)
