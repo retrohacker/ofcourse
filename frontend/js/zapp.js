@@ -58,7 +58,10 @@ var Workspace = Backbone.Router.extend({
   },
   'viewCourse':function(){
     radio.trigger('unrender:page')
+    var courseEvents = new EventCollection([])
     var course = new UserCourseView({radio: radio, model: App.course})
+      .render()
+    var courseEventContainer = new UserCourseEventContainerView({radio: radio, collection: courseEvents})
       .render()
   }  
 });
