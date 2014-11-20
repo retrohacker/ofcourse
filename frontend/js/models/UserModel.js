@@ -3,16 +3,12 @@
 var UserModel = Backbone.Model.extend({
   url: '/v1/user/user',
 	defualts:{
-  	url: '/v1/user/user',
-		id: -1,
 		firstName: 'First Name',
 		lastName: 'Last Name',
 		university: 'University',
 		email: 'Email Address',
-		courses: []
 	},
 	validate:function(attributes,options){
-		console.log("UserModel.js: VALIDATING (twice?)")
 		if(attributes.id < 0){
 			return 'id error'
 		}

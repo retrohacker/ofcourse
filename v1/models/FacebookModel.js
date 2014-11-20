@@ -7,12 +7,11 @@ var FacebookModel = module.exports = Backbone.Model.extend({
   }
 })
 
+module.exports.tableName = 'fb'
 module.exports.types = {
-  fbid: "BIGINT PRIMARY KEY",
-  access_token: "TEXT NOT NULL",
-  id: "INT REFERENCES users(id)",
-  link: "text",
-  update_time: "VARCHAR(51)"
+  fbid: 'bigint primary key',
+  access_token: 'text not null',
+  id: 'int references users(id)',
+  link: 'text not null',
+  update_time: 'varchar(51) not null'
 }
-
-module.exports.tableName = "fb"

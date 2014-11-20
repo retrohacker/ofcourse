@@ -1,3 +1,4 @@
+var me
 var TaskbarButtonView = Backbone.View.extend({
   tagName: "i",
   events : {
@@ -17,6 +18,7 @@ var TaskbarView = Backbone.View.extend({
   buttons: [],
   initialize: function() {
     this.setElement(this.template())
+    this.sidebar = new SidebarView({radio:radio})
     radio.on('unrender:TaskbarView',this.unrender,this)
     radio.on('render:TaskbarView',this.render,this)
     radio.on('unrender',this.unrender,this)
@@ -45,6 +47,31 @@ var TaskbarView = Backbone.View.extend({
     this.buttons.push(button)
     this.$(location).append(button.$el)
     return this
+  },
+  createBasicTaskbar: function() {
+   var sidebar = this.renderSidebar()
+      this.addButtonLeft(new TaskbarButtonView({
+      className:'fa fa-fw fa-bars',
+      onClick: function () {
+        if(!sidebar.getState()){
+          $('body').css('transform','translateX(25%)')
+        } else {
+          $('body').css('transform','translateX(0)')
+        }
+        radio.trigger('sidebar:changeState') 
+      }
+    }))
+    .addButtonRight(new TaskbarButtonView({
+      className:'fa fa-fw fa-paper-plane-o',
+      onClick: function() {
+        console.log("Add Event!")
+      }
+    }))
+    return this
+  },
+  renderSidebar: function() {
+    this.sidebar.render()
+    return this.sidebar 
   }
 });
 

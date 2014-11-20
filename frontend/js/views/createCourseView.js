@@ -23,22 +23,15 @@ var CreateCourseView = Backbone.View.extend({
     return this;
   },
   formSubmitted: function(){
-    //console.log('createCourseView.js: formVals: ',this.formVals)
-    //console.log('createCourseView.js: course: ',this.course)
     this.course = new CourseModel()
     var view = this
     jQuery.each(view.formVals, function(i, item){
       var name = item.name
       var value = view.$('#' + item.id).val()
-      //console.log('createCourseView.js: name: ', name)
-      //console.log('createCourseView.js: value: ', value)
       view.course.set(name, value)
-    });
-    //this.collection.add([this.course]);
-    this.course.save();
+    });    this.course.save();
     //TODO: V add course to user's courses V
-    //this.model.set({'courses' : userCourses})
-    //this.model.save()
+    // posy v1/users/id/course/id
   },
   unrender: function() {
     this.$el.remove()

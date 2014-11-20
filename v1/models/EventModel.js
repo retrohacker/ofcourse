@@ -1,26 +1,26 @@
 var module = module || {}
 var Backbone = Backbone || require('backbone')
 
+var EventModel = Backbone.Model.extend({
+  validate:function(attributes,options) {
+    //TODO
+  }
+});
+
 module.exports.tableName = "events"
-module.exports.types = {//TODO: assign better types
-  userid: 'INTEGER',
-  id: 'VARCHAR(50) NOT NULL',//This will link all occurances of this class
-  title: 'VARCHAR(50)',//Event title on the calendar
-  number: 'VARCHAR(50)',
-  section: 'VARCHAR(50)',
-  start: 'VARCHAR(50)',   //Start date time  YYYY-MM-DD'T'HH:MM:SS
-  end: 'VARCHAR(50)'      //End date time    YYYY-MM-DD'T'HH:MM:SS
+module.exports.types = {
+  id: 'serial primary key',
+  userid: 'integer references users(id) not null',
+  parentid: 'integer references parent_events(id) not null',
+  courseid: 'integer references courses(id) not null',
+  title: 'varchar(150) not null',//Event title on the calendar
+  start: 'timestamp not null',   //Start date time YYYY-MM-DD HH:MM:SS
+  end: 'timestamp not null',     //End date time
+  type: 'integer not null',      // Eventually will be a real enumeration
+  data: 'text'                   //json object
 }
 
-
-var EventModel = Backbone.Model.extend({
-  /*defaults:{
-    userid: -1,
-    id: '',     
-    title: '',  
-    number: '',
-    section: '',
-    start: '',   
-    end: ''      
-  }*/
-});
+/* Types:
+ * 0: class
+ * 1: assignment
+ */
