@@ -38,28 +38,39 @@ docker run -dp 6379:6379 redis:2.8.12
 ```
 
 
-sample database insert:
+test user registration:
 ```
   curl -X POST --header "Content-Type: application/json" -d '{"firstName":"testfirst","lastName":"testlast","university":"siu","id":1234,"email":"testemail@mytestemail.com"}' localhost:5000/v1/user
 ```
 
-sample Events: 
+insert universities into database:
+```  
+  insert into universities (name,abbreviation,state,city) values
+  ('Southern Illinois University','SIU','IL','Carbondale'),
+  ('The Delaware One','TDO','DE','Delewareville')
 ```
+
+
+sample Events:
+set userid to your App.user.id 
+```
+  insert into courses (university, title, number, section, department) values 
+  (1, 'test course 1', '1', '001', 1);
   insert into parent_events (cid,start,"end") values
   (1,'2014-11-01','2014-11-29');
   insert into events (userid, title, parentid, courseid, start, "end",type) values 
-  (9,'Test Event 1',1,1,'2014-11-07','2014-11-07',1),(9,'Test Event 2',1,1,'2014-11-08','2014-11-08',1),
-  (9,'Test Event 3',1,1,'2014-11-09','2014-11-09',1),(9,'Test Event 4',1,1,'2014-11-10','2014-11-10',1),
-  (9,'Test Event 5',1,1,'2014-11-11','2014-11-11',1),(9,'Test Event 6',1,1,'2014-11-12','2014-11-12',1),
-  (9,'Test Event 7',1,1,'2014-11-13','2014-11-14',1),(9,'Week Long Event Test',1,1,'2014-11-01','2014-11-07',1);
+  (1,'Test Event 1',1,1,'2014-11-07','2014-11-07',1),(1,'Test Event 2',1,1,'2014-11-08','2014-11-08',1),
+  (1,'Test Event 3',1,1,'2014-11-09','2014-11-09',1),(1,'Test Event 4',1,1,'2014-11-10','2014-11-10',1),
+  (1,'Test Event 5',1,1,'2014-11-11','2014-11-11',1),(1,'Test Event 6',1,1,'2014-11-12','2014-11-12',1),
+  (1,'Test Event 7',1,1,'2014-11-13','2014-11-14',1),(1,'Week Long Event Test',1,1,'2014-11-01','2014-11-07',1);
 ```
 
 sample Courses:
 ```
- insert into courses (university, title, number, section) values ('Southern Illinois University', 'test course 1', '1', '001'),
- ('Southern Illinois University', 'test course 2', '2', '002'),('Southern Illinois University', 'test course 5', '5', '005'),
- ('Southern Illinois University', 'test course 3', '3', '003'),('Southern Illinois University', 'test course 6', '6', '006'),
- ('Southern Illinois University', 'test course 4', '4', '004'),('Southern Illinois University', 'test course 7', '7', '007')
+ insert into courses (university, title, number, section) values (1, 'test course 1', '1', '001'),
+ (1, 'test course 2', '2', '002'),(1, 'test course 5', '5', '005'),
+ (1, 'test course 3', '3', '003'),(1, 'test course 6', '6', '006'),
+ (1, 'test course 4', '4', '004'),(1, 'test course 7', '7', '007')
 ```
 
 clear database:

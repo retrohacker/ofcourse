@@ -23,11 +23,18 @@ var Workspace = Backbone.Router.extend({
   'register': function(){
     radio.trigger('unrender')
     this.user = new UserModel()
-    this.registerView = new FormView({radio: radio,formVals:registrationCollection().toJSON(), user:this.user}).render()
+    this.registerView = new FormView({radio: radio,formVals:registrationCollection().toJSON(), user:App.user}).render()
   },
   'uniSelect': function(){
     radio.trigger('unrender:page')
-    this.uniSelectView = new UniSelectView({radio: radio, universities: universityCollection.toJSON(), user: this.user}).render()
+    
+    //TODO: remove these. they should not be hardcoded.
+    var siu = new University({id:1,name:'Southern Illinois University',abbreviation:'SIU',state:'IL',city:'Carbondale',location:'Carbondale, IL'})
+    var delaware = new University({id:2,name:'The Delaware One',location:'Somewhere, DE'})
+    App.universityCollection = new UniversityCollection([siu,delaware]);
+    
+    var uniSelectView = new UniSelectView({radio: radio, collection: App.universityCollection}).render()
+    //App.universityCollection.fetch({reset:true})
   },
   'calendar': function(){
     radio.trigger('unrender:page');

@@ -13,6 +13,7 @@ user.insert = function insert(values,cb) {
 
 user.update = function update(values,cb) {
   db(updateCommand(UserModel,values.toJSON()),function(e,rows,result) {
+    console.log(e)
     if(e) return cb(e)
     return cb(null,result.rows[0].id)
   })
@@ -55,25 +56,28 @@ user.getUserByEmail = function getUserByEmail(email,done) {
 
 user.addCourse = function addCourse(course,userid,done) {
   //HIGH PRIORITY BUG FIX
-  /*var university
+  /*var university = 
   db("select * from users where id="+userid, function(err, rows, result) {
     if(err) return done(err,null)
     console.log(result.rows[0].university)
     university = result.rows[0].university
   })*/
-  course.set('university','Southern Illinois University')// need to get university by user id instead
+  //course.set('university','1')// need to get university by user id instead
+  //course.set('department','UCOL')// need to get department from form
   var results = db(insertCommand(CourseModel,course.toJSON()), function(err, rows, result) {
+    console.log(err)
     if(err) return done(err,null)
     return done(null,result.rows[0].id)
   });
 }
- /*user.getUniversity = function getUniversity(id,cb) {
-   db("select * from users where id="+id,function(e,rows,result) {
-     //console.log('db/User.js: ',result.rows)
+
+ user.getUniversities = function getUniversity(cb) {
+   db("select * from universities",function(e,rows,result) {
+     console.log('db/User.js: get universities',result.rows)
      if(e) return cb(e)
-     cb(null,result.rows[0].university)
+     cb(null,result.rows)
    })
- }*/
+ }
 
 function getUserByEmailCommand(email){
   var result = "SELECT * FROM users WHERE email='"
