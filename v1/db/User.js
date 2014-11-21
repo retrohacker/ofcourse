@@ -33,6 +33,13 @@ user.update = function update(values,cb) {
    })
  }
  
+  user.getEventsByCourseID = function getEventsByCourseID(userid,courseid,cb) {
+   db("select * from events where courseid="+courseid+" AND userid="+userid,function(e,rows,result) {
+     if(e) return cb(e)
+     cb(null,result.rows)
+   })
+ }
+ 
   user.getCoursesByUniversity = function getCoursesByUniversity(university,cb) {
    db("select * from courses where university='"+university+"'",function(e,rows,result) {
      if(e) return cb(e)
