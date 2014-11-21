@@ -1,6 +1,12 @@
 var User = require('./routes/user.js')
 var Auth = require('./routes/auth.js')
+var course = require('./routes/course.js')
+var event = require('./routes/event.js')
+var university = require('./routes/university.js')
 var router = module.exports = require('express').Router()
 
 router.use('/user',User)
 router.use('/auth',Auth)
+router.use('/course',course)
+router.use('/university',university)
+router.use('/event',event)
