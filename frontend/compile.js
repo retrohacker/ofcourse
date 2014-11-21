@@ -76,18 +76,6 @@ async.waterfall([
     log("yellow","INFO",infos.getNext())
     fs.writeFile(jadeJSON,"var JADE = "+JSON.stringify(contents),cb)
   },
-  /**
-  function browserifyNode(cb) {
-    success()
-    log("yellow","INFO",infos.getNext())
-    new Node().browserify(nodeFiles,cb)
-  },
-  function saveNode(file,cb) {
-    success()
-    log("yellow","INFO",infos.getNext())
-    fs.writeFile(nodeOutput,file,cb)
-  },
-  **/
   function minifyJS(cb) {
     success()
     log("yellow","INFO",infos.getNext())
