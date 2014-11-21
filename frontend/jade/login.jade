@@ -9,7 +9,7 @@ div.ofcourse-form.ofcourse-centerImage.ofcourse-vcenter3
     fieldset.pure-group
       - each item in locals
         input.pure-input-1(id='#{item.id}' name='#{item.id}' type='text' placeholder='#{item.desc}')
-    button(type='submit' class=['pure-button pure-input-1 pure-button-primary'] onclick="workspace.navigate('home',{trigger:true})") Login
+    button(type='submit' class=['pure-button pure-input-1 pure-button-primary']) Login
     h2 -OR-
     button(type='button' class='pure-button pure-input-1 pure-button-primary' onclick="workspace.navigate('register',{trigger:true})") Register
 
