@@ -9,6 +9,9 @@ var UserCoursesDivView = Backbone.View.extend({
     radio.on('unrender', this.unrender, this)
     radio.on('unrender:page', this.unrender, this)
   },
+  events: {
+    "click" : "onclick"
+  },
   render: function(location) {
     var location = location || this.defaultLocation
     $(location).append(this.$el)
@@ -16,6 +19,11 @@ var UserCoursesDivView = Backbone.View.extend({
   },
   unrender: function() {
     this.$el.remove()
+  },
+  onclick: function() {
+    console.log('clicked')
+    App.course = this.model
+    radio.trigger('open:course')
   }
 });
 

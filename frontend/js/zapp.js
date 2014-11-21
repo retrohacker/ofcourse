@@ -7,7 +7,8 @@ var Workspace = Backbone.Router.extend({
     "calendar" : "calendar",
     "addCourse": "addCourse",
     "createCourse": "createCourse",
-    "courses":"courses"
+    "courses":"courses",
+    "viewCourse":"viewCourse"
   },
   'home': function(){
     radio.trigger('unrender');
@@ -61,7 +62,15 @@ var Workspace = Backbone.Router.extend({
       .render()
     var userCoursesContainer = new UserCoursesContainerView({radio: radio, collection: App.courses})
       .render()
-  }     
+  },
+  'viewCourse':function(){
+    radio.trigger('unrender:page')
+    var courseEvents = new EventCollection([])
+    var course = new UserCourseView({radio: radio, model: App.course})
+      .render()
+    var courseEventContainer = new UserCourseEventContainerView({radio: radio, collection: courseEvents})
+      .render()
+  }  
 });
 var App = App || {}
 App.user = new UserModel()
@@ -71,7 +80,7 @@ App.user.fetch({
 })
 App.courses = new CourseCollection()
 App.courseEvents = new CourseEventsCollection()
-
+App.course
 
 var workspace = new Workspace({radio: radio});
 Backbone.history.start();
