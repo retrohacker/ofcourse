@@ -2,6 +2,8 @@ var user = module.exports = {}
 var db = require('../db/database.js')
 var UserModel = require('../models/UserModel.js')
 var CourseModel = require('../models/CourseModel.js')
+var EventModel = require('../models/EventModel.js')
+
 
 //USING POSTGRES
 user.insert = function insert(values,cb) {
@@ -65,6 +67,15 @@ user.addCourse = function addCourse(course,userid,done) {
   //course.set('university','1')// need to get university by user id instead
   //course.set('department','UCOL')// need to get department from form
   var results = db(insertCommand(CourseModel,course.toJSON()), function(err, rows, result) {
+    console.log(err)
+    if(err) return done(err,null)
+    return done(null,result.rows[0].id)
+  });
+}
+
+user.addEvent = function addEvent(userEvent,userid,done){
+  userEvent.set({'userid': userid})
+  var results = db(insertCommand(EventModel,userEvent.toJSON()), function(err, rows, result) {
     console.log(err)
     if(err) return done(err,null)
     return done(null,result.rows[0].id)

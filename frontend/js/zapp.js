@@ -7,7 +7,8 @@ var Workspace = Backbone.Router.extend({
     "calendar" : "calendar",
     "addCourse": "addCourse",
     "createCourse": "createCourse",
-    "courses":"courses"
+    "courses":"courses",
+    "addAssignment" : "addAssignment"
   },
   'home': function(){
     radio.trigger('unrender');
@@ -61,7 +62,13 @@ var Workspace = Backbone.Router.extend({
       .render()
     var userCoursesContainer = new UserCoursesContainerView({radio: radio, collection: App.courses})
       .render()
-  }     
+  },
+  'addAssignment': function(){
+    radio.trigger('unrender:page')
+    App.courses.fetch({reset:true})
+    var addAssignmentView = new AddAssignView({radio: radio, collection: App.courses})
+      .render()
+  }  
 });
 var App = App || {}
 App.user = new UserModel()
