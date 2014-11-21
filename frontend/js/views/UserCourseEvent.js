@@ -1,5 +1,5 @@
 var UserCourseEventView = Backbone.View.extend({
-  defaultLocation: ".oc-viewCourses-userCourseEventContainer",
+  defaultLocation: ".oc-viewCourse-userCourseEventContainer",
   template: JADE.userCourseEvent,
   initialize: function(opts){
     var info = {title: this.model.get('title'), start: this.model.get('start'), end: this.model.get('end')}
@@ -8,6 +8,7 @@ var UserCourseEventView = Backbone.View.extend({
     radio.on('render:userCoursesEventView', this.render, this)
     radio.on('unrender', this.unrender, this)
     radio.on('unrender:page', this.unrender, this)
+    return this;
   },
   render: function(location) {
     var location = location || this.defaultLocation
