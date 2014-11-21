@@ -7,12 +7,13 @@ var FormView = Backbone.View.extend({
   template: JADE.regForm,
   initialize: function(opts){
     this.formVals = opts.formVals || []
-    this.user = opts.user
+    this.user = opts.user//is this line necessary?
     this.setElement(this.template(this.formVals))
     radio.on('unrender:FormView',this.unrender, this)
     radio.on('render:FormView',this.render,this)
     radio.on('unrender',this.unrender,this)
     radio.on('formSubmit',this.formSubmitted, this)
+    radio.on('unrender:page',this.unrender, this)
   },
   render: function(location) {
     //Set the DOM element to be rendered in

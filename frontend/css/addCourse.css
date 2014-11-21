@@ -1,0 +1,12 @@
+.oc-addCourse-pageWrapper {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+
+.oc-addCourse-courseContainer {
+  width: 60%;
+  margin: 0 auto;
+  height: 70%;
+  overflow-y: auto;
+}
