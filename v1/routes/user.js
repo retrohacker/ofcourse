@@ -13,8 +13,6 @@ router.use(passport.session())
 
 router.get('/course/:id/events', function (req, res, next) {
   if(!req.user || !req.user.profile || !req.user.profile.id) return res.status(401).json(new Error("Please login"))
-  console.log('user.js: hurr durr you hit a link', req.params);
-  console.log(req.params.id)
   User.getEventsByCourseID(req.user.profile.id,req.params.id,function(e,events) {
     if(e) return res.status(500).json(e)//dont do this, remove this for production build, gives attackers too much info
     if(!events) res.status(500).json(new Error('no events found'))
