@@ -28,19 +28,22 @@ module.exports = function(db) { //TODO: give this a callback
     console.log("Attempting to create table "+model+"...")
     var model = require(path.join(modelsPath,model+'.js'))
     db(createTable(model.tableName,model.types),cb)
-  },function(e){if(e) throw e;else console.log("Done setting up db")})
-  
-  db("select * from universities where name='Southern Illinois University'",function(e,rows,result) {
-    if(e) return e
-    if(result.rowCount == 0){
-      console.log('init.js: inserting default universities into database')
-      db("insert into universities (name,abbreviation,state,city) values "
-      + "('Southern Illinois University','SIU','IL','Carbondale'),"
-      + "('The Delaware One','TDO','DE','Delewareville')",function(e,rows,result) {
-        if(e) return e
-        return null
-      })
+  },function(e){
+    if(e) throw e;
+    db("select * from universities where name='Southern Illinois University'",function(e,rows,result) {
+      if(e) return e
+      if(result.rowCount == 0){
+        console.log('init.js: inserting default universities into database')
+        db("insert into universities (name,abbreviation,state,city) values "
+        + "('Southern Illinois University','SIU','IL','Carbondale'),"
+        + "('The Delaware One','TDO','DE','Delewareville')",function(e,rows,result) {
+          if(e) return e
+          return null
+        })
     }
+    console.log("Done setting up db")})
+  
+
     return null
   })
 }
