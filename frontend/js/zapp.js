@@ -70,6 +70,7 @@ App.user.fetch({
   error: init,
 })
 App.courses = new CourseCollection()
+App.courseEvents = new CourseEventsCollection()
 
 
 var workspace = new Workspace({radio: radio});
