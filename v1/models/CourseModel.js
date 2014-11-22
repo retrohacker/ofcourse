@@ -12,5 +12,8 @@ module.exports.types = {
   title: 'varchar(50) not null',
   department: 'varchar(10) not null',
   number: 'integer not null',
-  section: 'integer not null'
+  section: 'integer not null',
+  start: 'timestamp not null',
+  end: 'timestamp not null',
+  //chron:
 }

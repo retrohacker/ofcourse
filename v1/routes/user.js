@@ -48,6 +48,7 @@ router.put('/',function(req,res) {
 })
 
 router.get('/',function(req,res) {
+  console.log(JSON.stringify(req.user,null," "))
   if(!req.user || !req.user.profile || !req.user.profile.id) return res.status(401).json(new Error("Please login"))
   User.get(req.user.profile.id,function(e,user) {
     if(e) return res.status(500).json(e)//dont do this, remove this for production build, gives attackers too much info
