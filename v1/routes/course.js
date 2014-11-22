@@ -19,12 +19,13 @@ router.post('/course',function(req,res) {
     return res.status(400).json({e:user.validationError})
   User.getUniversityByUserID(req.user.profile.id,function(e,university) {
     if(e) return res.status(500).json(e)//dont do this, remove this for production build, gives attackers too much info
+    if(!university) return res.status(400).json({e:user.validationError})
     course.set('university',university)
     User.addCourse(course,req.user.profile.id,function(e,id) {
     if(e) return res.status(500).json(e)//dont do this, remove this for production build, gives attackers too much info
     else return res.status(201)
 	})
-    return res.status(500)
+    return res.status(400)
   })
 })
 

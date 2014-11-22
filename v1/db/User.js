@@ -35,7 +35,8 @@ user.update = function update(values,cb) {
  user.getUniversityByUserID = function getUniversityByUserID(userid,cb) {
 	db("select * from users where id="+userid,function(e,rows,result) {
      if(e) return cb(e)
-     cb(null,result.rows[0].university)
+     if(result.rows[0]) return cb(null,result.rows[0].university)
+     else return cb(e,null)
    })
  
  }
