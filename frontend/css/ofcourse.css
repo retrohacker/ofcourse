@@ -8,6 +8,11 @@ body {
   background-size: 25%;
 }
 
+.ofcourse-body {
+  top: 3.75em;
+  position: relative;
+}
+
 html {
   height: 100%;
 }

@@ -1,5 +1,5 @@
 var AddCourseView = Backbone.View.extend({
-  defaultLocation: "body",
+  defaultLocation: ".ofcourse-body",
   template: JADE.addCourse,
   initialize: function(opts) {
     this.setElement(this.template()),

@@ -9,6 +9,9 @@ var TaskbarButtonView = Backbone.View.extend({
     radio.on('unrender:TaskButtonView',this.unrender,this)
     radio.on('unrender',this.unrender,this)
     return this
+  },
+  unrender: function() {
+    this.$el.remove()
   }
 });
 
@@ -17,29 +20,36 @@ var TaskbarView = Backbone.View.extend({
   buttons: [],
   initialize: function() {
     this.setElement(this.template())
-    this.sidebar = new SidebarView({radio:radio})
     radio.on('unrender:TaskbarView',this.unrender,this)
     radio.on('render:TaskbarView',this.render,this)
     radio.on('unrender',this.unrender,this)
-    radio.on('getTaskbar',this.getTaskbar,this)
+    radio.on('getTaskbar',this.render,this)
     this.state = false
     return this
   },
   template: JADE.taskbar,
   render: function() {
-    this.changeState()
+    if(this.state) return this
+    this.addButtonLeft(new TaskbarButtonView({
+      className:'fa fa-fw fa-bars',
+      onClick: function () {
+        radio.trigger('sidebar:changeState')
+      }
+    }))
+    .addButtonRight(new TaskbarButtonView({
+      className:'fa fa-fw fa-paper-plane-o',
+      onClick: function() {
+        workspace.navigate('addAssignment',{trigger: true})
+      }
+    }))
     var location = location || this.defaultLocation
     $(location).prepend(this.$el)
+    this.state = true
     return this
   },
   unrender: function() {
-    this.changeState()
+    this.state = false
     this.$el.remove()
-    return this
-  },
-  getTaskbar: function(){
-    if(this.state == false)
-      this.render()
     return this
   },
   addButtonLeft: function(button) {
@@ -55,35 +65,6 @@ var TaskbarView = Backbone.View.extend({
     this.buttons.push(button)
     this.$(location).append(button.$el)
     return this
-  },
-  changeState: function(){
-    this.state = !this.state
-    return this
-  },
-  createBasicTaskbar: function() {
-   var sidebar = this.renderSidebar()
-      this.addButtonLeft(new TaskbarButtonView({
-      className:'fa fa-fw fa-bars',
-      onClick: function () {
-        if(!sidebar.getState()){
-          $('body').css('transform','translateX(25%)')
-        } else {
-          $('body').css('transform','translateX(0)')
-        }
-        radio.trigger('sidebar:changeState') 
-      }
-    }))
-    .addButtonRight(new TaskbarButtonView({
-      className:'fa fa-fw fa-paper-plane-o',
-      onClick: function() {
-        workspace.navigate('addAssignment',{trigger: true})
-      }
-    }))
-    return this
-  },
-  renderSidebar: function() {
-    this.sidebar.render()
-    return this.sidebar 
   }
 });
 
