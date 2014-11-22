@@ -26,7 +26,6 @@ var UserCourseEventContainerView = Backbone.View.extend({
     },
     renderCourseViews: function (){
       for(var i = 0; i < this.collection.length; i++){
-        console.log(i)
         new UserCourseEventView({model: this.collection.at(i)}).render()
       }
     },
