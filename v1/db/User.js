@@ -13,7 +13,7 @@ user.insert = function insert(values,cb) {
 
 user.update = function update(values,cb) {
   db(updateCommand(UserModel,values.toJSON()),function(e,rows,result) {
-    console.log(e)
+    console.log('User.js', e)
     if(e) return cb(e)
     return cb(null,result.rows[0].id)
   })
@@ -31,6 +31,16 @@ user.update = function update(values,cb) {
      if(e) return cb(e)
      cb(null,result.rows)
    })
+ }
+  
+ user.getUniversityByUserID = function getUniversityByUserID(userid,cb) {
+	db("select * from users where id="+userid,function(e,rows,result) {
+     if(e) return cb(e)
+     //console.log('User.js: university: ', result.rows)
+     //console.log('User.js: university: ', result.rows[0].university)
+     cb(null,result.rows[0].university)
+   })
+ 
  }
 
   user.getCoursesByUniversity = function getCoursesByUniversity(university,cb) {
@@ -54,17 +64,7 @@ user.getUserByEmail = function getUserByEmail(email,done) {
 }
 
 user.addCourse = function addCourse(course,userid,done) {
-  //HIGH PRIORITY BUG FIX
-  /*var university = 
-  db("select * from users where id="+userid, function(err, rows, result) {
-    if(err) return done(err,null)
-    console.log(result.rows[0].university)
-    university = result.rows[0].university
-  })*/
-  //course.set('university','1')// need to get university by user id instead
-  //course.set('department','UCOL')// need to get department from form
   var results = db(insertCommand(CourseModel,course.toJSON()), function(err, rows, result) {
-    console.log(err)
     if(err) return done(err,null)
     return done(null,result.rows[0].id)
   });
@@ -72,7 +72,7 @@ user.addCourse = function addCourse(course,userid,done) {
 
  user.getUniversities = function getUniversity(cb) {
    db("select * from universities",function(e,rows,result) {
-     console.log('db/User.js: get universities',result.rows)
+     console.log('User.js: get universities',result.rows)
      if(e) return cb(e)
      cb(null,result.rows)
    })

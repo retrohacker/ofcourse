@@ -41,9 +41,7 @@ router.put('/',function(req,res) {
 
 router.get('/',function(req,res) {
   if(!req.user || !req.user.profile || !req.user.profile.id) return res.status(401).json(new Error("Please login"))
-  console.log(req.user)
   User.get(req.user.profile.id,function(e,user) {
-    console.log(e)
     if(e) return res.status(500).json(e)//dont do this, remove this for production build, gives attackers too much info
     if(!user) res.status(500).json(new Error('user not found'))
     res.status(200).json(user)

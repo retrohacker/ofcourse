@@ -1,7 +1,7 @@
 var CourseModel = Backbone.Model.extend({
   url: '/v1/course/course',
   defaults:{
-    university:1,//SHOULD NOT BE LIKE THIS
+    //university:1,//SHOULD NOT BE LIKE THIS
     department:'UCOL-TEST'//SHOULD NOT BE LIKE THIS
   }
     /* Expected Values
