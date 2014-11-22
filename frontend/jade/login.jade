@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 div.ofcourse-login-bg
   div.ofcourse-login
     !{JADE['xl-logo']()}
@@ -10,19 +9,5 @@ fieldset.pure-group.ofcourse-hidden
     input.pure-input-1(id='#{item.id}' name='#{item.id}' type='text' placeholder='#{item.desc}')
     br
     button(type='submit' class=['pure-button pure-input-1 pure-button-primary'] onclick="workspace.navigate('home',{trigger:true})") Login
-=======
-//This template is virtualy generic to any text submission form that
-//needs to be generated.
-//Call with: JADE.regForm(formVals) where 'formVals' is a 'Forms' Collection
-//JSON object containing 'Entry' models.
-//IF REUSING, SUBMIT BUTTON TEXT MUST BE REPLACED
-div.ofcourse-form.ofcourse-centerImage.ofcourse-vcenter3
-  !{JADE['xl-logo']()}
-  form.pure-form(method='post' action='/v1/auth/login')
-    fieldset.pure-group
-      - each item in locals
-        input.pure-input-1(id='#{item.id}' name='#{item.id}' type='text' placeholder='#{item.desc}')
-    button(type='submit' class=['pure-button pure-input-1 pure-button-primary']) Login
->>>>>>> f95940fb0e57782149be5809dbfab40782f77d6c
     h2 -OR-
     button(type='button' class='pure-button pure-input-1 pure-button-primary' onclick="workspace.navigate('register',{trigger:true})") Register
