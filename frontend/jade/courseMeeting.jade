@@ -1,25 +1,25 @@
 div.oc-createCourse-courseMeeting
   form.pure-form
     p Start Time #[input(type="time", name="start", value="format 00:00").startTime]
-    p End Time #[input(type="time", name="end", value="format 00:00")]
+    p End Time #[input(type="time", name="end", value="format 00:00").endTime]
     label
-      input(type="checkbox", name="days" value="2").oc-createCourse-mon.day
+      input(type="checkbox", name="days" value="1").oc-createCourse-mon.day
       | Mon
     label
-      input(type="checkbox", name="days" value="3").oc-createCourse-tue.day
+      input(type="checkbox", name="days" value="2").oc-createCourse-tue.day
       | Tues
     label
-      input(type="checkbox", name="days" value="4").oc-createCourse-wed.day
+      input(type="checkbox", name="days" value="3").oc-createCourse-wed.day
       | Wed
     label
-      input(type="checkbox", name="days" value="5").oc-createCourse-thur.day
+      input(type="checkbox", name="days" value="4").oc-createCourse-thur.day
       | Thrus
     label
-      input(type="checkbox", name="days" value="6").oc-createCourse-fri.day
+      input(type="checkbox", name="days" value="5").oc-createCourse-fri.day
       | Fri
     label
-      input(type="checkbox", name="days" value="7").oc-createCourse-sat.day
+      input(type="checkbox", name="days" value="6").oc-createCourse-sat.day
       | Sat
     label
-      input(type="checkbox", name="days" value="1").oc-createCourse-sun.day
+      input(type="checkbox", name="days" value="0").oc-createCourse-sun.day
       | Sun

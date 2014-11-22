@@ -9,6 +9,8 @@ var CreateCourseView = Backbone.View.extend({
     this.formVals = opts.formVals || [] 
     this.setElement(this.template(this.formVals))
     this.course = new CourseModel();
+    this.events = []
+    this.children = []
     radio.on('unrender:FormView',this.unrender, this)
     radio.on('render:FormView',this.render,this)
     radio.on('unrender',this.unrender,this)
@@ -20,20 +22,18 @@ var CreateCourseView = Backbone.View.extend({
     var location = location || this.defaultLocation
     //Add the view to the DOM
     $(location).append(this.$el)
+    this.createDatePicker()
+    this.createChildren()
     return this;
   },
   formSubmitted: function(opts){
-    this.courseMeetingView = opts
-    console.log(opts)
     var view = this
-    var days = []
-    jQuery.each(this.courseMeetingView.$('.day'), function(i, item){
-      if(item.checked){
-        days.push(item.value)
-      }
-    });
-
-    console.log(days)
+    this.children.forEach(function(v) {
+      console.log(v.formSubmitted())
+    })
+    var events = this.children.map( function(v) { return v.formSubmitted()})
+    console.log(events)
+      
     jQuery.each(view.formVals, function(i, item){
       var name = item.name
       var value = view.$('#' + item.id).val()
@@ -46,6 +46,13 @@ var CreateCourseView = Backbone.View.extend({
   getCourseId: function() {
     return this.course.get('id')
   },
+  createDatePicker: function() {
+    this.$('#start').datepicker()
+    this.$('#end').datepicker()
+  },
+  createChildren: function(){
+    this.children.push(new CourseMeetingView({radio:radio}))
+  }, 
   unrender: function() {
     this.$el.remove()
   }

@@ -9,6 +9,5 @@ div.ofcourse-form.ofcourse-centerImage
     fieldset.pure-group
       - each item in locals
         input.pure-input-1(id='#{item.id}' name='#{item.name}' type='text' placeholder='#{item.desc}')
-    
 div.oc-createCourse-courseMeetingContainer
-button(type='button' class=['pure-button pure-input-1 pure-button-primary'] onclick="radio.trigger('sendView:toCreateCourseView')") Create Course
+button(type='button' class=['pure-button pure-input-1 pure-button-primary'] onclick="radio.trigger('courseSubmit')") Create Course
