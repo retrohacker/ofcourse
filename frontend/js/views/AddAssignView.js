@@ -37,12 +37,13 @@ var AddAssignView = Backbone.View.extend({
     workspace.navigate('home',{trigger: true})
   },
   rerender: function(){
-    radio.off(null, null, this)
-    this.$el.remove()
+    this.unrender()
     this.initialize()
     this.render()
   },
   unrender: function() {
+    this.stopListening()
+    radio.off(null, null, this)
     this.$el.remove()
   }
 });
