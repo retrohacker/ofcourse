@@ -1,7 +1,9 @@
 var module = module || {}
 var Backbone = Backbone || require('backbone')
+var module = module || {}
+var Backbone = Backbone || require('backbone')
 
-var EventModel = Backbone.Model.extend({
+var EventModel = module.exports = Backbone.Model.extend({
   validate:function(attributes,options) {
     //TODO
   }
@@ -11,7 +13,7 @@ module.exports.tableName = "events"
 module.exports.types = {
   id: 'serial primary key',
   userid: 'integer references users(id) not null',
-  parentid: 'integer references parent_events(id) not null',
+  parentid: 'integer references parent_events(id)',
   courseid: 'integer references courses(id) not null',
   title: 'varchar(150) not null',//Event title on the calendar
   start: 'timestamp not null',   //Start date time YYYY-MM-DD HH:MM:SS

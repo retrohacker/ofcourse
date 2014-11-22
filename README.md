@@ -63,6 +63,19 @@ set userid to your App.user.id
   (1,'Test Event 3',1,1,'2014-11-09','2014-11-09',1),(1,'Test Event 4',1,1,'2014-11-10','2014-11-10',1),
   (1,'Test Event 5',1,1,'2014-11-11','2014-11-11',1),(1,'Test Event 6',1,1,'2014-11-12','2014-11-12',1),
   (1,'Test Event 7',1,1,'2014-11-13','2014-11-14',1),(1,'Week Long Event Test',1,1,'2014-11-01','2014-11-07',1);
+  insert into courses (university, title, number, section, department) values 
+  (1, 'test course 2', '5', '002', 1);
+  insert into courses (university, title, number, section, department) values 
+  (1, 'test course 3', '6', '003', 1);
+  insert into parent_events (cid,start,"end") values
+  (5,'2014-11-01','2014-11-29');
+    insert into parent_events (cid,start,"end") values
+  (6,'2014-11-01','2014-11-29');
+   insert into events (userid, title, parentid, courseid, start, "end",type) values 
+  (1,'Test Event 1',1,5,'2014-11-07','2014-11-07',1),(1,'Test Event 2',1,6,'2014-11-08','2014-11-08',1),
+  (1,'Test Event 3',1,5,'2014-11-09','2014-11-09',1),(1,'Test Event 4',1,6,'2014-11-10','2014-11-10',1),
+  (1,'Test Event 5',1,5,'2014-11-11','2014-11-11',1),(1,'Test Event 6',1,6,'2014-11-12','2014-11-12',1),
+  (1,'Test Event 7',1,5,'2014-11-13','2014-11-14',1),(1,'Week Long Event Test',1,6,'2014-11-01','2014-11-07',1);
 ```
 
 sample Courses:
