@@ -10,6 +10,7 @@ var UserCourseEventContainerView = Backbone.View.extend({
       this.listenTo(this.collection, 'add', this.rerender)
       this.listenTo(this.collection, 'remove', this.rerender)
       this.listenTo(this.collection, 'reset', this.rerender)
+      return this;
     },
     render: function(location) {
       var location = location || this.defaultLocation
