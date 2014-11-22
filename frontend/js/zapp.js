@@ -1,3 +1,7 @@
+//Create the tasker, but don't render
+var taskbar = new TaskbarView({radio: radio})
+      .createBasicTaskbar()
+
 var Workspace = Backbone.Router.extend({
   routes:{
     "home": "home",
@@ -11,10 +15,7 @@ var Workspace = Backbone.Router.extend({
     "viewCourse":"viewCourse"
   },
   'home': function(){
-    radio.trigger('unrender');
-    var taskbar = new TaskbarView({radio: radio})
-      .createBasicTaskbar()
-      .render()
+    radio.trigger('unrender:page getTaskbar')
   },
   'login': function(){
     radio.trigger('unrender')
@@ -37,14 +38,14 @@ var Workspace = Backbone.Router.extend({
     //App.universityCollection.fetch({reset:true})
   },
   'calendar': function(){
-    radio.trigger('unrender:page');
+    radio.trigger('unrender:page getTaskbar');
     App.eventCollection = new EventCollection([])
     var calendarView = new CalendarView({radio: radio, collection: App.eventCollection})
       .render();
     App.eventCollection.fetch({reset:true})//not the most efficient way to populate collection, but needed because of calender.js events
   },
   'addCourse': function(){
-    radio.trigger('unrender:page');
+    radio.trigger('unrender:page getTaskbar');
     var addCourse = new AddCourseView({radio: radio})
       .render()
     var uniCourseContainer = new UniCourseContainerView({radio: radio, collection: App.courses, model: App.user})
@@ -52,11 +53,11 @@ var Workspace = Backbone.Router.extend({
     App.courses.fetch({reset:true})//not the most efficient way to populate collection
    },  
   'createCourse':function(){
-    radio.trigger('unrender:page')
+    radio.trigger('unrender:page getTaskbar')
     this.createCourseView = new CreateCourseView({collection: App.courses, radio: radio, formVals:createCourseCollection().toJSON(), model: App.user}).render()
    },
   'courses':function(){
-    radio.trigger('unrender:page')
+    radio.trigger('unrender:page getTaskbar')
     App.courses.fetch({reset:true})
     var userCoursesView = new UserCoursesView({radio: radio})
       .render()
@@ -64,7 +65,7 @@ var Workspace = Backbone.Router.extend({
       .render()
   },
   'viewCourse':function(){
-    radio.trigger('unrender:page')
+    radio.trigger('unrender:page getTaskbar')
     var courseEvents = new EventCollection([])
     var course = new UserCourseView({radio: radio, model: App.course})
       .render()
