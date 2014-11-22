@@ -2,6 +2,10 @@ body {
   background: #F3F3F3;
   height: 100%;
   overflow-x: hidden;
+  background-image: url(/static/images/logo_shadow.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 25%;
 }
 
 html {

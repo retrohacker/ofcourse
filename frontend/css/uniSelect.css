@@ -1,18 +1,59 @@
-.oc-uniSelect-pageWrapper {
-  height: 100%;
-  width: 100%;
+.oc-uniSelect{
+  min-width: 290px;
   text-align: center;
-}
-
-.oc-uniSelect-listContainer {
-  width: 60%;
-  margin: 0 auto;
-  height: 70%;
+  display: inline-block;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background-color: #D2D2D2;
+  padding: 30px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  border-radius: 20px;
+  box-shadow: 7px 7px 29px 0px rgba(0,0,0,0.6);
+  max-height: 85%;
   overflow-y: auto;
+  max-width: 95%;
 }
 
-.oc-uniSelect-listItem {
-  width: 99%;
-  background-color: #D8D8D8;
-  border: 1px solid black;
+.oc-uniSelect div {
+  display: inline-block;
+}
+
+
+.oc-uniSelect .oc-listContainer {
+  margin: 0 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.oc-uniSelect .oc-listContainer div {
+  width: 95%;
+}
+
+.oc-uniSelect .oc-listItem {
+  border: 1px solid #999;
+  background-image: linear-gradient(#DDD,#CCC,#DDD);
+  border-radius: 1em;
+  margin-top: .5em;
+  margin-bottom: .5em;
+}
+
+.oc-uniSelect .oc-listContainer .oc-listItem h2 {
+  margin-top: 0.83em;
+}
+
+.oc-uniSelect .oc-listContainer .oc-listItem h3 {
+  margin-top: 0;
+}
+
+.oc-uniSelect h1 {
+  margin-top: 0;
+  display: inline-block;
+}
+
+.oc-uniSelect h2 {
+  margin-top: 0;
+  display: inline-block;
 }
