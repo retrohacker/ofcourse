@@ -25,7 +25,7 @@ user.update = function update(values,cb) {
      cb(null,result.rows[0])
    })
  }
- 
+
  user.getEvents = function getEvents(id,cb) {
    db("select * from events where userid="+id,function(e,rows,result) {
      if(e) return cb(e)
@@ -56,7 +56,6 @@ user.getUserByEmail = function getUserByEmail(email,done) {
     if(result.rowCount > 1) {
       return done('error: multiple users with that email address',rows[0])
     }
-    //this still needs work....
     return done(null,rows)
   });
 }

@@ -18,10 +18,10 @@ var UserCoursesDivView = Backbone.View.extend({
     return this;
   },
   unrender: function() {
+    radio.off(null,null,this)
     this.$el.remove()
   },
   onclick: function() {
-    console.log('clicked')
     App.course = this.model
     App.courseEvents.cid = this.model.get('id')
     radio.trigger('open:course')

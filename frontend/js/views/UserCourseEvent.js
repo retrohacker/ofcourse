@@ -16,6 +16,7 @@ var UserCourseEventView = Backbone.View.extend({
     return this;
   },
   unrender: function() {
+    radio.off(null,null,this)
     this.$el.remove()
   }
 });

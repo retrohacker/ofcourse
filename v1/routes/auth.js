@@ -16,23 +16,14 @@ router.use(passport.initialize());
 router.use(passport.session());
 
 router.get('/facebook',passport.authenticate('facebook'))
-router.get('/facebook/callback',passport.authenticate('facebook',{ successRedirect:'/', failureRedirect:'/facebook'}))
+router.get('/facebook/callback',
+            passport.authenticate('facebook',{ successRedirect:'/',
+                                               failureRedirect:'/facebook'}))
 
-//TODO: refactor and clean up login sequence
-router.post('/login', function(req, res, next) {
-  passport.authenticate('local', function(err, user, info) {
-    if (err) { return next(err); }//where does this next callback come from...
-    if (!user) { console.log('no user returned from passport.authenticate...')
-      return res.redirect('/#login'); }
-    req.logIn(user, function(err) {//passport.authenticate should already call req.login automatically?
-      if (err) { return next(err); }//this is a giant pile of hack wtf is even going on
-      console.log('login successful, redirecting to /#home')
-      return res
-      //return res.redirect('/#home');
-      //return res.send(user)
-    });
-  })(req, res, next);
-});
+router.post('/login',
+  passport.authenticate('local',{ successRedirect: '/#home',
+                                  failureRedirect: '/#login' })
+);
 
 //TODO: LocalStrategy implementation needs much refactoring
 passport.use(new LocalStrategy({
@@ -40,15 +31,10 @@ passport.use(new LocalStrategy({
     passwordField: 'email'
   },
   function(username, password, done) {
-    //console.log(username)
-   // console.log(password)
-    console.log('EXECUTING PASSPORT LOCAL STRATEGY...')
     User.getUserByEmail(username,function(e,user){
-      if(e) console.log(e)
       if(e) return done(e, false, { message: 'Incorrect username.' });
       if(user){
-        console.log(user)
-        return done(null, user);
+        return done(null, user.id);
       }
       return done(null, false,  { message: 'authentication error...' })
     })
@@ -85,7 +71,5 @@ function updateFacebookUser(profile,cb) {
   facebookDB.updateOrCreate({model:FacebookModel,values:new FacebookModel(profile)},function(e,id) {
     if(e) cb(e)
     cb(null,id)
-  })  
+  })
 }
-
-
