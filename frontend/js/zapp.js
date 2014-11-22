@@ -1,3 +1,7 @@
+//Create the tasker, but don't render
+var taskbar = new TaskbarView({radio: radio})
+      .createBasicTaskbar()
+
 var Workspace = Backbone.Router.extend({
   routes:{
     "home": "home",
@@ -11,10 +15,7 @@ var Workspace = Backbone.Router.extend({
     "viewCourse":"viewCourse"
   },
   'home': function(){
-    radio.trigger('unrender');
-    var taskbar = new TaskbarView({radio: radio})
-      .createBasicTaskbar()
-      .render()
+    radio.trigger('unrender:page getTaskbar')
   },
   'login': function(){
     radio.trigger('unrender')
