@@ -10,7 +10,12 @@
 }
 
 .ofcourse-taskbar {
-  padding: .5em;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-top: .5em;
+  padding-bottom: .5em;
   background-color: #CCC;
   background-image: linear-gradient(#DDD,#CCC);
   font-size: 1.5em;
@@ -31,4 +36,15 @@
 
 .ofcourse-taskbar .ofcourse-taskbar-right i {
   float: right;
+}
+
+.ofcourse-taskbar .ofcourse-padding-right {
+  padding-right: .5em;
+  display: inline-block;
+  float: right;
+}
+
+.ofcourse-taskbar .ofcourse-padding-left {
+  padding-left: .5em;
+  display: inline-block;
 }

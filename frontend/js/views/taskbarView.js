@@ -66,9 +66,9 @@ var TaskbarView = Backbone.View.extend({
       className:'fa fa-fw fa-bars',
       onClick: function () {
         if(!sidebar.getState()){
-          $('body').css('transform','translateX(25%)')
+          //$('body').css('transform','translateX(25%)')
         } else {
-          $('body').css('transform','translateX(0)')
+          //$('body').css('transform','translateX(0)')
         }
         radio.trigger('sidebar:changeState') 
       }

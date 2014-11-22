@@ -37,7 +37,7 @@ var SidebarView = Backbone.View.extend({
     return this.sidebarState
   },
   closeSidebar:function(){
-    $('body').css('transform','translatex(0)')
+    //$('body').css('transform','translatex(0)')
     this.sidebarState = false
   }
 });
