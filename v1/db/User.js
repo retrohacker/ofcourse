@@ -46,7 +46,10 @@ user.getUserByEmail = function getUserByEmail(email,done) {
     if(result.rowCount == 0) {
       return done('no users with that email address',null)
     }
-    return done(null,rows[0])
+    if(result.rowCount > 1) {
+      return done('error: multiple users with that email address',rows[0])
+    }
+    return done(null,rows)
   });
 }
 
