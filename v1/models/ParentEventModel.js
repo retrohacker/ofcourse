@@ -1,7 +1,7 @@
 var module = module || {}
 var Backbone = Backbone || require('backbone')
 
-var ParentEventModel = Backbone.Model.extend({
+var ParentEventModel = module.exports = Backbone.Model.extend({
   validate:function(attributes,options) {
     //TODO
   }

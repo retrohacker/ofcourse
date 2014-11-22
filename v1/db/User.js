@@ -3,11 +3,12 @@ var db = require('../db/database.js')
 var UserModel = require('../models/UserModel.js')
 var CourseModel = require('../models/CourseModel.js')
 var EventModel = require('../models/EventModel.js')
+var ParentEventModel = require('../models/ParentEventModel.js')
 
 
 //USING POSTGRES
 user.insert = function insert(values,cb) {
-  db(insertCommand(UserModel,values.toJSON()),function(e,rows,result) {
+  db(user.insertCommand(UserModel,values.toJSON()),function(e,rows,result) {
     if(e) return cb(e)
     return cb(null,result.rows[0].id)
   })
@@ -70,7 +71,7 @@ user.getUserByEmail = function getUserByEmail(email,done) {
 }
 
 user.addCourse = function addCourse(course,userid,done) {
-  var results = db(insertCommand(CourseModel,course.toJSON()), function(err, rows, result) {
+  var results = db(user.insertCommand(CourseModel,course.toJSON()), function(err, rows, result) {
     if(err) return done(err,null)
     return done(null,result.rows[0].id)
   });
@@ -78,7 +79,15 @@ user.addCourse = function addCourse(course,userid,done) {
 
 user.addEvent = function addEvent(userEvent,userid,done){
   userEvent.set({'userid': userid})
-  var results = db(insertCommand(EventModel,userEvent.toJSON()), function(err, rows, result) {
+  var results = db(user.insertCommand(EventModel,userEvent.toJSON()), function(err, rows, result) {
+    console.log(err)
+    if(err) return done(err,null)
+    return done(null,result.rows[0].id)
+  });
+}
+
+user.addParentEvent = function addParentEvent(parentEvent,done){
+  var results = db(user.insertCommand(ParentEventModel,parentEvent.toJSON()), function(err, rows, result) {
     console.log(err)
     if(err) return done(err,null)
     return done(null,result.rows[0].id)
@@ -99,7 +108,7 @@ function getUserByEmailCommand(email){
   return result
 }
 
-function insertCommand(model,values) {
+user.insertCommand = function insertCommand(model,values) {
   var result = 'INSERT INTO '+model.tableName+' ('
   var modelVals = Object.keys(model.types)
   Object.keys(values).forEach(function(v) {
