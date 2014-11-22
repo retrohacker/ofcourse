@@ -1,5 +1,5 @@
 var UserCourseView = Backbone.View.extend({
-  defaultLocation: "body",
+  defaultLocation: ".ofcourse-body",
   template: JADE.userCourse,
   initialize: function(opts){
     this.info = {title: this.model.get('title'), section: this.model.get('section'), number: this.model.get('number')}

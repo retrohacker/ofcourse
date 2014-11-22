@@ -3,7 +3,7 @@
 //Instantiation: var variable = new FormView({radio:radio})
 //Rendering: variable.render([Form Collection],[Optional DOM location])
 var FormView = Backbone.View.extend({
-  defaultLocation: "body",
+  defaultLocation: ".ofcourse-body",
   template: JADE.regForm,
   initialize: function(opts){
     this.formVals = opts.formVals || []
