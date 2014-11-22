@@ -11,6 +11,14 @@ router.use(session)
 router.use(passport.initialize())
 router.use(passport.session())
 
+router.get('/course/:id/events', function (req, res, next) {
+  if(!req.user || !req.user.profile || !req.user.profile.id) return res.status(401).json(new Error("Please login"))
+  User.getEventsByCourseID(req.user.profile.id,req.params.id,function(e,events) {
+    if(e) return res.status(500).json(e)//dont do this, remove this for production build, gives attackers too much info
+    if(!events) res.status(500).json(new Error('no events found'))
+    res.status(200).json(events)
+  })
+});
 
 router.post('/',function(req,res) {
   var user = new UserModel()
@@ -42,9 +50,7 @@ router.put('/',function(req,res) {
 router.get('/',function(req,res) {
   console.log(JSON.stringify(req.user,null," "))
   if(!req.user || !req.user.profile || !req.user.profile.id) return res.status(401).json(new Error("Please login"))
-  console.log(req.user)
   User.get(req.user.profile.id,function(e,user) {
-    console.log(e)
     if(e) return res.status(500).json(e)//dont do this, remove this for production build, gives attackers too much info
     if(!user) res.status(500).json(new Error('user not found'))
     res.status(200).json(user)

@@ -1,7 +1,8 @@
 var EventModel = Backbone.Model.extend({
     url: '/v1/event/event'
   /*Expected Values
-    id: '',     //This will link all occurances of this class
+    cid: '',    //Parent course ID
+    id: '',     //Unique event ID
     title: '',  //Event title on the calendar
     number: '',
     section: '',
