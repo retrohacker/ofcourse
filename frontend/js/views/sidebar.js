@@ -13,15 +13,28 @@ var SidebarView = Backbone.View.extend({
   },
   events: {
     "click .ofcourse-menu-item":"closeSidebar",
+    "click #sidebar-addcourse":"openAddCourse",
     "click #sidebar-calendar": "openCalendar",
-    "click #sidebar-courses": "openCourses"
+    "click #sidebar-courses": "openCourses",
+    "click #sidebar-home": "openHome",
+    "click #sidebar-createcourse": "openCreateCourse"
   },
   template: JADE.sidebar,
+  openHome: function() {
+    workspace.navigate('home',{trigger:true})
+  },
   openCalendar: function() {
     workspace.navigate('calendar',{trigger:true})
   },
+  openCreateCourse: function() {
+    workspace.navigate('createCourse', {trigger:true})
+  },
   openCourses: function() {
     workspace.navigate('courses',{trigger:true})
+  },
+  openAddCourse: function() {
+
+    workspace.navigate('addCourse',{trigger:true})
   },
   render: function() {
     var location = location || this.defaultLocation
