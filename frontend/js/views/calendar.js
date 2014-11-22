@@ -1,5 +1,5 @@
 var CalendarView = Backbone.View.extend({
-  defaultLocation: "body",
+  defaultLocation: ".ofcourse-body",
   template: JADE.calendar,
   initialize: function(){
     this.collection.bind('reset', this.addAll);

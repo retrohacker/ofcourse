@@ -1,5 +1,5 @@
 var UniSelectView = Backbone.View.extend({
-  defaultLocation: "body",
+  defaultLocation: ".ofcourse-body",
   template: JADE.uniSelect,
   initialize: function(){
     //this.collection.bind('reset', this.rerender);

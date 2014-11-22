@@ -1,5 +1,5 @@
 var AddAssignView = Backbone.View.extend({
-  defaultLocation: "body",
+  defaultLocation: ".ofcourse-body",
   template: JADE.addAssignment,
   initialize: function(){
     this.setElement(this.template(this.collection.toJSON()))

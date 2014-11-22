@@ -19,6 +19,7 @@
   background-color: #CCC;
   background-image: linear-gradient(#DDD,#CCC);
   font-size: 1.5em;
+  z-index: 1;
 }
 
 .ofcourse-taskbar i {
