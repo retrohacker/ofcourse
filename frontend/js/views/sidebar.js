@@ -39,13 +39,13 @@ var SidebarView = Backbone.View.extend({
     else this.openSidebar()
   },
   closeSidebar:function(){
-    var width = this.$el.outerWidth() + "px"
+    var width = this.$el.outerWidth()
     //Need to translate ofcourse-body
     $('.ofcourse-body').css('left',0)
     //Need to translate ofcourse-taskbar
     $('.ofcourse-taskbar').css('left',0)
-    //Need to translate self
-    this.$el.css('left',"-"+width)
+    //Need to translate self way the fuck out
+    this.$el.css('left',"-"+width*100+"px")
     this.sidebarState = false
   },
   openSidebar:function(){
