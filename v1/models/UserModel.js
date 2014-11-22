@@ -13,7 +13,7 @@ var UserModel = module.exports = Backbone.Model.extend({
       return 'expected string for lastName'
 	  //if(attributes.university && typeof attributes.university != 'string')
       //return 'expected string for university'
-    if(typeof attributes.email != 'string')
+    if(attributes.email && typeof attributes.email != 'string')
       return 'expected string for email'
     if(attributes.email){
       var re = new RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
