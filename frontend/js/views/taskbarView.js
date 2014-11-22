@@ -64,7 +64,7 @@ var TaskbarView = Backbone.View.extend({
     .addButtonRight(new TaskbarButtonView({
       className:'fa fa-fw fa-paper-plane-o',
       onClick: function() {
-        console.log("Add Event!")
+        workspace.navigate('addAssignment',{trigger: true})
       }
     }))
     return this

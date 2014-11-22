@@ -8,7 +8,8 @@ var Workspace = Backbone.Router.extend({
     "addCourse": "addCourse",
     "createCourse": "createCourse",
     "courses":"courses",
-    "viewCourse":"viewCourse"
+    "viewCourse":"viewCourse",
+    "addAssignment" : "addAssignment"
   },
   'home': function(){
     radio.trigger('unrender');
@@ -27,12 +28,12 @@ var Workspace = Backbone.Router.extend({
   },
   'uniSelect': function(){
     radio.trigger('unrender:page')
-    
+
     //TODO: remove these. they should not be hardcoded.
     var siu = new University({id:1,name:'Southern Illinois University',abbreviation:'SIU',state:'IL',city:'Carbondale',location:'Carbondale, IL'})
     var delaware = new University({id:2,name:'The Delaware One',location:'Somewhere, DE'})
     App.universityCollection = new UniversityCollection([siu,delaware]);
-    
+
     var uniSelectView = new UniSelectView({radio: radio, collection: App.universityCollection}).render()
     //App.universityCollection.fetch({reset:true})
   },
@@ -71,7 +72,13 @@ var Workspace = Backbone.Router.extend({
     var courseEventContainer = new UserCourseEventContainerView({radio: radio, collection: App.courseEvents})
       .render()
     App.courseEvents.fetch()
-  }  
+  },
+  'addAssignment': function(){
+    radio.trigger('unrender:page')
+    App.courses.fetch({reset:true})
+    var addAssignmentView = new AddAssignView({radio: radio, collection: App.courses})
+      .render()
+  }
 });
 var App = App || {}
 App.user = new UserModel()
