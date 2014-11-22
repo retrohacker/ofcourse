@@ -19,8 +19,9 @@ router.use(passport.session())
 router.post('/',function(req,res) {
   if(!req.user || !req.user.profile || !req.user.profile.id) return res.status(401).json(new Error("Please login"))
   var course = new CourseModel()
-  if(!course.set(req.body,{validate:true}))
+  if(!course.set(req.body,{validate:true})) {
     return res.status(400).json({e:user.validationError})
+  }
   User.getUniversityByUserID(req.user.profile.id,function(e,university) {
     if(e) return res.status(500).json(e)//dont do this, remove this for production build, gives attackers too much info
     if(!university) return res.status(400).json(e)
@@ -33,7 +34,8 @@ router.post('/',function(req,res) {
       cid = id
       User.addParentEvent(parent, function(e,id){
         //Create children events!
-        var events = JSON.parse(req.body.events)
+        var events = req.body.events
+        console.log(events)
         //Creat client and transfer out of pool
         var client = new pg.Client(db.connectionParameters)
         client.connect(function(e) {
@@ -44,18 +46,23 @@ router.post('/',function(req,res) {
               var courseEnd = new Date(course.attributes.end)
               var dates = later.schedule(sched).next(1092,courseStart,courseEnd)
               for (date in dates){
+                console.log(dates[date])
+                console.log(events[item])
+                console.log(dates[date].getSeconds())
+                console.log(events[item])
                 var courseEvent = new EventModel({
                   userid: req.user.profile.id,
                   parentid: id,
                   courseid: cid,
                   title: course.attributes.title,
                   start: dates[date].toJSON(),
-                  end: new Date(dates[date].setSeconds(dates[date].getSeconds() + events[item].dur)).toISOString(),
+                  end: new Date(dates[date].setSeconds(dates[date].getSeconds() + events[item].duration)).toISOString(),
                   type: 0
                 });
                 var results = db(User.insertCommand(EventModel,courseEvent.toJSON()), function(e, rows, result) {
                   if(e) console.log(e)
-                    //return done(null,result.rows[0].id)
+                  res.write(JSON.stringify({id:result.rows[0].id}))
+                  return res.end()
                 })
               }
             }
@@ -63,11 +70,8 @@ router.post('/',function(req,res) {
           })
         })
       })
-      if(e) return res.status(500).json(e)//dont do this, remove this for production build, gives attackers too much info
-      else return res.status(201)
-    })  
+    })
   })
-  return res.status(400)
 })
 
 //CourseCollection
