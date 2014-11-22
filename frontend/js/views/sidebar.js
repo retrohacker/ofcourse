@@ -12,6 +12,7 @@ var SidebarView = Backbone.View.extend({
     return this
   },
   events: {
+    "click .ofcourse-menu-item":"closeSidebar",
     "click #sidebar-calendar": "openCalendar",
     "click #sidebar-courses": "openCourses"
   },
