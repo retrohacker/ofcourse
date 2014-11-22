@@ -13,7 +13,6 @@ user.insert = function insert(values,cb) {
 
 user.update = function update(values,cb) {
   db(updateCommand(UserModel,values.toJSON()),function(e,rows,result) {
-    console.log('User.js', e)
     if(e) return cb(e)
     return cb(null,result.rows[0].id)
   })
@@ -36,8 +35,6 @@ user.update = function update(values,cb) {
  user.getUniversityByUserID = function getUniversityByUserID(userid,cb) {
 	db("select * from users where id="+userid,function(e,rows,result) {
      if(e) return cb(e)
-     //console.log('User.js: university: ', result.rows)
-     //console.log('User.js: university: ', result.rows[0].university)
      cb(null,result.rows[0].university)
    })
  
@@ -72,7 +69,6 @@ user.addCourse = function addCourse(course,userid,done) {
 
  user.getUniversities = function getUniversity(cb) {
    db("select * from universities",function(e,rows,result) {
-     console.log('User.js: get universities',result.rows)
      if(e) return cb(e)
      cb(null,result.rows)
    })
