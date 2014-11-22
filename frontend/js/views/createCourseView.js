@@ -33,6 +33,9 @@ var CreateCourseView = Backbone.View.extend({
     //TODO: V add course to user's courses V
     // posy v1/users/id/course/id
   },
+  getCourseId: function() {
+    return this.course.get('id')
+  },
   unrender: function() {
     this.$el.remove()
   }
