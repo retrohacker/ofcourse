@@ -1,18 +1,38 @@
-.ofcourse-vcenter {
+.ofcourse-login-bg {
+  width: 100%;
   height: 100%;
-  overflow: hidden;
-}
-.ofcourse-vcenter1 {
-  height: 100%;
-  transform: translateY(50%)
+  background-image: url(/static/images/loginbg.jpg);
+  background-size: cover;
 }
 
-.ofcourse-vcenter2 {
-  transform: translateY(-50%)
+.ofcourse-hidden {
+  display: none;
 }
 
-.ofcourse-vcenter3 {
-  transform: translateY(20%);
+.ofcourse-login {
+  display: inline-block;
+  background-color: #D2D2D2;
+  padding: 30px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  border-radius: 20px;
+  box-shadow: 7px 7px 29px 0px rgba(0,0,0,0.6);
+  margin-left: 50%;
+  position: fixed;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.ofcourse-login div {
+  display: inline;
+}
+
+.ofcourse-bar-break {
+  display: block !important;
+  border-style: inset;
+  border-width: .15em;
+  border-radius: 100em;
+  margin: 2em;
 }
 
 .ofcourse-centerImage {
@@ -20,7 +40,8 @@
 }
 
 .ofcourse-fblogin {
-  padding-top: 2em;
+  display: block;
+  text-align: center;
 }
 
 .ofcourse-form {

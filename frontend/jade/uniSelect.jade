@@ -2,7 +2,7 @@ div.oc-uniSelect-pageWrapper
   h1 Select Your University
   div.oc-uniSelect-listContainer
     - each item in locals
-      div.oc-uniSelect-listItem(onclick="radio.trigger('submit:University',this.id)" id="#{item.name}")
+      div.oc-uniSelect-listItem(onclick="radio.trigger('submit:University',this.id)" id="#{item.id}")
         h2 #{item.name}
         h3 #{item.location}
 

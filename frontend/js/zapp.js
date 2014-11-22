@@ -4,31 +4,16 @@ var Workspace = Backbone.Router.extend({
     "login" : "login",
     "register" : "register",
     "uniSelect" : "uniSelect",
-    "calendar" : "calendar"
+    "calendar" : "calendar",
+    "addCourse": "addCourse",
+    "createCourse": "createCourse",
+    "courses":"courses",
+    "viewCourse":"viewCourse"
   },
   'home': function(){
-//    var sidebarState = false; //hidden
     radio.trigger('unrender');
-    var  sidebar = new SidebarView({radio:radio})
-      .render()
     var taskbar = new TaskbarView({radio: radio})
-      .addButtonLeft(new TaskbarButtonView({
-          className:'fa fa-fw fa-bars',
-          onClick: function () {
-            if(!sidebar.getState()){
-              $('body').css('transform','translateX(25%)')
-            } else {
-              $('body').css('transform','translateX(0)')
-            }
-            radio.trigger('sidebar:changeState') 
-          }
-        }))
-      .addButtonRight(new TaskbarButtonView({
-        className:'fa fa-fw fa-paper-plane-o',
-        onClick: function() {
-          console.log("Add Event!")
-        }
-      }))
+      .createBasicTaskbar()
       .render()
   },
   'login': function(){
@@ -38,48 +23,63 @@ var Workspace = Backbone.Router.extend({
   'register': function(){
     radio.trigger('unrender')
     this.user = new UserModel()
-    this.registerView = new FormView({radio: radio,formVals:registrationCollection().toJSON(), user:this.user}).render()
+    this.registerView = new FormView({radio: radio,formVals:registrationCollection().toJSON(), user:App.user}).render()
   },
   'uniSelect': function(){
-    var sidebarState = false; //hidden
-    radio.trigger('unrender')
-    var sidebar = new SidebarView({radio:radio})
-      .render()
-    var taskbar = new TaskbarView({radio: radio})
-      .addButtonLeft(new TaskbarButtonView({
-        className:'fa fa-fw fa-bars',
-        onClick: function () {
-          if(!sidebarState) {
-            taskbar.$el.css('transform','translateX(25%)')
-            sidebar.$el.css('transform','translateX(0)')
-          } else {
-            taskbar.$el.css('transform','translateX(0)')
-            sidebar.$el.css('transform','translateX(-100%)')
-          }
-          sidebarState = !sidebarState
-        }
-      }))
-      .addButtonRight(new TaskbarButtonView({
-        className:'fa fa-fw fa-paper-plane-o',
-        onClick: function() {
-          console.log("Add Event!")
-        }
-      }))
-      .render()
-    this.uniSelectView = new UniSelectView({radio: radio, universities: universityCollection.toJSON(), user: this.user}).render()
+    radio.trigger('unrender:page')
+    
+    //TODO: remove these. they should not be hardcoded.
+    var siu = new University({id:1,name:'Southern Illinois University',abbreviation:'SIU',state:'IL',city:'Carbondale',location:'Carbondale, IL'})
+    var delaware = new University({id:2,name:'The Delaware One',location:'Somewhere, DE'})
+    App.universityCollection = new UniversityCollection([siu,delaware]);
+    
+    var uniSelectView = new UniSelectView({radio: radio, collection: App.universityCollection}).render()
+    //App.universityCollection.fetch({reset:true})
   },
   'calendar': function(){
     radio.trigger('unrender:page');
-    var calendarView = new CalendarView({radio: radio})
-    calendarView.render();
-  }
+    App.eventCollection = new EventCollection([])
+    var calendarView = new CalendarView({radio: radio, collection: App.eventCollection})
+      .render();
+    App.eventCollection.fetch({reset:true})//not the most efficient way to populate collection, but needed because of calender.js events
+  },
+  'addCourse': function(){
+    radio.trigger('unrender:page');
+    var addCourse = new AddCourseView({radio: radio})
+      .render()
+    var uniCourseContainer = new UniCourseContainerView({radio: radio, collection: App.courses, model: App.user})
+      .render()
+    App.courses.fetch({reset:true})//not the most efficient way to populate collection
+   },  
+  'createCourse':function(){
+    radio.trigger('unrender:page')
+    this.createCourseView = new CreateCourseView({collection: App.courses, radio: radio, formVals:createCourseCollection().toJSON(), model: App.user}).render()
+   },
+  'courses':function(){
+    radio.trigger('unrender:page')
+    App.courses.fetch({reset:true})
+    var userCoursesView = new UserCoursesView({radio: radio})
+      .render()
+    var userCoursesContainer = new UserCoursesContainerView({radio: radio, collection: App.courses})
+      .render()
+  },
+  'viewCourse':function(){
+    radio.trigger('unrender:page')
+    var courseEvents = new EventCollection([])
+    var course = new UserCourseView({radio: radio, model: App.course})
+      .render()
+    var courseEventContainer = new UserCourseEventContainerView({radio: radio, collection: courseEvents})
+      .render()
+  }  
 });
 var App = App || {}
-App.user = new UserModelApp()
+App.user = new UserModel()
 App.user.fetch({
   success: init,
   error: init,
 })
+App.courses = new CourseCollection()
+App.course
 
 var workspace = new Workspace({radio: radio});
 Backbone.history.start();

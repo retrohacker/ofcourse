@@ -4,8 +4,6 @@ var Backbone = Backbone || require('backbone')
 //User model
 //This is data that will be stored in the database
 var UserModel = module.exports = Backbone.Model.extend({
-  defaults:{
-  },
   validate:function(attributes,options){
 	  if(attributes.id && (typeof attributes.id != 'number' || attributes.id < 0))
       return 'expected number for id'
@@ -13,8 +11,8 @@ var UserModel = module.exports = Backbone.Model.extend({
       return 'expected string for firstName'
 	  if(typeof attributes.lastName != 'string')
       return 'expected string for lastName'
-	  if(attributes.university && typeof attributes.university != 'string')
-      return 'expected string for university'
+	  //if(attributes.university && typeof attributes.university != 'string')
+      //return 'expected string for university'
     if(typeof attributes.email != 'string')
       return 'expected string for email'
     if(attributes.email){
@@ -25,12 +23,11 @@ var UserModel = module.exports = Backbone.Model.extend({
   }
 });
 
-module.exports.types = {
-  id: 'SERIAL PRIMARY KEY',
-  firstName: 'VARCHAR(50) NOT NULL',
-  lastName: 'VARCHAR(50) NOT NULL',
-  university: 'VARCHAR(50)',
-  email: 'VARCHAR(254)'
-}
-
 module.exports.tableName = "users"
+module.exports.types = {
+  id: 'serial primary key',
+  firstName: 'varchar (50) not null',
+  lastName: 'varchar(50) not null',
+  university: 'integer references universities(id)',
+  email: 'varchar(254) unique'
+}
