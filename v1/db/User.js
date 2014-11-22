@@ -25,14 +25,14 @@ user.update = function update(values,cb) {
      cb(null,result.rows[0])
    })
  }
- 
+
  user.getEvents = function getEvents(id,cb) {
    db("select * from events where userid="+id,function(e,rows,result) {
      if(e) return cb(e)
      cb(null,result.rows)
    })
  }
- 
+
   user.getCoursesByUniversity = function getCoursesByUniversity(university,cb) {
    db("select * from courses where university='"+university+"'",function(e,rows,result) {
      if(e) return cb(e)
