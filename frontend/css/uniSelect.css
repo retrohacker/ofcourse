@@ -40,6 +40,10 @@
   margin-bottom: .5em;
 }
 
+.oc-uniSelect .oc-listItem:hover {
+  background-image: linear-gradient(#CCC,#DDD,#CCC);
+}
+
 .oc-uniSelect .oc-listContainer .oc-listItem h2 {
   margin-top: 0.83em;
 }
