@@ -22,14 +22,24 @@ var CreateCourseView = Backbone.View.extend({
     $(location).append(this.$el)
     return this;
   },
-  formSubmitted: function(){
-    this.course = new CourseModel()
+  formSubmitted: function(opts){
+    this.courseMeetingView = opts
+    console.log(opts)
     var view = this
+    var days = []
+    jQuery.each(this.courseMeetingView.$('.day'), function(i, item){
+      if(item.checked){
+        days.push(item.value)
+      }
+    });
+
+    console.log(days)
     jQuery.each(view.formVals, function(i, item){
       var name = item.name
       var value = view.$('#' + item.id).val()
       view.course.set(name, value)
-    });    this.course.save();
+    });
+    this.course.save();
     //TODO: V add course to user's courses V
     // posy v1/users/id/course/id
   },
