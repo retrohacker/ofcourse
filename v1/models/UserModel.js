@@ -11,8 +11,8 @@ var UserModel = module.exports = Backbone.Model.extend({
       return 'expected string for firstName'
 	  if(typeof attributes.lastName != 'string')
       return 'expected string for lastName'
-	  if(attributes.university && typeof attributes.university != 'string')
-      return 'expected string for university'
+	  //if(attributes.university && typeof attributes.university != 'string')
+      //return 'expected string for university'
     if(typeof attributes.email != 'string')
       return 'expected string for email'
     if(attributes.email){
