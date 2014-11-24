@@ -1,11 +1,7 @@
 body {
-  background: #F3F3F3;
+  background: #363644;
   height: 100%;
   overflow-x: hidden;
-  background-image: url(/static/images/logo_shadow.png);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 25%;
 }
 
 .ofcourse-body h1 {
@@ -20,6 +16,7 @@ body {
 
 .ofcourse-body {
   top: 3.75em;
+  padding-top: 1em;
   position: relative;
 }
 
