@@ -1,0 +1,52 @@
+.ofcourse-body .fc {
+  padding: 0 .5em .5em;
+}
+
+.ofcourse-body .fc .fc-toolbar button {
+  background-image: none;
+  background-color: #6440C1;
+  color: #F2F2F3;
+  text-shadow: none;
+}
+
+.ofcourse-body .fc-state-disabled {
+  box-shadow: inset 0 -.2em 1em .05em rgba(0,0,0,0.3);
+  color: #999 !important;
+}
+
+.ofcourse-body .fc-center h2 {
+  color: #F2F2F3;
+  font-weight: lighter;
+}
+
+.ofcourse-body .fc-day-header {
+  background-color: ##242430;
+  padding: .4em;
+  color: #F2F2F3;
+  font-weight: normal;
+}
+
+.ofcourse-body .fc-row, .ofcourse-body .fc-time, .ofcourse-body .fc-event { 
+  color: #F2F2F3;
+}
+
+.ofcourse-body .fc-event {
+  background-color: #FF4081;
+  font-weight: bolder;
+  padding: .2em;
+  border: none;
+}
+
+.ofcourse-body .fc-today {
+  background-color: #242430 !important;
+}
+
+
+.ofcourse-body .fc-day, .ofcourse-body .fc-widget-header, .ofcourse-body .fc-widget-content {
+  border-color: #44404B;
+}
+
+.ofcourse-body .fc hr {
+  padding: 0;
+  border-width: 2px;
+}
