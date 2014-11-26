@@ -91,7 +91,7 @@ function init() {
   }
   else if(App.user.isLoggedIn()){
     workspace.navigate('home', {trigger: true});
-    if(App.user.hasUniversity()) {
+    if(!App.user.hasUniversity()) {
       //TODO: remove these. they should not be hardcoded.
       console.log('zapp.js: user has no university')
       var siu = new University({id:1,name:'Southern Illinois University',abbreviation:'SIU',state:'IL',city:'Carbondale',location:'Carbondale, IL'})

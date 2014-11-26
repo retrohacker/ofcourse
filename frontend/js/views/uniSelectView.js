@@ -23,7 +23,7 @@ var UniSelectView = Backbone.View.extend({
     var university = options//options is the university ID, passed from uniSelect.jade
     App.user.set({university: university})
     App.user.save();
-    workspace.navigate('home',{trigger: true})
+    radio.trigger('popup:close')
   },
   unrender: function() {
     this.$el.remove()
