@@ -27,15 +27,6 @@ var Workspace = Backbone.Router.extend({
     this.registerView = new FormView({radio: radio,formVals:registrationCollection().toJSON(), user:App.user}).render()
   },
   'uniSelect': function(){
-    radio.trigger('unrender:page')
-
-    //TODO: remove these. they should not be hardcoded.
-    var siu = new University({id:1,name:'Southern Illinois University',abbreviation:'SIU',state:'IL',city:'Carbondale',location:'Carbondale, IL'})
-    var delaware = new University({id:2,name:'The Delaware One',location:'Somewhere, DE'})
-    App.universityCollection = new UniversityCollection([siu,delaware]);
-
-    var uniSelectView = new UniSelectView({radio: radio, collection: App.universityCollection}).render()
-    //App.universityCollection.fetch({reset:true})
   },
   'calendar': function(){
     radio.trigger('unrender:page getTaskbar');
@@ -98,10 +89,18 @@ function init() {
     console.log('zapp.js: user is not logged in')
     workspace.navigate('login', {trigger: true});
   }
-  else if(App.user.isLoggedIn() && !App.user.hasUniversity()){
-    console.log('zapp.js: user has no university')
-    workspace.navigate('uniSelect', {trigger: true});
-  }
-  else
+  else if(App.user.isLoggedIn()){
     workspace.navigate('home', {trigger: true});
+    if(App.user.hasUniversity()) {
+      //TODO: remove these. they should not be hardcoded.
+      console.log('zapp.js: user has no university')
+      var siu = new University({id:1,name:'Southern Illinois University',abbreviation:'SIU',state:'IL',city:'Carbondale',location:'Carbondale, IL'})
+      var delaware = new University({id:2,name:'The Delaware One',location:'Somewhere, DE'})
+      var universityCollection = new UniversityCollection([siu,delaware]);
+
+      var uniSelectView = new UniSelectView({radio: radio, collection: universityCollection})
+      var popup = new PopupView({contains:uniSelectView})
+      popup.render()
+    }
+  }
 }
