@@ -1,9 +1,11 @@
 var UniSelectView = Backbone.View.extend({
   defaultLocation: ".ofcourse-body",
   template: JADE.uniSelect,
-  initialize: function(){
-    //this.collection.bind('reset', this.rerender);
-    this.setElement(this.template(App.universityCollection.toJSON()))
+  initialize: function(opts){
+    this.collection = opts.collection
+    if(this.collection) {
+      this.setElement(this.template(this.collection.toJSON()))
+    }
     radio.on('unrender:UniSelect',this.unrender, this)
     radio.on('render:UniSelect',this.render,this)
     radio.on('unrender',this.unrender,this)
