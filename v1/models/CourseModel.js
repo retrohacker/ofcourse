@@ -14,6 +14,5 @@ module.exports.types = {
   number: 'integer not null',
   section: 'integer not null',
   start: 'timestamp not null',
-  end: 'timestamp not null',
-  //chron:
+  end: 'timestamp not null'
 }
