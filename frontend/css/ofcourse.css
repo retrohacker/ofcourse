@@ -18,6 +18,7 @@ body {
   top: 3.75em;
   padding-top: 1em;
   position: absolute;
+  width: 100%;
 }
 
 html {
