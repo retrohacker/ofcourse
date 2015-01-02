@@ -1,12 +1,7 @@
 var pg = module.exports = require('pg-query')
 var isDev = require('isdev')
-var connString
+var connString = process.env.DATABASE_URL || "postgres://postgres@127.0.0.1:5432/postgres"
 var init = require('./init.js')
-
-if(isDev)
-  connString = "postgres://postgres@127.0.0.1:5432/postgres"
-else
-  connString = "postgres://gfsfillahxrvsa:40mI24y9S5M66bOYQxGWz5og4w@ec2-54-197-227-238.compute-1.amazonaws.com:5432/d30k7bgpai6hjm"
 
 pg.connectionParameters = connString
 
