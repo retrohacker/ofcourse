@@ -17,7 +17,7 @@ body {
 .ofcourse-body {
   top: 3.75em;
   padding-top: 1em;
-  position: relative;
+  position: absolute;
 }
 
 html {
