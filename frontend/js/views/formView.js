@@ -30,7 +30,7 @@ var FormView = Backbone.View.extend({
       view.user.set(name, value)
     });
     this.user.save();
-    workspace.navigate('uniSelect',{trigger: true})
+    workspace.navigate('home',{trigger: true})
   },
   unrender: function() {
     this.$el.remove()
