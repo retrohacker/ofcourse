@@ -9,42 +9,45 @@
 }
 
 .oc-uniSelect .oc-listContainer div {
-  width: 100%;
   text-align: left;
 }
 
 .oc-uniSelect .oc-listItem {
-  border-width: 0 0 .1em 0;
-  border-color: #494954;
+  border-width: 0 0 .15em 0;
+  border-color: #5D5D7C;
   border-style: solid;
+  border-radius: .5em;
   padding: .5em 0 .5em 1em;
+  transition: background-color .15s ease;
+  margin: .1em 0;
+  webkit-transition: background-color .15s ease;
 }
 
 .oc-uniSelect .oc-listItem:hover {
-  background-color: #494954;
+  background-color: #5D5D7C;
 }
 
 .oc-uniSelect .oc-listContainer .oc-listItem h2 {
   font-size: 1.4em;
   font-weight: normal;
   margin: 0;
-  color: #f2f2f3;
+  color: #E1E1E1;
   border: 1 0 1;
 }
 
 .oc-uniSelect .oc-listContainer .oc-listItem h3 {
   font-size: 1.2em;
   font-weight: normal;
-  color: #f2f2f3;
+  color: #E1E1E1;
   margin: 0;
 }
 
 .oc-uniSelect h1 {
-  color: #A2A2A7;
+  color: #C7C7C7;
   margin: 0;
 }
 
 .oc-uniSelect h2 {
-  color: #A2A2A7;
+  color: #A1A1A1;
   margin: .5em 0;
 }
