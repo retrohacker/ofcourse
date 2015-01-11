@@ -37,6 +37,17 @@ You will also need redis for the session keys. To do this simply run:
 docker run -dp 6379:6379 redis:2.8.12
 ```
 
+Access database via psql
+1.) get port info:
+```
+docker ps
+```
+2.) use this in psql command. example:
+```
+psql -h localhost -p 5432 -U postgres
+```
+
+
 
 test user registration:
 ```
