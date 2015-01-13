@@ -40,20 +40,20 @@ router.post('/',function(req,res) {
         parent.set(course.toJSON())
         parent.set('cid',id)
         cid = id
-        cb(e,cid)
+        cb(e,cid,id)
       })
     },
-    function addUserParentEvent(cid, cb){
+    function addUserParentEvent(cid, id, cb){
       var events = req.body.events
       var client = new pg.Client(db.connectionParameters)
-      cb(null,client,events)
+      cb(null,client,events, cid, id)
     },
-    function connect(client ,events, cb){
+    function connect(client ,events, cid, id, cb){
       client.connect(function(e){
-        cb(e,client,events)
+        cb(e,client,events,cid,id)
       })
     },
-    function query(client, events, cb){
+    function query(client, events, cid, id, cb){
       client.query('BEGIN()', function(e, result){
         for (item in events){
           var sched = later.parse.cron(events[item].cron)
