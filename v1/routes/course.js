@@ -40,13 +40,15 @@ router.post('/',function(req,res) {
         parent.set(course.toJSON())
         parent.set('cid',id)
         cid = id
-        cb(e,cid,id)
+        cb(e,cid,id, parent)
       })
     },
-    function addUserParentEvent(cid, id, cb){
-      var events = req.body.events
-      var client = new pg.Client(db.connectionParameters)
-      cb(null,client,events, cid, id)
+    function addUserParentEvent(cid, id, parent, cb){
+      User.addParentEvent(parent, function(e,id){
+        var events = req.body.events
+        var client = new pg.Client(db.connectionParameters)
+        cb(e,client,events, cid, id)
+      })
     },
     function connect(client ,events, cid, id, cb){
       client.connect(function(e){
@@ -71,9 +73,8 @@ router.post('/',function(req,res) {
               type: 0
             })
             var results = db(User.insertCommand(EventModel,courseEvent.toJSON()), function(e, rows, result) {
-              if(e) console.log(e)
-                res.write(JSON.stringify({id:result.rows[0].id}))
-                return res.end()
+              res.write(JSON.stringify({id:result.rows[0].id}))
+              return res.end()
             })
           }
         }
@@ -83,7 +84,7 @@ router.post('/',function(req,res) {
     }
   ],
   function(e){
-    if (e) console.log("Fail" + e)
+    if (e) return res.status(500)
   })
 })
 
