@@ -15,7 +15,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  background-color: #2E2E3D;
+  -webkit-transform: translate(-50%,-50%);
+  background-color: #242430;
   padding: 2em;
   border-radius: 1em;
   min-width: 290px;
