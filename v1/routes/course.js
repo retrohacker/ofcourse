@@ -23,13 +23,14 @@ router.post('/',function(req,res) {
   if(!course.set(req.body,{validate:true})) {
     return res.status(400).json({e:user.validationError})
   }
-
+  //Open DB connection
+  var client = new pg.Client(db.connectionParameters)
   async.waterfall([
     function getUserUniversity(cb){
       User.getUniversityByUserID(req.user.profile.id,function(e,university) {
         //dont do this, remove this for production build, gives attackers too much info
-        if(e) return res.status(500).json(e)
-        if(!university) return res.status(400).json(e)
+        if(e) return cb(e, 500, "Error getting University from User data")
+        if(!university) return cb(e, 400, "No University found for User")
         course.set('university',university)
         cb(e,course)
       })
@@ -46,45 +47,46 @@ router.post('/',function(req,res) {
     function addUserParentEvent(cid, id, parent, cb){
       User.addParentEvent(parent, function(e,id){
         var events = req.body.events
-        var client = new pg.Client(db.connectionParameters)
-        cb(e,client,events, cid, id)
+        cb(e,events, cid, id)
       })
     },
-    function connect(client ,events, cid, id, cb){
+    function connect(events, cid, id, cb){
       client.connect(function(e){
-        cb(e,client,events,cid,id)
+        cb(e,events,cid,id)
       })
     },
-    function query(client, events, cid, id, cb){
+    function query(events, cid, id, cb){
       client.query('BEGIN()', function(e, result){
-        for (item in events){
-          var sched = later.parse.cron(events[item].cron)
+        async.each(events, function(item, cb){
+          var sched = later.parse.cron(item.cron)
           var courseStart = new Date(course.attributes.start)
           var courseEnd = new Date(course.attributes.end)
           var dates = later.schedule(sched).next(1092,courseStart,courseEnd)
-          for (date in dates){
+          async.each(dates, function(date, cb){
             var courseEvent = new EventModel({
               userid: req.user.profile.id,
               parentid: id,
               courseid: cid,
               title: course.attributes.title,
-              start: dates[date].toJSON(),
-              end: new Date(dates[date].setSeconds(dates[date].getSeconds() + events[item].duration)).toISOString(),
+              start: date.toJSON(),
+              end: new Date(date.setSeconds(date.getSeconds() + item.duration)).toISOString(),
               type: 0
             })
-            var results = db(User.insertCommand(EventModel,courseEvent.toJSON()), function(e, rows, result) {
+            db(User.insertCommand(EventModel,courseEvent.toJSON()), function(e, rows, result) {
               res.write(JSON.stringify({id:result.rows[0].id}))
               return res.end()
             })
-          }
-        }
-        client.end()
+            cb(e)
+          })
+          cb(e)
+        })
         cb(e)
       })
     }
   ],
   function(e){
-    if (e) return res.status(500)
+    client.end()
+    if (e) return res.status(500).json(e)
   })
 })
 
