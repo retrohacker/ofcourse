@@ -19,9 +19,9 @@ router.use(passport.session())
 //CourseModel
 router.post('/',function(req,res) {
   if(!req.user || !req.user.profile || !req.user.profile.id) return res.status(401).json(new Error("Please login"))
-    var course = new CourseModel()
+  var course = new CourseModel()
   if(!course.set(req.body,{validate:true})) {
-    return res.status(400).json({e:user.validationError})
+    return res.status(400).json({e:course.validationError})
   }
   //Open DB connection
   var client = new pg.Client(db.connectionParameters)
