@@ -4,7 +4,7 @@ var db = require('../db/database.js')
 var session = require('../db/session.js')
 var passport = require('passport')
 var User = require('../db/User.js')
-var CourseModel = require('../models/CourseModel.js')
+var CourseModel = require('..//models/CourseModel.js')
 var EventModel = require('../models/EventModel.js')
 var ParentEventModel = require('../models/ParentEventModel.js')
 var later = require('later')
@@ -35,35 +35,47 @@ router.post('/',function(req,res) {
       User.addParentEvent(parent, function(e,id){
         //Create children events!
         var events = req.body.events
-        console.log(events)
         //Creat client and transfer out of pool
         var client = new pg.Client(db.connectionParameters)
         client.connect(function(e) {
           client.query('BEGIN()', function(e, result){
+            console.log(events.length)
             for (item in events){
               var sched = later.parse.cron(events[item].cron)
               var courseStart = new Date(course.attributes.start)
               var courseEnd = new Date(course.attributes.end)
+              //later.date.localTime();
               var dates = later.schedule(sched).next(1092,courseStart,courseEnd)
               for (date in dates){
-                console.log(dates[date])
+                console.log(dates[date].toISOString())
                 console.log(events[item])
                 console.log(dates[date].getSeconds())
-                console.log(events[item])
+                console.log("Start calculations: ")
+                console.log(new Date(dates[date].setSeconds(dates[date].getSeconds() + events[item].duration)).toISOString())
+                console.log(dates)
+                console.log(dates[date])
+                console.log(dates[date].toISOString())
+                console.log(dates[date].toJSON())
+                console.log("gettime: " + dates[date].getTime())
+                console.log("timezone: " + dates[date].getTimezoneOffset())
+                console.log(new Date(dates[date].getTime() - (dates[date].getTimezoneOffset() * 60000)).toJSON())
                 var courseEvent = new EventModel({
                   userid: req.user.profile.id,
                   parentid: id,
                   courseid: cid,
                   title: course.attributes.title,
-                  start: dates[date].toJSON(),
-                  end: new Date(dates[date].setSeconds(dates[date].getSeconds() + events[item].duration)).toISOString(),
+                  start: new Date(dates[date].getTime() - (dates[date].getTimezoneOffset() * 60000)).toJSON(),
+                  end: new Date(dates[date].setSeconds(dates[date].getSeconds() + events[item].duration - (dates[date].getTimezoneOffset() * 60))).toISOString(),
                   type: 0
                 });
                 var results = db(User.insertCommand(EventModel,courseEvent.toJSON()), function(e, rows, result) {
                   if(e) console.log(e)
                   res.write(JSON.stringify({id:result.rows[0].id}))
+                  console.log("string: " + JSON.stringify({id:result.rows[0].id}))
                   return res.end()
+
                 })
+                console.log(results)
               }
             }
             client.end();

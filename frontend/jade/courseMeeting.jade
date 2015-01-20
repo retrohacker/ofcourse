@@ -1,5 +1,24 @@
 div.oc-createCourse-courseMeeting
   form.pure-form
+    p Timezone 
+    select :
+      option(value="-4") AST
+      option(value="-5") EST
+      option(value="-4") EDT
+      option(value="-6") CST
+      option(value="-5") CDT
+      option(value="-7") MST
+      option(value="-6") MDT
+      option(value="-8") PST
+      option(value="-7") PDT
+      option(value="-9") AKST
+      option(value="-8") AKDT
+      option(value="-10") HST
+      option(value="-10") HAST
+      option(value="-9") HADT
+      option(value="-11") SST
+      option(value="-10") SDT
+      option(value="10") CHST
     p Start Time #[input(type="time", name="start", value="format 00:00").startTime]
     p End Time #[input(type="time", name="end", value="format 00:00").endTime]
     label
