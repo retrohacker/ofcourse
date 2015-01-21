@@ -35,28 +35,27 @@ router.post('/',function(req,res) {
       User.addParentEvent(parent, function(e,id){
         //Create children events!
         var events = req.body.events
-        console.log(events)
         //Creat client and transfer out of pool
         var client = new pg.Client(db.connectionParameters)
         client.connect(function(e) {
           client.query('BEGIN()', function(e, result){
             for (item in events){
+              //create weekdays in cron format
               var sched = later.parse.cron(events[item].cron)
+              //Create both start and end at local time
               var courseStart = new Date(course.attributes.start)
               var courseEnd = new Date(course.attributes.end)
+              //create new Date those days between start and end that meet cron formatted days of week
               var dates = later.schedule(sched).next(1092,courseStart,courseEnd)
               for (date in dates){
-                console.log(dates[date])
-                console.log(events[item])
-                console.log(dates[date].getSeconds())
-                console.log(events[item])
+                //create new EventModel for each created event
                 var courseEvent = new EventModel({
                   userid: req.user.profile.id,
                   parentid: id,
                   courseid: cid,
                   title: course.attributes.title,
-                  start: dates[date].toJSON(),
-                  end: new Date(dates[date].setSeconds(dates[date].getSeconds() + events[item].duration)).toISOString(),
+                  start: dates[date].toJSON(), //toJson will convert to UTC
+                  end: new Date(dates[date].setSeconds(dates[date].getSeconds() + events[item].duration)).toISOString(),//toISOString will convert to UTC
                   type: 0
                 });
                 var results = db(User.insertCommand(EventModel,courseEvent.toJSON()), function(e, rows, result) {

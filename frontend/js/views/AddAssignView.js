@@ -33,6 +33,7 @@ var AddAssignView = Backbone.View.extend({
                                     'end': this.$('#due').val(),
                                     'type': 1
                                   })
+    assignment.toUTCTime()
     assignment.save()
     workspace.navigate('home',{trigger: true})
   },
