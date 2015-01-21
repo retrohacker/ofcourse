@@ -29,11 +29,19 @@ var CourseMeetingView = Backbone.View.extend({
       }
     });
     wdString = wdString.substring(0, wdString.length-1)
+    console.log("wdString: " + wdString)
     mestart = starttime = obj.$('.startTime').val().split(':')
+    var startHelp = new Date(2000,0,0,starttime[0], starttime[1])
+    console.log("startTime: ")
+    console.log(starttime)
     meend = endtime = obj.$('.endTime').val().split(':')
-    var cron = starttime[1] + " " + starttime[0] + ' * * '+ wdString
+    console.log("endtime:")
+    console.log(endtime)
+    var cron = startHelp.getUTCMinutes() + " " + startHelp.getUTCHours() + ' * * '+ wdString
     var date1 = new Date(2000,0,0,starttime[0], starttime[1])
+    console.log("start: " + date1);
     var date2 = new Date(2000,0,0,endtime[0], endtime[1])
+    console.log("end: " + date2);
     var duration = (date2 - date1) / 1000
 
     var meetingEvent = {cron: cron, duration: duration}
