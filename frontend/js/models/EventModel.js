@@ -10,7 +10,7 @@ var EventModel = Backbone.Model.extend({
     end: ''      //End date time
   */
     //converts Database stored utc time into current time zone
-    toCurrentTime: function(date){
+    toCurrentTime: function(){
       //Time stored without timezone indicator
       //Thus, when exported to model it interprets this as local time
       //This causes local to UTC to be twice as large it should be for incorrectDate
@@ -30,5 +30,30 @@ var EventModel = Backbone.Model.extend({
       correctedDate = new Date(incorrectDate.getTime() -( incorrectDate.getTimezoneOffset()*60000))
       newStartString = correctedDate.toISOString()
       this.set({end: newStartString})
-    }
+    },
+    toUTCTime: function(){
+      //split by every non-numerical value
+      var splitArray = this.get('start').split(/\D/)
+      // create new date with local time with split array
+      var localTime = new Date(splitArray[0],
+                               splitArray[1],
+                               splitArray[2],
+                               splitArray[3],
+                               splitArray[4],
+                               splitArray[5])
+      //create ISO string then set as start
+      var UTCString = localTime.toISOString()
+      this.set({start: UTCString})
+      
+      //repeat for end
+      splitArray = this.get('end').split(/\D/)
+      localTime = new Date(splitArray[0],
+                               splitArray[1],
+                               splitArray[2],
+                               splitArray[3],
+                               splitArray[4],
+                               splitArray[5])
+      UTCString = localTime.toISOString()
+      this.set({end: UTCString})
+    } 
 });

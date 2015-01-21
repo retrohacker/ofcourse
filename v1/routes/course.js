@@ -35,7 +35,6 @@ router.post('/',function(req,res) {
       User.addParentEvent(parent, function(e,id){
         //Create children events!
         var events = req.body.events
-        console.log(events)
         //Creat client and transfer out of pool
         var client = new pg.Client(db.connectionParameters)
         client.connect(function(e) {

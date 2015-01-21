@@ -25,20 +25,12 @@ var CalendarView = Backbone.View.extend({
     });
     return this
   },
-  fixTimezone: function(){
-    console.log("hit")
-    this.collection.each(function(model){
-      console.log(model);
-    })
-  return this
-  },
   addAll: function() {
-      console.log("hit")
+      //for each model in eventCollection convert the time to local time
       _.each(this.collection.models,function(model){
         model.toCurrentTime();
       })
       $('#calendar').fullCalendar('addEventSource',App.eventCollection.toJSON())
-      console.log(App.eventCollection.toJSON())
       return this
   },
   unrender: function(){
