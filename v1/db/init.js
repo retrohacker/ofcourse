@@ -28,7 +28,11 @@ module.exports = function(db) { //TODO: give this a callback
     console.log("Attempting to create table "+model+"...")
     var model = require(path.join(modelsPath,model+'.js'))
     db(createTable(model.tableName,model.types),cb)
-  },function(e){
+  },
+  function(e){
+    if(e) throw e;
+    //Create table to keep track of karma to determine increases in user karma and notification level
+    db(createKarmaTrackerTable())
     if(e) throw e;
     db("select * from universities where name='Southern Illinois University'",function(e,rows,result) {
       if(e) return e
@@ -36,16 +40,17 @@ module.exports = function(db) { //TODO: give this a callback
         console.log('init.js: inserting default universities into database')
         db("insert into universities (name,abbreviation,state,city) values "
         + "('Southern Illinois University','SIU','IL','Carbondale'),"
-        + "('The Delaware One','TDO','DE','Delewareville')",function(e,rows,result) {
+        + "('The Delaware One','TDO','DE','Delewareville')",
+        function(e,rows,result) {
           if(e) return e
           return null
         })
-    }
-    console.log("Done setting up db")})
-  
+      }
+    })
+  },
+  console.log("Done setting up db"))
 
     return null
-  })
 }
 
 function createTable(title,types) {
@@ -57,4 +62,9 @@ function createTable(title,types) {
   result = result.slice(0,-1) // remove trailing comma
   result += ')'
   return result
+}
+function createKarmaTrackerTable(){
+  console.log("creating karma tracker");
+  var result = 'CREATE TABLE IF NOT EXISTS karmaTracker (id serial primary key, userId integer references users(id) not null, karma integer not null)';
+  return result 
 }
