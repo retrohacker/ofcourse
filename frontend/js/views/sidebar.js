@@ -17,9 +17,13 @@ var SidebarView = Backbone.View.extend({
     "click #sidebar-calendar": "openCalendar",
     "click #sidebar-courses": "openCourses",
     "click #sidebar-home": "openHome",
-    "click #sidebar-createcourse": "openCreateCourse"
+    "click #sidebar-createcourse": "openCreateCourse",
+    "click #sidebar-logout": "logout"
   },
   template: JADE.sidebar,
+  logout: function() {
+	 //TODO: add log out
+  },
   openHome: function() {
     workspace.navigate('home',{trigger:true})
   },
