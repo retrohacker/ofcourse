@@ -58,10 +58,8 @@ var Workspace = Backbone.Router.extend({
   },
   'userAssignments':function(){
     radio.trigger('unrender:page getTaskbar')
-    App.eventCollection = new EventCollection([])
     var userAssignments = new UserAssignmentsView({radio: radio, collection: App.eventCollection})
       .render()
-    App.eventCollection.fetch({reset:true})
   },
   'viewCourse':function(){
     radio.trigger('unrender:page getTaskbar')
@@ -77,6 +75,7 @@ var Workspace = Backbone.Router.extend({
     App.courses.fetch({reset:true})
     var addAssignmentView = new AddAssignView({radio: radio, collection: App.courses})
       .render()
+    App.eventCollection.fetch({reset:true})
   }
 });
 var App = App || {}
@@ -87,7 +86,9 @@ App.user.fetch({
 })
 App.courses = new CourseCollection()
 App.courseEvents = new CourseEventsCollection()
-App.course
+App.eventCollection = new EventCollection([])
+
+App.eventCollection.fetch({reset:true})
 
 var workspace = new Workspace({radio: radio});
 Backbone.history.start();

@@ -6,11 +6,11 @@
 }
 
 .oc-userAssignments-list {
-  position: fixed;
   width: 60%;
   height: 80%;
   left: 20%;
   background: #9A9AA1;
+  margin-left: 20%;
   overflow-y: scroll;
   -webkit-box-shadow: 10px 10px 15px -5px rgba(0,0,0,0.75);
   -moz-box-shadow: 10px 10px 15px -5px rgba(0,0,0,0.75);

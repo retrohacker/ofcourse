@@ -1,5 +1,7 @@
 div.oc-userAssignments-pageWrapper.ofcourse-body
   div.oc-userAssignments-list
     - each item in locals
-      div.oc-userAssignment-assignment(id='#{item.id}') 
-        h1 #{item.title}
+      - if (item.type == 1)
+        div.oc-userAssignments-assignment(id='#{item.id}')
+          h1 #{item.title}
+          button(type='button' class=['pure-button pure-input-1 pure-button-primary'] onclick="radio.trigger('submit:CompleteAssignment')") Complete
