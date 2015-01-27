@@ -1,0 +1,5 @@
+div.oc-userAssignments-pageWrapper.ofcourse-body
+  div.oc-userAssignments-list
+    - each item in locals
+      div.oc-userAssignment-assignment(id='#{item.id}') 
+        h1 #{item.title}
