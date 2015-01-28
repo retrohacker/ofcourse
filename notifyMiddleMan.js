@@ -1,14 +1,17 @@
 var express = require("express");
-var bodyParser = require('body-parser');
 var app = express();
+var port = 8080;
 
-app.set('port', process.env.PORT || 8080);
-
-app.get('/', function(req,res){
-  console.log(req);
-  res.send('hello world');
+app.get("/", function(req,res){
+  res.send("working");
 });
 
+var io = require('socket.io').listen(app.listen(port));
+console.log("middleman listening on port " + port);
 
-
-app.listen(app.get('port'));
+io.sockets.on('connection', function (socket) {
+  socket.emit('message', {message: 'send the notification' });
+  socket.on('send', function (data) {
+  console.log(data);
+  });
+});

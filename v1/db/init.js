@@ -65,6 +65,6 @@ function createTable(title,types) {
 }
 function createKarmaTrackerTable(){
   console.log("creating karma tracker");
-  var result = 'CREATE TABLE IF NOT EXISTS karmaTracker (id serial primary key, userId integer references users(id) not null, karma integer not null)';
+  var result = 'CREATE TABLE IF NOT EXISTS karmaTracker (id serial primary key, userId integer references users(id) not null, eventId integer references events(id), karma integer not null)';
   return result 
 }

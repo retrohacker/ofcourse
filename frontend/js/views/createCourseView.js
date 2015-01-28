@@ -35,6 +35,9 @@ var CreateCourseView = Backbone.View.extend({
       var value = view.$('#' + item.id).val()
       view.course.set(name, value)
     });
+    view.course.set('type',0);
+    console.log("this is courseModel: " );
+    console.log(view.course);
     view.course.set('events',events)
     this.course.save();
   },
