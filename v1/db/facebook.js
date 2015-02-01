@@ -1,6 +1,8 @@
 var fb = module.exports = {}
-var db = require('../db/database.js')
-var userDB = require('./User.js')
+
+var userDB = require('./user.js')
+var db = require('./conn.js')
+
 var UserModel = require('../models/UserModel.js')
 
 //USING POSTGRES

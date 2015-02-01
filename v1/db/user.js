@@ -1,10 +1,11 @@
 var user = module.exports = {}
-var db = require('../db/database.js')
+
+var db = require('./conn.js')
+
 var UserModel = require('../models/UserModel.js')
 var CourseModel = require('../models/CourseModel.js')
 var EventModel = require('../models/EventModel.js')
 var ParentEventModel = require('../models/ParentEventModel.js')
-
 
 //USING POSTGRES
 user.insert = function insert(values,cb) {

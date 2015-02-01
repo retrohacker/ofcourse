@@ -5,15 +5,13 @@ var passport = require('passport')
 var Facebook = require('passport-facebook').Strategy
 var LocalStrategy = require('passport-local').Strategy;
 
-var session = require('../db/session.js')
-var facebookDB = require('../db/Facebook.js')
-var User = require('../db/User.js')
+var db = require('../db')
 
 var FacebookModel = require('../models/FacebookModel.js')
 var UserModel = require('../models/UserModel.js')
 
 router.use(bodyParser.urlencoded())
-router.use(session)
+router.use(db.session)
 router.use(passport.initialize());
 router.use(passport.session());
 
@@ -33,7 +31,7 @@ passport.use(new LocalStrategy({
     passwordField: 'email'
   },
   function(username, password, done) {
-    User.getUserByEmail(username,function(e,user){
+    db.user.getUserByEmail(username,function(e,user){
       if(e) return done(e, false, { message: 'Incorrect username.' });
       if(user){
         return done(null, user.id);
@@ -70,7 +68,7 @@ passport.deserializeUser(function(id,done) {
 })
 
 function updateFacebookUser(profile,cb) {
-  facebookDB.updateOrCreate({model:FacebookModel,values:new FacebookModel(profile)},function(e,id) {
+  db.facebook.updateOrCreate({model:FacebookModel,values:new FacebookModel(profile)},function(e,id) {
     if(e) cb(e)
     cb(null,id)
   })

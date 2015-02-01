@@ -42,7 +42,6 @@ module.exports = function(db) { //TODO: give this a callback
         })
     }
     console.log("Done setting up db")})
-  
 
     return null
   })
