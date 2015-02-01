@@ -77,7 +77,6 @@ user.addCourse = function addCourse(course,userid,done) {
 user.addEvent = function addEvent(userEvent,userid,done){
   userEvent.set({'userid': userid})
   var results = db(user.insertCommand(models.Event,userEvent.toJSON()), function(err, rows, result) {
-    console.log(err)
     if(err) return done(err,null)
     return done(null,result.rows[0].id)
   });
@@ -85,7 +84,6 @@ user.addEvent = function addEvent(userEvent,userid,done){
 
 user.addParentEvent = function addParentEvent(parentEvent,done){
   var results = db(user.insertCommand(models.ParentEvent,parentEvent.toJSON()), function(err, rows, result) {
-    console.log(err)
     if(err) return done(err,null)
     return done(null,result.rows[0].id)
   });

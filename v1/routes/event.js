@@ -12,8 +12,6 @@ router.use(passport.initialize())
 router.use(passport.session())
 
 router.post('/event',function(req,res) {
-  console.log('user.js: ', req.user)
-  console.log('user.js: ', req.body)
   if(!req.user || !req.user.profile || !req.user.profile.id) return res.status(401).json(new Error("Please login"))
   var userEvent = new models.Event()
   if(!userEvent.set(req.body,{validate:true}))
