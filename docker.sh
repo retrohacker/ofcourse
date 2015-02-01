@@ -2,7 +2,7 @@
 
 # Used to start docker containers
 if [[ $1 == "kill" ]]; then
-  docker ps | grep "redis\|postgres\|elasticsearch" | awk '{print $1}' | xargs docker kill | xargs docker rm
+  docker ps | grep "redis\|postgres" | awk '{print $1}' | xargs docker kill | xargs docker rm
   exit 0
 fi
 
@@ -16,10 +16,4 @@ if docker ps | grep -q "0.0.0.0:6379"; then
   echo "Docker container already bound to port 6379"
 else
   docker run -dp 6379:6379 redis:2.8.12
-fi
-
-if docker ps | grep -q "0.0.0.0:9200"; then
-  echo "Docker container already bound to port 9200"
-else
-  docker run -dp 9200:9200 barnybug/elasticsearch:1.3.2
 fi
