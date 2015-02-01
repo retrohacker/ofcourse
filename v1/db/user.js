@@ -1,22 +1,18 @@
 var user = module.exports = {}
 
 var db = require('./conn.js')
-
-var UserModel = require('../models/UserModel.js')
-var CourseModel = require('../models/CourseModel.js')
-var EventModel = require('../models/EventModel.js')
-var ParentEventModel = require('../models/ParentEventModel.js')
+var models = require('../models')
 
 //USING POSTGRES
 user.insert = function insert(values,cb) {
-  db(user.insertCommand(UserModel,values.toJSON()),function(e,rows,result) {
+  db(user.insertCommand(models.User,values.toJSON()),function(e,rows,result) {
     if(e) return cb(e)
     return cb(null,result.rows[0].id)
   })
 }
 
 user.update = function update(values,cb) {
-  db(updateCommand(UserModel,values.toJSON()),function(e,rows,result) {
+  db(updateCommand(models.User,values.toJSON()),function(e,rows,result) {
     if(e) return cb(e)
     return cb(null,result.rows[0].id)
   })
@@ -72,7 +68,7 @@ user.getUserByEmail = function getUserByEmail(email,done) {
 }
 
 user.addCourse = function addCourse(course,userid,done) {
-  var results = db(user.insertCommand(CourseModel,course.toJSON()), function(err, rows, result) {
+  var results = db(user.insertCommand(models.Course,course.toJSON()), function(err, rows, result) {
     if(err) return done(err,null)
     return done(null,result.rows[0].id)
   });
@@ -80,7 +76,7 @@ user.addCourse = function addCourse(course,userid,done) {
 
 user.addEvent = function addEvent(userEvent,userid,done){
   userEvent.set({'userid': userid})
-  var results = db(user.insertCommand(EventModel,userEvent.toJSON()), function(err, rows, result) {
+  var results = db(user.insertCommand(models.Event,userEvent.toJSON()), function(err, rows, result) {
     console.log(err)
     if(err) return done(err,null)
     return done(null,result.rows[0].id)
@@ -88,7 +84,7 @@ user.addEvent = function addEvent(userEvent,userid,done){
 }
 
 user.addParentEvent = function addParentEvent(parentEvent,done){
-  var results = db(user.insertCommand(ParentEventModel,parentEvent.toJSON()), function(err, rows, result) {
+  var results = db(user.insertCommand(models.ParentEvent,parentEvent.toJSON()), function(err, rows, result) {
     console.log(err)
     if(err) return done(err,null)
     return done(null,result.rows[0].id)

@@ -6,20 +6,16 @@ var later = require('later')
 var pg = require('pg')
 
 var db = require('../db')
-
-var CourseModel = require('../models/CourseModel.js')
-var EventModel = require('../models/EventModel.js')
-var ParentEventModel = require('../models/ParentEventModel.js')
+var models = require('../models')
 
 router.use(bodyParser.json())
 router.use(db.session)
 router.use(passport.initialize())
 router.use(passport.session())
 
-//CourseModel
 router.post('/',function(req,res) {
   if(!req.user || !req.user.profile || !req.user.profile.id) return res.status(401).json(new Error("Please login"))
-  var course = new CourseModel()
+  var course = new models.Course()
   if(!course.set(req.body,{validate:true})) {
     return res.status(400).json({e:user.validationError})
   }
@@ -29,7 +25,7 @@ router.post('/',function(req,res) {
     course.set('university',university)
     db.user.addCourse(course,req.user.profile.id,function(e,id){
       if(e) console.log(e)
-      var parent = new ParentEventModel()
+      var parent = new models.ParentEvent()
       parent.set(course.toJSON())
       parent.set('cid',id)
       cid = id
@@ -51,7 +47,7 @@ router.post('/',function(req,res) {
                 console.log(events[item])
                 console.log(dates[date].getSeconds())
                 console.log(events[item])
-                var courseEvent = new EventModel({
+                var courseEvent = new models.Event({
                   userid: req.user.profile.id,
                   parentid: id,
                   courseid: cid,
@@ -60,7 +56,7 @@ router.post('/',function(req,res) {
                   end: new Date(dates[date].setSeconds(dates[date].getSeconds() + events[item].duration)).toISOString(),
                   type: 0
                 });
-                var results = db.db(db.user.insertCommand(EventModel,courseEvent.toJSON()), function(e, rows, result) {
+                var results = db.db(db.user.insertCommand(models.Event,courseEvent.toJSON()), function(e, rows, result) {
                   if(e) console.log(e)
                   res.write(JSON.stringify({id:result.rows[0].id}))
                   return res.end()

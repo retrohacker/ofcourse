@@ -2,8 +2,7 @@ var fb = module.exports = {}
 
 var userDB = require('./user.js')
 var db = require('./conn.js')
-
-var UserModel = require('../models/UserModel.js')
+var models = require('../models')
 
 //USING POSTGRES
 fb.updateOrCreate = function updateOrCreate(opts,cb) {
@@ -17,7 +16,7 @@ fb.updateOrCreate = function updateOrCreate(opts,cb) {
       fb.insert(opts,function(e) {
         if(e) return cb(e)
         //fbuser exists, but we don't have an id yet
-        userDB.insert(new UserModel(vals),function(e,id) {
+        userDB.insert(new models.User(vals),function(e,id) {
           //update fbuser
           db("update fb set id = "+id+" where fbid = "+vals.fbid,function(e) {
             if(e) return cb(e)
@@ -31,7 +30,7 @@ fb.updateOrCreate = function updateOrCreate(opts,cb) {
       return cb(null,result.rows[0].id) //we have the user id
     }
     //fbuser exists, but we don't have an id yet
-    userDB.insert(new UserModel(vals),function(e,id) {
+    userDB.insert(new models.User(vals),function(e,id) {
       //update fbuser
       db("update fb set id = "+id+" where fbid = "+vals.fbid,function(e) {
         if(e) return cb(e)

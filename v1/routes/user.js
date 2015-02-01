@@ -4,8 +4,7 @@ var bodyParser = require('body-parser')
 var passport = require('passport')
 
 var db = require('../db')
-
-var UserModel = require('../models/UserModel.js')
+var models = require('../models')
 
 router.use(bodyParser.json())
 router.use(db.session)
@@ -22,7 +21,7 @@ router.get('/course/:id/events', function (req, res, next) {
 });
 
 router.post('/',function(req,res) {
-  var user = new UserModel()
+  var user = new models.User()
   if(!user.set(req.body,{validate:true})){
     return res.status(400).json({e:user.validationError})
   }
@@ -37,7 +36,7 @@ router.post('/',function(req,res) {
 
 router.put('/',function(req,res) {
   if(!req.user || !req.user.profile || !req.user.profile.id) return res.status(401).json(new Error("Not Logged In"))
-   var user = new UserModel()
+   var user = new models.User()
   if(!user.set(req.body,{validate:true})){
     return res.status(400).json({e:user.validationError})
   }

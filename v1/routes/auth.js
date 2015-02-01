@@ -6,9 +6,7 @@ var Facebook = require('passport-facebook').Strategy
 var LocalStrategy = require('passport-local').Strategy;
 
 var db = require('../db')
-
-var FacebookModel = require('../models/FacebookModel.js')
-var UserModel = require('../models/UserModel.js')
+var models = require('../models')
 
 router.use(bodyParser.urlencoded())
 router.use(db.session)
@@ -68,7 +66,7 @@ passport.deserializeUser(function(id,done) {
 })
 
 function updateFacebookUser(profile,cb) {
-  db.facebook.updateOrCreate({model:FacebookModel,values:new FacebookModel(profile)},function(e,id) {
+  db.facebook.updateOrCreate({model:models.Facebook,values:new models.Facebook(profile)},function(e,id) {
     if(e) cb(e)
     cb(null,id)
   })
