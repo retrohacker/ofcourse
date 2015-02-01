@@ -1,10 +1,11 @@
-var bodyParser = require('body-parser')
 var router = module.exports = require('express').Router()
+
+var bodyParser = require('body-parser')
+var passport = require('passport')
+
 var db = require('../db/database.js')
 var session = require('../db/session.js')
-var passport = require('passport')
 var User = require('../db/User.js')
-//var CourseModel = require('../models/CourseModel.js')
 
 router.use(bodyParser.json())
 router.use(session)

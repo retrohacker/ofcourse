@@ -1,14 +1,17 @@
-var bodyParser = require('body-parser')
 var router = module.exports = require('express').Router()
+
+var bodyParser = require('body-parser')
+var passport = require('passport')
+var later = require('later')
+var pg = require('pg')
+
 var db = require('../db/database.js')
 var session = require('../db/session.js')
-var passport = require('passport')
 var User = require('../db/User.js')
+
 var CourseModel = require('../models/CourseModel.js')
 var EventModel = require('../models/EventModel.js')
 var ParentEventModel = require('../models/ParentEventModel.js')
-var later = require('later')
-var pg = require('pg')
 
 router.use(bodyParser.json())
 router.use(session)

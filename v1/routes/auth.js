@@ -1,14 +1,16 @@
-var bodyParser = require('body-parser')
 var router = module.exports = require('express').Router()
+
+var bodyParser = require('body-parser')
 var passport = require('passport')
 var Facebook = require('passport-facebook').Strategy
-var session = require('../db/session.js')
-var UserModel = require('../models/UserModel.js')
-var FacebookModel = require('../models/FacebookModel.js')
-var facebookDB = require('../db/Facebook.js')
-var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy;
+
+var session = require('../db/session.js')
+var facebookDB = require('../db/Facebook.js')
 var User = require('../db/User.js')
+
+var FacebookModel = require('../models/FacebookModel.js')
+var UserModel = require('../models/UserModel.js')
 
 router.use(bodyParser.urlencoded())
 router.use(session)
