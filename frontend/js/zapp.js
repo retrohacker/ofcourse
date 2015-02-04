@@ -45,7 +45,7 @@ var Workspace = Backbone.Router.extend({
    },  
   'createCourse':function(){
     radio.trigger('unrender:page getTaskbar')
-    this.createCourseView = new CreateCourseView({collection: App.courses, radio: radio, formVals:createCourseCollection().toJSON(), model: App.user}).render()
+    this.createCourseParentView = new CreateCourseParentView({collection: App.courses, radio: radio, formVals:createCourseCollection().toJSON(), model: App.user}).render()
   },
   'courses':function(){
     radio.trigger('unrender:page getTaskbar')

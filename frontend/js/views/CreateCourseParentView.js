@@ -2,7 +2,7 @@
 //and the *Form JADE templates.
 //Instantiation: var variable = new FormView({radio:radio})
 //Rendering: variable.render([Form Collection],[Optional DOM location])
-var CreateCourseView = Backbone.View.extend({
+var CreateCourseParentView = Backbone.View.extend({
   url: '/v1/course/',
   defaultLocation: ".ofcourse-body",
   template: JADE.createCourseForm,
@@ -12,8 +12,8 @@ var CreateCourseView = Backbone.View.extend({
     this.course = new CourseModel();
     this.events = []
     this.children = []
-    radio.on('unrender:CreateCourseView',this.unrender, this)
-    radio.on('render:CreateCourseView',this.render,this)
+    radio.on('unrender:CreateCourseParentView',this.unrender, this)
+    radio.on('render:CreateCourseParentView',this.render,this)
     radio.on('unrender',this.unrender,this)
     radio.on('unrender:page',this.unrender,this)
     radio.on('courseSubmit',this.formSubmitted, this)
@@ -46,7 +46,7 @@ var CreateCourseView = Backbone.View.extend({
     this.$('#end').datepicker({dateFormat:"yy-mm-ddT00:00:00"})
   },
   createChildren: function(){
-    this.children.push(new CourseMeetingView({radio:radio}).render())
+    this.children.push(new CourseCourseChild_SetWeekdayView({radio:radio}).render())
   },
   unrender: function() {
     this.$el.remove()
