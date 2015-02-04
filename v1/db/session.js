@@ -1,4 +1,3 @@
-var isDev = require('isdev')
 var session = require('express-session');
 var RedisStore = require('connect-redis')(session)
 var redis = require('redis')

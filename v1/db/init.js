@@ -10,16 +10,21 @@ var glob = require('glob')
 var path = require('path')
 var async = require('async')
 
+/**
+ * This is a special case. We are loading in all models from the models
+ * directory to create tables for them in the database. Generally we try
+ * to avoid directly requiring in files from other folders.
+ */
 //A path to the models directory in the project and the model names
 var modelsPath = path.join('../','models')
 var models = [
-                'UniversityModel',
-                'UserModel',
-                'FacebookModel',
-                'CourseModel',
-                'ParentEventModel',
-                'EventModel',
-                'CourseToUser'
+                'university',
+                'user',
+                'facebook',
+                'course',
+                'parentEvent',
+                'event',
+                'course_user'
              ]
 
 module.exports = function(db) { //TODO: give this a callback
@@ -42,7 +47,6 @@ module.exports = function(db) { //TODO: give this a callback
         })
     }
     console.log("Done setting up db")})
-  
 
     return null
   })
