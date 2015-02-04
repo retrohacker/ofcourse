@@ -20,6 +20,7 @@ var UserModel = module.exports = Backbone.Model.extend({
       if(typeof attributes.email != 'string' || !attributes.email.match(re))
         return 'email not valid error'
     }
+    // must add validation for karma?
   }
 });
 
@@ -29,5 +30,6 @@ module.exports.types = {
   firstName: 'varchar (50) not null',
   lastName: 'varchar(50) not null',
   university: 'integer references universities(id)',
-  email: 'varchar(254) unique'
+  email: 'varchar(254) unique',
+  karma: 'integer'
 }

@@ -7,7 +7,8 @@ var UserModel = Backbone.Model.extend({
 		lastName: 'Last Name',
 		university: 'University',
 		email: 'Email Address',
-	},
+    karma: 0,
+  },
 	validate:function(attributes,options){
 		if(attributes.id < 0){
 			return 'id error'
