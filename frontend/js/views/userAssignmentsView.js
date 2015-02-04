@@ -5,11 +5,14 @@ var UserAssignmentsView = Backbone.View.extend({
       this.collection = opts.collection
       if(this.collection) {
         this.setElement(this.template(this.collection.toJSON()))
-     }
+      }
       radio.on('unrender:userAssignmentsView', this.unrender, this)
       radio.on('render:userAssignmentsView', this.render, this)
       radio.on('unrender', this.unrender, this)
       radio.on('unrender:page', this.unrender, this)
+      this.listenTo(this.collection, 'add', this.rerender)
+      this.listenTo(this.collection, 'remove', this.rerender)
+      this.listenTo(this.collection, 'reset',this.rerender)
     },
     completeAssignment: function(){
       //Delete from DB
