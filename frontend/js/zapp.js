@@ -37,9 +37,9 @@ var Workspace = Backbone.Router.extend({
   },
   'addCourse': function(){
     radio.trigger('unrender:page getTaskbar');
-    var addCourse = new AddCourseView({radio: radio})
+    var addCourseParentView = new AddCourseParentView({radio: radio})
       .render()
-    var uniCourseContainer = new UniCourseContainerView({radio: radio, collection: App.courses, model: App.user})
+    var addCourseChild_CourseContainerView = new AddCourseChild_CourseContainerView({radio: radio, collection: App.courses, model: App.user})
       .render()
     App.courses.fetch({reset:true})//not the most efficient way to populate collection
    },  

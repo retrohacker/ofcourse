@@ -1,10 +1,10 @@
-var AddCourseView = Backbone.View.extend({
+var AddCourseParentView = Backbone.View.extend({
   defaultLocation: ".ofcourse-body",
   template: JADE.addCourse,
   initialize: function(opts) {
     this.setElement(this.template()),
-    radio.on('unrender:AddCourse', this.unrender, this)
-    radio.on('render:AddCourse',this.render,this)
+    radio.on('unrender:AddCourseParentView', this.unrender, this)
+    radio.on('render:AddCourseParentView',this.render,this)
     radio.on('unrender:page', this.unrender, this)
     radio.on('unrender', this.unrender, this)
   },
