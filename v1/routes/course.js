@@ -21,7 +21,7 @@ router.post('/',function(req,res) {
     return res.status(400).json({e:course.validationError})
   }
   //Open DB connection
-  var client = new pg.Client(db.connectionParameters)
+  var client = new pg.Client(db.db.connectionParameters)
   async.waterfall([
     function getUserUniversity(cb){
       db.user.getUniversityByUserID(req.user.profile.id,function(e,university) {
@@ -29,61 +29,65 @@ router.post('/',function(req,res) {
         if(e) return cb(e, 500, "Error getting University from User data")
         if(!university) return cb(e, 400, "No University found for User")
         course.set('university',university)
-        cb(e,course)
+        return cb(e,course)
       })
     },
     function addUserEvent(course, cb){
-      db.user.addCourse(course,req.user.profile.id,function(e,id){
-        var parent = new ParentEventModel()
-        parent.set(course.toJSON())
-        parent.set('cid',id)
-        cid = id
-        cb(e,cid,id, parent)
+      // We should really start a transaction up here.
+      // In the event anything fails, we should rollback changes and retry?
+      db.user.addCourse(course,req.user.profile.id,function(e,cid){
+        return cb(e,cid)
       })
     },
-    function addUserParentEvent(cid, id, parent, cb){
-      db.user.addParentEvent(parent, function(e,id){
+    function addUserParentEvent(cid, cb){
+      var parent = new models.ParentEvent()
+      parent.set(course.toJSON())
+      parent.set('cid',cid)
+      db.user.addParentEvent(parent, function(e,pid){
         var events = req.body.events
-        cb(e,events, cid, id)
+        return cb(e,events, cid, pid)
       })
     },
-    function connect(events, cid, id, cb){
+    function connect(events, cid, pid, cb){
       client.connect(function(e){
-        cb(e,events,cid,id)
+        return cb(e,events,cid,pid)
       })
     },
-    function query(events, cid, id, cb){
-      client.query('BEGIN()', function(e, result){
-        async.each(events, function(item, cb){
-          var sched = later.parse.cron(item.cron)
-          var courseStart = new Date(course.attributes.start)
-          var courseEnd = new Date(course.attributes.end)
-          var dates = later.schedule(sched).next(1092,courseStart,courseEnd)
-          async.each(dates, function(date, cb){
-            var courseEvent = new EventModel({
-              userid: req.user.profile.id,
-              parentid: id,
-              courseid: cid,
-              title: course.attributes.title,
-              start: date.toJSON(),
-              end: new Date(date.setSeconds(date.getSeconds() + item.duration)).toISOString(),
-              type: 0
-            })
-            db.db(User.insertCommand(EventModel,courseEvent.toJSON()), function(e, rows, result) {
-              res.write(JSON.stringify({id:result.rows[0].id}))
-              return res.end()
-            })
-            cb(e)
+    function beginTransaction(events,cid,pid,cb) {
+      //client.query('BEGIN()', function(e, result){ // This doesn't work with pg-query
+        return cb(null,events,cid,pid)
+      //})
+    },
+    function insertEvents(events, cid, pid, cb){
+      // For each cron and duration
+      async.each(events, function(item, cb){
+        var sched = later.parse.cron(item.cron)
+        var courseStart = new Date(course.attributes.start)
+        var courseEnd = new Date(course.attributes.end)
+        var dates = later.schedule(sched).next(1092,courseStart,courseEnd)
+        // We need to create all physical dates that are generated from it
+        async.each(dates, function(date, cb){
+          var courseEvent = new models.Event({
+            userid: req.user.profile.id,
+            parentid: pid,
+            courseid: cid,
+            title: course.attributes.title,
+            start: date.toJSON(),
+            end: new Date(date.setSeconds(date.getSeconds() + item.duration)).toISOString(),
+            type: 0
           })
-          cb(e)
-        })
-        cb(e)
+          db.db(db.user.insertCommand(models.Event,courseEvent.toJSON()), cb)
+        },cb)
+      },function(e) {
+        return cb(e,pid)
       })
     }
   ],
-  function(e){
+  function(e,pid){
     client.end()
-    if (e) return res.status(500).json(e)
+    if (e) return res.status(500).end(e.stack+"\n"+JSON.stringify(e))
+    res.write(JSON.stringify({id:pid}))
+    return res.end()
   })
 })
 
