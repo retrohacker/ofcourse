@@ -45,7 +45,10 @@ var Workspace = Backbone.Router.extend({
    },  
   'createCourse':function(){
     radio.trigger('unrender:page getTaskbar')
-    this.createCourseParentView = new CreateCourseParentView({collection: App.courses, radio: radio, formVals:createCourseCollection().toJSON(), model: App.user}).render()
+    this.createCourseParentView = new CreateCourseParentView({collection: App.courses, 
+                                                              radio: radio,
+                                                              formVals:createCourseCollection().toJSON(),
+                                                              model: App.user}).render()
   },
   'courses':function(){
     radio.trigger('unrender:page getTaskbar')
@@ -57,11 +60,10 @@ var Workspace = Backbone.Router.extend({
   },
   'viewCourse':function(){
     radio.trigger('unrender:page getTaskbar')
-    var courseEvents = new EventCollection([])
-    var course = new UserCourseView({radio: radio, model: App.course})
-      .render()
-    var courseEventContainer = new UserCourseEventContainerView({radio: radio, collection: App.courseEvents})
-      .render()
+    var course = new SingleCourseParentView({radio: radio,
+                                             model: App.course,
+                                             collection: App.courseEvents})
+                                          .render()
     App.courseEvents.fetch()
   },
   'addAssignment': function(){
