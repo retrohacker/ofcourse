@@ -3,6 +3,7 @@ var fb = module.exports = {}
 var userDB = require('./user.js')
 var db = require('./conn.js')
 var models = require('../models')
+var sql = require('./sql.js')
 
 //USING POSTGRES
 fb.updateOrCreate = function updateOrCreate(opts,cb) {
@@ -41,27 +42,9 @@ fb.updateOrCreate = function updateOrCreate(opts,cb) {
 }
 
 fb.insert = function insert(opts,cb) {
-  db(insertCommand(opts.model,opts.values.toJSON()),function(e,rows,result) {
+  db(sql.insert(opts.model,opts.values.toJSON()),function(e,rows,result) {
     if(e) return cb(e)
   })
-}
-
-function insertCommand(model,values) {
-  var result = 'INSERT INTO '+model.tableName+' ('
-  var modelVals = Object.keys(model.types)
-  Object.keys(values).forEach(function(v) {
-    if(modelVals.indexOf(v) !== -1)
-      result += '"'+v+'",' // Add the var name
-  })
-  result = result.slice(0,-1) // remove trailing comma
-  result += ') VALUES ('
-  Object.keys(values).forEach(function(v) {
-    if(modelVals.indexOf(v) !== -1)
-      result += "'"+values[v]+"'," // Add the value
-  })
-  result = result.slice(0,-1) // remove trailing comma
-  result += ')'
-  return result
 }
 
 function verifyOpts(opts,cb) {
