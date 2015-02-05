@@ -69,7 +69,7 @@ router.post('/',function(req,res) {
               end: new Date(date.setSeconds(date.getSeconds() + item.duration)).toISOString(),
               type: 0
             })
-            db.db(User.insertCommand(EventModel,courseEvent.toJSON()), function(e, rows, result) {
+            db.db(db.sql.insert(EventModel,courseEvent.toJSON()), function(e, rows, result) {
               res.write(JSON.stringify({id:result.rows[0].id}))
               return res.end()
             })
