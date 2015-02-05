@@ -46,7 +46,7 @@ var CreateCourseParentView = Backbone.View.extend({
     this.$('#end').datepicker({dateFormat:"yy-mm-ddT00:00:00"})
   },
   createChildren: function(){
-    this.children.push(new CourseCourseChild_SetWeekdayView({radio:radio}).render())
+    this.children.push(new CreateCourseChild_SetWeekdayView({radio:radio}).render())
   },
   unrender: function() {
     this.$el.remove()

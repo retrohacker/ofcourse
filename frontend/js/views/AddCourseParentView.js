@@ -3,7 +3,7 @@ var AddCourseParentView = Backbone.View.extend({
   template: JADE.addCourse,
   initialize: function(opts) {
     this.setElement(this.template()),
-    this.children == [],
+    this.children = [],
     radio.on('unrender:AddCourseParentView', this.unrender, this)
     radio.on('render:AddCourseParentView',this.render,this)
     radio.on('unrender:page', this.unrender, this)
