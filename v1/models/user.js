@@ -1,9 +1,9 @@
-var module = module || {}
 var Backbone = Backbone || require('backbone')
 
 //User model
 //This is data that will be stored in the database
-var UserModel = module.exports = Backbone.Model.extend({
+var UserModel = Backbone.Model.extend({
+  url: '/v1/user',
   validate:function(attributes,options){
 	  if(attributes.id && (typeof attributes.id != 'number' || attributes.id < 0))
       return 'expected number for id'
@@ -20,14 +20,24 @@ var UserModel = module.exports = Backbone.Model.extend({
       if(typeof attributes.email != 'string' || !attributes.email.match(re))
         return 'email not valid error'
     }
+  },
+  isLoggedIn: function() {
+    return this.attributes.id != null
+  },
+  hasUniversity: function() {
+    return this.attributes.university != null
   }
 });
 
-module.exports.tableName = "users"
-module.exports.types = {
+UserModel.tableName = "users"
+UserModel.types = {
   id: 'serial primary key',
   firstName: 'varchar (50) not null',
   lastName: 'varchar(50) not null',
   university: 'integer references universities(id)',
   email: 'varchar(254) unique'
+}
+
+if(typeof module !== 'undefined' && module.exports) {
+  module.exports = UserModel
 }

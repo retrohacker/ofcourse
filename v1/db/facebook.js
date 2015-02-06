@@ -1,7 +1,9 @@
 var fb = module.exports = {}
-var db = require('../db/database.js')
-var userDB = require('./User.js')
-var UserModel = require('../models/UserModel.js')
+
+var userDB = require('./user.js')
+var db = require('./conn.js')
+var models = require('../models')
+var sql = require('./sql.js')
 
 //USING POSTGRES
 fb.updateOrCreate = function updateOrCreate(opts,cb) {
@@ -15,7 +17,7 @@ fb.updateOrCreate = function updateOrCreate(opts,cb) {
       fb.insert(opts,function(e) {
         if(e) return cb(e)
         //fbuser exists, but we don't have an id yet
-        userDB.insert(new UserModel(vals),function(e,id) {
+        userDB.insert(new models.User(vals),function(e,id) {
           //update fbuser
           db("update fb set id = "+id+" where fbid = "+vals.fbid,function(e) {
             if(e) return cb(e)
@@ -29,7 +31,7 @@ fb.updateOrCreate = function updateOrCreate(opts,cb) {
       return cb(null,result.rows[0].id) //we have the user id
     }
     //fbuser exists, but we don't have an id yet
-    userDB.insert(new UserModel(vals),function(e,id) {
+    userDB.insert(new models.User(vals),function(e,id) {
       //update fbuser
       db("update fb set id = "+id+" where fbid = "+vals.fbid,function(e) {
         if(e) return cb(e)
@@ -40,27 +42,9 @@ fb.updateOrCreate = function updateOrCreate(opts,cb) {
 }
 
 fb.insert = function insert(opts,cb) {
-  db(insertCommand(opts.model,opts.values.toJSON()),function(e,rows,result) {
+  db(sql.insert(opts.model,opts.values.toJSON()),function(e,rows,result) {
     if(e) return cb(e)
   })
-}
-
-function insertCommand(model,values) {
-  var result = 'INSERT INTO '+model.tableName+' ('
-  var modelVals = Object.keys(model.types)
-  Object.keys(values).forEach(function(v) {
-    if(modelVals.indexOf(v) !== -1)
-      result += '"'+v+'",' // Add the var name
-  })
-  result = result.slice(0,-1) // remove trailing comma
-  result += ') VALUES ('
-  Object.keys(values).forEach(function(v) {
-    if(modelVals.indexOf(v) !== -1)
-      result += "'"+values[v]+"'," // Add the value
-  })
-  result = result.slice(0,-1) // remove trailing comma
-  result += ')'
-  return result
 }
 
 function verifyOpts(opts,cb) {

@@ -1,16 +1,14 @@
-var module = module || {}
-var Backbone = Backbone || require('backbone')
-var module = module || {}
 var Backbone = Backbone || require('backbone')
 
-var EventModel = module.exports = Backbone.Model.extend({
+var EventModel = Backbone.Model.extend({
+  url: '/v1/event/event',
   validate:function(attributes,options) {
     //TODO
   }
 });
 
-module.exports.tableName = "events"
-module.exports.types = {
+EventModel.tableName = "events"
+EventModel.types = {
   id: 'serial primary key',
   userid: 'integer references users(id) not null',
   parentid: 'integer references parent_events(id)',
@@ -26,3 +24,6 @@ module.exports.types = {
  * 0: class
  * 1: assignment
  */
+if(typeof module !== 'undefined' && module.exports) {
+  module.exports = EventModel
+}

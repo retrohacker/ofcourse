@@ -1,12 +1,13 @@
-var module = module || {}
 var Backbone = Backbone || require('backbone')
 
-var CourseModel =  module.exports = Backbone.Model.extend({
+var CourseModel =  Backbone.Model.extend({
+  url: '/v1/course/',
   validate:function(attributes,options){
   }
 })
-module.exports.tableName = "courses"
-module.exports.types = {
+
+CourseModel.tableName = "courses"
+CourseModel.types = {
   university: 'integer references universities(id) not null',
   id: 'serial primary key',//This will link all occurances of this class
   title: 'varchar(50) not null',
@@ -15,4 +16,8 @@ module.exports.types = {
   section: 'integer not null',
   start: 'timestamp not null',
   end: 'timestamp not null'
+}
+
+if(typeof module !== 'undefined' && module.exports) {
+  module.exports = CourseModel
 }
