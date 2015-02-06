@@ -1,11 +1,11 @@
-var CourseMeetingView = Backbone.View.extend({
+var CreateCourseChild_SetWeekdayView = Backbone.View.extend({
   defaultLocation: ".oc-createCourse-courseMeetingContainer",
   template: JADE.courseMeeting,
   initialize: function(opts){
     this.setElement(this.template())
     this.formSubmitted = this.generateGetEvent(this)
-    radio.on('unrender:courseMeetingView', this.unrender, this)
-    radio.on('render:courseMeetingView', this.render, this)
+    radio.on('unrender:CreateCourseChild_SetWeekdayView', this.unrender, this)
+    radio.on('render:CreateCourseChild_SetWeekdayView', this.render, this)
     radio.on('unrender', this.unrender, this)
     radio.on('unrender:page', this.unrender, this)
   },
