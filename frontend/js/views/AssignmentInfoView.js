@@ -16,8 +16,8 @@ var AssignmentInfoView = Backbone.View.extend({
       return this
     },
     completeAssignment: function(){
-      console.log(this.model)
-      this.collection.remove(this.model)
+      this.model.set("status", "COM")
+      this.model.save()
       this.unrender
     },
     unrender: function() {
