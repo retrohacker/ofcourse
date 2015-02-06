@@ -23,6 +23,8 @@ var SidebarView = Backbone.View.extend({
   template: JADE.sidebar,
   logout: function() {
 	 //TODO: add log out
+	 $.get("/v1/auth/logout")
+	 workspace.navigate('login',{trigger:true})
   },
   openHome: function() {
     workspace.navigate('home',{trigger:true})

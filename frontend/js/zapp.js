@@ -12,7 +12,8 @@ var Workspace = Backbone.Router.extend({
     "createCourse": "createCourse",
     "courses":"courses",
     "viewCourse":"viewCourse",
-    "addAssignment" : "addAssignment"
+    "addAssignment" : "addAssignment",
+    "logout" : "logout"
   },
   'home': function(){
     radio.trigger('unrender:page getTaskbar render:SidebarView')
@@ -20,6 +21,9 @@ var Workspace = Backbone.Router.extend({
   'login': function(){
     radio.trigger('unrender')
     this.loginView = new LoginView({radio: radio,formVals:loginCollection().toJSON()}).render()
+  },
+  'logout': function(){
+	 //v1/auth/logout
   },
   'register': function(){
     radio.trigger('unrender')
