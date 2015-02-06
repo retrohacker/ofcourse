@@ -5,6 +5,7 @@ var AssignmentInfoView = Backbone.View.extend({
       this.collection = opts.collection
       this.setElement(this.template(this.model.toJSON()))
       radio.on('unrender:assignmentInfoView', this.unrender, this)
+      radio.on('unrender:assignmentInfoView' + this.model.id, this.unrender, this)
       radio.on('render:assignmentInfoView', this.render, this)
       radio.on('unrender', this.unrender, this)
       radio.on('unrender:page', this.unrender, this)
@@ -17,10 +18,15 @@ var AssignmentInfoView = Backbone.View.extend({
     },
     completeAssignment: function(){
       this.model.set("status", "COM")
-      this.model.save()
-      this.unrender
+      var model = this.model.id
+      this.model.save(null,{
+        success: function(model,res,opts){
+          radio.trigger('unrender:assignmentInfoView' + model.id)
+        }
+      })
     },
     unrender: function() {
+      radio.off(null, null, this)
       this.$el.remove()
       return this
     }

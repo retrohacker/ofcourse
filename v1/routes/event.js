@@ -35,8 +35,8 @@ router.get('/events',function(req,res) {
 router.put('/event',function(req,res) {
   if(!req.user || !req.user.profile || !req.user.profile.id) return res.status(401).json(new Error("Please login"))
   var result = db.sql.update(models.Event, req.body)
-  console.log(result)
   db.db(result,function(e,rows,result) {
     if(e) return res.status(500).json(e)
   })
+  res.status(200).json(result)
 })

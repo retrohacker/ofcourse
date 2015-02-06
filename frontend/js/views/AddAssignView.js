@@ -33,8 +33,11 @@ var AddAssignView = Backbone.View.extend({
                                     'end': this.$('#due').val(),
                                     'type': 1
                                   })
-    assignment.save()
-    workspace.navigate('userAssignments', {trigger: true})
+    assignment.save(null,{
+      success: function(model,res,opts){
+        workspace.navigate('userAssignments', {trigger: true})
+      }
+    })
   },
   rerender: function(){
     this.unrender()
