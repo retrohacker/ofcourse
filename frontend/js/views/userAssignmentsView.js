@@ -22,8 +22,8 @@ var UserAssignmentsView = Backbone.View.extend({
     renderInfo: function() {
       var events = this.collection
       this.collection.each(function(model){
-        if(model.type = 1)
-          new AssignmentInfoView({model: model, collection: events}).render()
+        if(model.get('type') == 1 && model.get('status') != 'COM')
+          var info = new AssignmentInfoView({model: model, collection: events}).render()
       })
     },
     refresh: function() {

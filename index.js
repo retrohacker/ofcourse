@@ -4,13 +4,14 @@ var path = require('path')
 var V1 = require('./v1/api.js')
 var jade = require('jade')
 var index = jade.renderFile(path.join(__dirname,'index.jade'))
+var logger = require('./logger')
 
 app.set('port', (process.env.PORT || 5000))
 app.use(express.static(path.join(__dirname,'frontend','build')))
 app.use("/v1",V1)
 
 app.listen(app.get('port'), function() {
-  console.log("Node app is running at localhost:" + app.get('port'))
+  logger.info("Node app is running at localhost:" + app.get('port'))
 })
 
 app.get("/",function(req,res) {
