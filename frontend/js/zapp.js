@@ -95,8 +95,8 @@ function init() {
     if(!App.user.hasUniversity()) {
       //TODO: remove these. they should not be hardcoded.
       console.log('zapp.js: user has no university')
-      var siu = new University({id:1,name:'Southern Illinois University',abbreviation:'SIU',state:'IL',city:'Carbondale',location:'Carbondale, IL'})
-      var delaware = new University({id:2,name:'The Delaware One',location:'Somewhere, DE'})
+      var siu = new UniversityModel({id:1,name:'Southern Illinois University',abbreviation:'SIU',state:'IL',city:'Carbondale',location:'Carbondale, IL'})
+      var delaware = new UniversityModel({id:2,name:'The Delaware One',location:'Somewhere, DE'})
       var universityCollection = new UniversityCollection([siu,delaware]);
 
       var uniSelectView = new UniSelectView({radio: radio, collection: universityCollection})
