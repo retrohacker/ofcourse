@@ -3,7 +3,7 @@ var UserAssignmentsView = Backbone.View.extend({
     template: JADE.userAssignments,
     initialize: function(opts){
       this.collection = opts.collection
-      this.setElement(template())
+      this.setElement(this.template())
       radio.on('unrender:userAssignmentsView', this.unrender, this)
       radio.on('render:userAssignmentsView', this.render, this)
       radio.on('unrender', this.unrender, this)
@@ -20,9 +20,10 @@ var UserAssignmentsView = Backbone.View.extend({
       return this
     },
     renderInfo: function() {
+      var events = this.collection
       this.collection.each(function(model){
         if(model.type = 1)
-          new AssignmentInfoView({model: model, collection: this.collection}).render()
+          new AssignmentInfoView({model: model, collection: events}).render()
       })
     },
     refresh: function() {
