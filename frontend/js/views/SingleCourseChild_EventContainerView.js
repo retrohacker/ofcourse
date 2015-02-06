@@ -1,10 +1,10 @@
-var UserCourseEventContainerView = Backbone.View.extend({
+var SingleCourseChild_CourseEventsContainerView = Backbone.View.extend({
     defaultLocation: ".oc-viewCourse-pageWrapper",
     template: JADE.userCourseEventContainer,
     initialize: function(opts){
       this.setElement(this.template())
-      radio.on('unrender:userCourseEventContainer', this.unrender, this)
-      radio.on('render:userCourseEventContainer', this.render, this)
+      radio.on('unrender:SingleCourseChild_CourseEventsContainerView', this.unrender, this)
+      radio.on('render:SingleCourseChild_CourseEventsContainerView', this.render, this)
       radio.on('unrender', this.unrender, this)
       radio.on('unrender:page', this.unrender, this)
       this.listenTo(this.collection, 'add', this.rerender)
@@ -26,11 +26,13 @@ var UserCourseEventContainerView = Backbone.View.extend({
     },
     renderCourseViews: function (){
       for(var i = 0; i < this.collection.length; i++){
-        new UserCourseEventView({model: this.collection.at(i)}).render()
+        new SingleCourseChild_SingleEventView({radio: radio,
+                                 model: this.collection.at(i)
+                                }).render()
       }
     },
     rerender: function() {
-      radio.trigger('unrender:userCourseEventView')
+      radio.trigger('unrender:SingleCourseChild_SingleEventView')
       this.renderCourseViews()
     }
 });
