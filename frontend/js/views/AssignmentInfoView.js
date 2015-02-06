@@ -8,7 +8,7 @@ var AssignmentInfoView = Backbone.View.extend({
       radio.on('render:assignmentInfoView', this.render, this)
       radio.on('unrender', this.unrender, this)
       radio.on('unrender:page', this.unrender, this)
-      radio.on('submit:completeAssignment', this.completeAssignment, this)
+      radio.on('submit:completeAssignment' + this.model.id, this.completeAssignment, this)
     },
     render: function(location) {
       var location = this.defaultLocation
