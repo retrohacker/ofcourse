@@ -25,6 +25,14 @@ router.post('/login',
                                   failureRedirect: '/#login' })
 );
 
+router.get('/logout',function(req, res){
+  req.session.destroy()
+  req.logout()
+  //console.log(req)
+  console.log('a user logged out')
+  res.redirect('/')
+});
+
 //TODO: LocalStrategy implementation needs much refactoring
 passport.use(new LocalStrategy({
     usernameField: 'email',
