@@ -9,23 +9,29 @@
 var glob = require('glob')
 var path = require('path')
 var async = require('async')
+var logger = require('../../logger')
 
+/**
+ * This is a special case. We are loading in all models from the models
+ * directory to create tables for them in the database. Generally we try
+ * to avoid directly requiring in files from other folders.
+ */
 //A path to the models directory in the project and the model names
 var modelsPath = path.join('../','models')
 var models = [
-                'UniversityModel',
-                'UserModel',
-                'FacebookModel',
-                'CourseModel',
-                'ParentEventModel',
-                'EventModel',
-                'CourseToUser'
+                'university',
+                'user',
+                'facebook',
+                'course',
+                'parentEvent',
+                'event',
+                'course_user'
              ]
 
 module.exports = function(db) { //TODO: give this a callback
   //Create a table for each of the models in the models array
   async.eachSeries(models,function(model,cb) {
-    console.log("Attempting to create table "+model+"...")
+    logger.info("Attempting to create table "+model+"...")
     var model = require(path.join(modelsPath,model+'.js'))
     db(createTable(model.tableName,model.types),cb)
   },function(e){
@@ -33,7 +39,7 @@ module.exports = function(db) { //TODO: give this a callback
     db("select * from universities where name='Southern Illinois University'",function(e,rows,result) {
       if(e) return e
       if(result.rowCount == 0){
-        console.log('init.js: inserting default universities into database')
+        logger.info('init.js: inserting default universities into database')
         db("insert into universities (name,abbreviation,state,city) values "
         + "('Southern Illinois University','SIU','IL','Carbondale'),"
         + "('The Delaware One','TDO','DE','Delewareville')",function(e,rows,result) {
@@ -41,8 +47,7 @@ module.exports = function(db) { //TODO: give this a callback
           return null
         })
     }
-    console.log("Done setting up db")})
-  
+    logger.info("Done setting up db")})
 
     return null
   })

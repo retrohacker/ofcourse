@@ -39,23 +39,25 @@ var Workspace = Backbone.Router.extend({
   },
   'addCourse': function(){
     radio.trigger('unrender:page getTaskbar');
-    var addCourse = new AddCourseView({radio: radio})
-      .render()
-    var uniCourseContainer = new UniCourseContainerView({radio: radio, collection: App.courses, model: App.user})
-      .render()
+    var addCourseParentView = new AddCourseParentView({radio: radio,
+                                                       collection: App.courses,
+                                                       model: App.user
+                                                      }).render()
     App.courses.fetch({reset:true})//not the most efficient way to populate collection
    },  
   'createCourse':function(){
     radio.trigger('unrender:page getTaskbar')
-    this.createCourseView = new CreateCourseView({collection: App.courses, radio: radio, formVals:createCourseCollection().toJSON(), model: App.user}).render()
+    this.createCourseParentView = new CreateCourseParentView({collection: App.courses, 
+                                                              radio: radio,
+                                                              formVals:createCourseCollection().toJSON(),
+                                                              model: App.user}).render()
   },
   'courses':function(){
     radio.trigger('unrender:page getTaskbar')
     App.courses.fetch({reset:true})
-    var userCoursesView = new UserCoursesView({radio: radio})
-      .render()
-    var userCoursesContainer = new UserCoursesContainerView({radio: radio, collection: App.courses})
-      .render()
+    var userCoursesParentView = new UserCoursesParentView({radio: radio,
+                                                           collection: App.courses
+                                                          }).render()
   },
   'userAssignments':function(){
     radio.trigger('unrender:page getTaskbar')
@@ -70,11 +72,10 @@ var Workspace = Backbone.Router.extend({
   },
   'viewCourse':function(){
     radio.trigger('unrender:page getTaskbar')
-    var courseEvents = new EventCollection([])
-    var course = new UserCourseView({radio: radio, model: App.course})
-      .render()
-    var courseEventContainer = new UserCourseEventContainerView({radio: radio, collection: App.courseEvents})
-      .render()
+    var course = new SingleCourseParentView({radio: radio,
+                                             model: App.course,
+                                             collection: App.courseEvents})
+                                          .render()
     App.courseEvents.fetch()
   },
   'addAssignment': function(){
@@ -109,8 +110,8 @@ function init() {
     if(!App.user.hasUniversity()) {
       //TODO: remove these. they should not be hardcoded.
       console.log('zapp.js: user has no university')
-      var siu = new University({id:1,name:'Southern Illinois University',abbreviation:'SIU',state:'IL',city:'Carbondale',location:'Carbondale, IL'})
-      var delaware = new University({id:2,name:'The Delaware One',location:'Somewhere, DE'})
+      var siu = new UniversityModel({id:1,name:'Southern Illinois University',abbreviation:'SIU',state:'IL',city:'Carbondale',location:'Carbondale, IL'})
+      var delaware = new UniversityModel({id:2,name:'The Delaware One',location:'Somewhere, DE'})
       var universityCollection = new UniversityCollection([siu,delaware]);
 
       var uniSelectView = new UniSelectView({radio: radio, collection: universityCollection})
