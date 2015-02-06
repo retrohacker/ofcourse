@@ -18,7 +18,8 @@ var CalendarView = Backbone.View.extend({
         left: 'prev,next,today',
         center: 'title',
         right: 'agendaDay,agendaWeek,month'
-      }
+      },
+      timezone: 'local'
     });
     return this
   },
