@@ -2,7 +2,9 @@ var UserCoursesParentView = Backbone.View.extend({
   defaultLocation: ".ofcourse-body",
   template: JADE.courses,
   initialize: function(opts){
-    this.setElement(this.template(this.collection))
+    this.setElement(this.template(this.collection)),
+    this.children = [],
+    
     radio.on('unrender:UserCoursesParentView',this.unrender,this)
     radio.on('render:UserCoursesParentView',this.render,this)
     radio.on('unrender',this.unrender,this)
@@ -12,6 +14,7 @@ var UserCoursesParentView = Backbone.View.extend({
   render: function(location) {
     var location = location || this.defaultLocation
     $(location).append(this.$el)
+    this.createChildren()
     return this;
   },
   createChildren: function(){

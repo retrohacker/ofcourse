@@ -26,7 +26,7 @@ var SingleCourseChild_CourseEventsContainerView = Backbone.View.extend({
     },
     renderCourseViews: function (){
       for(var i = 0; i < this.collection.length; i++){
-        new UserCourseEventView({radio: radio,
+        new SingleCourseChild_SingleEventView({radio: radio,
                                  model: this.collection.at(i)
                                 }).render()
       }

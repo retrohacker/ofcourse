@@ -23,7 +23,7 @@ var UserCoursesChild_CoursesContainerView = Backbone.View.extend({
     },
     renderCourseViews: function (){
       for(var i = 0; i < this.collection.length; i++){
-        new UserCoursesDivView({model: this.collection.at(i)}).render()
+        new UserCoursesChild_SingleCourseView({model: this.collection.at(i)}).render()
       }
     },
     rerender: function() {
