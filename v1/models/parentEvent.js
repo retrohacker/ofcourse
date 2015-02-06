@@ -13,5 +13,5 @@ module.exports.types = {
   cid: 'integer references courses(id) not null',
   start: 'timestamp not null', //Start date time YYYY-MM-DD HH:MM:SS
   end: 'timestamp not null',   //End date time
-  recurrence: 'text'           //unkown format... maybe json?
+  events: 'text' //contains the cron and duration
 }
