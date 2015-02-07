@@ -2,7 +2,6 @@ var AssignmentInfoView = Backbone.View.extend({
     defaultLocation: ".oc-userAssignments-list",
     template: JADE.assignmentInfo,
     initialize: function(opts){
-      this.collection = opts.collection
       this.setElement(this.template(this.model.toJSON()))
       radio.on('unrender:assignmentInfoView', this.unrender, this)
       radio.on('unrender:assignmentInfoView' + this.model.id, this.unrender, this)

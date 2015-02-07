@@ -16,7 +16,7 @@ var Workspace = Backbone.Router.extend({
     "userAssignments" : "userAssignments"
   },
   'home': function(){
-    radio.trigger('unrender:page getTaskbar render:SidebarView')
+    radio.trigger('unrender:page')
     App.eventCollection.fetch({reset:true})
   },
   'login': function(){
@@ -62,9 +62,9 @@ var Workspace = Backbone.Router.extend({
   'userAssignments':function(){
     radio.trigger('unrender:page getTaskbar')
     App.eventCollection.fetch({
-      remove: false,
       success: loadAssignments
     })
+    console.log("render")
     function loadAssignments(){
       var userAssignments = new UserAssignmentsView({radio: radio, collection: App.eventCollection})
         .render()
@@ -106,7 +106,7 @@ function init() {
     workspace.navigate('login', {trigger: true});
   }
   else if(App.user.isLoggedIn()){
-    workspace.navigate('home', {trigger: true});
+    radio.trigger('getTaskbar render:SidebarView')
     if(!App.user.hasUniversity()) {
       //TODO: remove these. they should not be hardcoded.
       console.log('zapp.js: user has no university')
