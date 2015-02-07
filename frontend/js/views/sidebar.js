@@ -18,7 +18,7 @@ var SidebarView = Backbone.View.extend({
     "click #sidebar-courses": "openCourses",
     "click #sidebar-home": "openHome",
     "click #sidebar-createcourse": "openCreateCourse",
-    "click #sidebar-assignments": "openAssignments"
+    "click #sidebar-assignments": "openAssignments",
     "click #sidebar-logout": "logout"
   },
   template: JADE.sidebar,
