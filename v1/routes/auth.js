@@ -1,11 +1,12 @@
 var router = module.exports = require('express').Router()
+
 var bodyParser = require('body-parser')
 var passport = require('passport')
 var Facebook = require('passport-facebook').Strategy
 var LocalStrategy = require('passport-local').Strategy;
+
 var db = require('../db')
 var models = require('../models')
-var logger = require('../../logger')
 
 router.use(bodyParser.urlencoded())
 router.use(db.session)
@@ -22,13 +23,6 @@ router.post('/login',
                                   failureRedirect: '/#login' })
 );
 
-router.get('/logout',function(req, res){
-  logger.info(req.user, 'logged out')
-  req.session.destroy()
-  req.logout()
-  res.redirect('/')
-});
-
 //TODO: LocalStrategy implementation needs much refactoring
 passport.use(new LocalStrategy({
     usernameField: 'email',
@@ -38,9 +32,14 @@ passport.use(new LocalStrategy({
     db.user.getUserByEmail(username,function(e,user){
       if(e) return done(e, false, { message: 'Incorrect username.' });
       if(user){
-        return done(null, user.id);
+		req.login(id,function(e) {
+          if(e) return res.status(500).json(e)
+          logger.info("logged in a user", id)
+          return res.status(201).json({id:id})//
+        })
+        return done(null, user.id);//this looks fucked up, too many returns here
       }
-      return done(null, false,  { message: 'authentication error...' })
+      return done(null, false,  { message: 'authentication error...' })//
     })
   }
 ));

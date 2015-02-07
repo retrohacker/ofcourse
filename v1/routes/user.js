@@ -5,6 +5,7 @@ var passport = require('passport')
 
 var db = require('../db')
 var models = require('../models')
+var logger = require('../../logger')
 
 router.use(bodyParser.json())
 router.use(db.session)
@@ -29,6 +30,7 @@ router.post('/',function(req,res) {
     if(e) return res.status(500).json(e)
     req.login(id,function(e) {
       if(e) return res.status(500).json(e)
+      logger.info("created and logged in a user", id)
       return res.status(201).json({id:id})
     })
   })
