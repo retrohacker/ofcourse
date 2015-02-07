@@ -2,7 +2,6 @@ var UserAssignmentsView = Backbone.View.extend({
     defaultLocation: "body",
     template: JADE.userAssignments,
     initialize: function(opts){
-      this.collection = opts.collection
       this.setElement(this.template())
       radio.on('unrender:userAssignmentsView', this.unrender, this)
       radio.on('render:userAssignmentsView', this.render, this)
@@ -34,6 +33,7 @@ var UserAssignmentsView = Backbone.View.extend({
       this.stopListening()
       radio.off(null, null, this)
       this.$el.remove()
+      console.log("unrender")
       return this
     }
 });
