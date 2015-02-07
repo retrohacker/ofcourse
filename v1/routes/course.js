@@ -43,7 +43,7 @@ router.post('/',function(req,res) {
       var parent = new models.ParentEvent()
       parent.set(course.toJSON())
       parent.set('cid',cid)
-      parent.set('events', course.get('events'))
+      parent.set('cron', course.get('events'))
       db.user.addParentEvent(parent, function(e,pid){
         var events = req.body.events
         return cb(e,events, cid, pid)
