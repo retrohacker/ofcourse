@@ -17,7 +17,8 @@ EventModel.types = {
   start: 'timestamp not null',   //Start date time YYYY-MM-DD HH:MM:SS
   end: 'timestamp not null',     //End date time
   type: 'integer not null',      // Eventually will be a real enumeration
-  data: 'text'                   //json object
+  data: 'text',                   //json object
+  status: 'text'
 }
 
 /* Types:

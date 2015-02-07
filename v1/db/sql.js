@@ -22,10 +22,12 @@ m.update = function updateCommand(model,values) {
   var result = 'UPDATE '+model.tableName+' SET '
   var modelVals = Object.keys(model.types)
   Object.keys(values).forEach(function(v) {
-    if(modelVals.indexOf(v) !== -1)
-      if(values[v] != 'id')
+    if(modelVals.indexOf(v) !== -1) {
+      if(values[v] != 'id' && values[v] != null){
         result += '"'+v+'" = ' // Add the var name
         result += "'"+values[v]+"'," // Add the value
+      }
+    }
   })
   result = result.slice(0,-1) // remove trailing comma
   result += ' WHERE id='
