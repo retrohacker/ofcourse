@@ -1,12 +1,11 @@
 var router = module.exports = require('express').Router()
-
 var bodyParser = require('body-parser')
 var passport = require('passport')
 var Facebook = require('passport-facebook').Strategy
 var LocalStrategy = require('passport-local').Strategy;
-
 var db = require('../db')
 var models = require('../models')
+var logger = require('../../logger')
 
 router.use(bodyParser.urlencoded())
 router.use(db.session)
@@ -22,6 +21,13 @@ router.post('/login',
   passport.authenticate('local',{ successRedirect: '/#home',
                                   failureRedirect: '/#login' })
 );
+
+router.get('/logout',function(req, res){
+ logger.info(req.user, 'logged out')
+ req.session.destroy()
+ req.logout()
+ res.redirect('/')
+});
 
 //TODO: LocalStrategy implementation needs much refactoring
 passport.use(new LocalStrategy({
