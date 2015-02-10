@@ -36,15 +36,18 @@ passport.use(new LocalStrategy({
   },
   function(username, password, done) {
     db.user.getUserByEmail(username,function(e,user){
+      if(e) logger.info("login errror (auth.js)")
       if(e) return done(e, false, { message: 'Incorrect username.' });
       if(user){
 		req.login(id,function(e) {
           if(e) return res.status(500).json(e)
           logger.info("logged in a user", id)
-          return res.status(201).json({id:id})//
+          return done(null, user.id)
         })
+        logger.info("redis login failed, attempting login anyways?")
         return done(null, user.id);//this looks fucked up, too many returns here
       }
+      logger.info("authentication error")
       return done(null, false,  { message: 'authentication error...' })//
     })
   }
