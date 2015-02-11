@@ -18,6 +18,7 @@ var SidebarView = Backbone.View.extend({
     "click #sidebar-courses": "openCourses",
     "click #sidebar-home": "openHome",
     "click #sidebar-createcourse": "openCreateCourse",
+    "click #sidebar-assignments": "openAssignments",
     "click #sidebar-logout": "logout"
   },
   template: JADE.sidebar,
@@ -37,6 +38,9 @@ var SidebarView = Backbone.View.extend({
   },
   openCourses: function() {
     workspace.navigate('courses',{trigger:true})
+  },
+  openAssignments: function() {
+    workspace.navigate('userAssignments',{trigger:true})
   },
   openAddCourse: function() {
 

@@ -1,0 +1,28 @@
+.oc-userAssignments-pageWrapper {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+
+.oc-userAssignments-list {
+  width: 60%;
+  height: 80%;
+  left: 20%;
+  background: #9A9AA1;
+  margin-left: 20%;
+  overflow-y: scroll;
+  -webkit-box-shadow: 10px 10px 15px -5px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 15px -5px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 15px -5px rgba(0,0,0,0.75);
+}
+
+.oc-userAssignments-assignment{
+  height: 20%;
+  margin: 10px;
+  background: WHITE;
+  padding-top: 2em;
+  -webkit-box-shadow: 10px 10px 15px -5px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 15px -5px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 15px -5px rgba(0,0,0,0.75);
+}

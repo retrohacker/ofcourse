@@ -12,10 +12,12 @@ var Workspace = Backbone.Router.extend({
     "createCourse": "createCourse",
     "courses":"courses",
     "viewCourse":"viewCourse",
-    "addAssignment" : "addAssignment"
+    "addAssignment" : "addAssignment",
+    "userAssignments" : "userAssignments"
   },
   'home': function(){
-    radio.trigger('unrender:page getTaskbar render:SidebarView')
+    radio.trigger('unrender:page')
+    App.eventCollection.fetch({reset:true})
   },
   'login': function(){
     radio.trigger('unrender')
@@ -57,6 +59,17 @@ var Workspace = Backbone.Router.extend({
                                                            collection: App.courses
                                                           }).render()
   },
+  'userAssignments':function(){
+    radio.trigger('unrender:page getTaskbar')
+    App.eventCollection.fetch({
+      success: loadAssignments
+    })
+    console.log("render")
+    function loadAssignments(){
+      var userAssignments = new UserAssignmentsView({radio: radio, collection: App.eventCollection})
+        .render()
+    }
+  },
   'viewCourse':function(){
     radio.trigger('unrender:page getTaskbar')
     var course = new SingleCourseParentView({radio: radio,
@@ -80,7 +93,9 @@ App.user.fetch({
 })
 App.courses = new CourseCollection()
 App.courseEvents = new CourseEventsCollection()
-App.course
+
+App.eventCollection = new EventCollection([])
+App.eventCollection.fetch({reset:true})
 
 var workspace = new Workspace({radio: radio});
 Backbone.history.start();
@@ -91,7 +106,7 @@ function init() {
     workspace.navigate('login', {trigger: true});
   }
   else if(App.user.isLoggedIn()){
-    workspace.navigate('home', {trigger: true});
+    radio.trigger('getTaskbar render:SidebarView')
     if(!App.user.hasUniversity()) {
       //TODO: remove these. they should not be hardcoded.
       console.log('zapp.js: user has no university')
