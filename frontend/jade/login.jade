@@ -6,8 +6,20 @@ div.ofcourse-login-bg
 
 fieldset.pure-group.ofcourse-hidden
   - each item in locals
-    input.pure-input-1(id='#{item.id}' name='#{item.id}' type='text' placeholder='#{item.desc}')
+    //input.pure-input-1(id='#{item.id}' name='#{item.id}' type='text' placeholder='#{item.desc}')
     br
-    button(type='submit' class=['pure-button pure-input-1 pure-button-primary'] onclick="workspace.navigate('home',{trigger:true})") Login
+    div
+      form(action='/v1/auth/login',method='post')
+        div(data-role='fieldcontain')
+          fieldset(data-role='controlgroup')
+            label(for='email') email
+               input(id='email',type='text',value='',placeholder='email',name='email')
+        //div#passworddiv(data-role='fieldcontain')
+        //  fieldset(data-role='controlgroup')
+        //     label(for='password') password
+        //       input(id='password',type='password',value='',placeholder='password',name='password')
+        div(data-role='fieldcontain')   
+          input(type='submit',value='Log In',data-transition='fade', data-theme='c')
+    //button(type='submit' class=['pure-button pure-input-1 pure-button-primary'] onclick="workspace.navigate('home',{trigger:true})") Login
     h2 -OR-
     button(type='button' class='pure-button pure-input-1 pure-button-primary' onclick="workspace.navigate('register',{trigger:true})") Register
