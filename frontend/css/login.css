@@ -5,32 +5,135 @@
   width: 100%;
   height: 100%;
   background-image: url(/static/images/loginbg.jpg);
+  font-family: 'Open Sans', sans-serif;
   background-size: cover;
+  box-shadow: 7px 7px 29px 0px rgba(0,0,0,0.6);
+  z-index: 10;
 }
 
-.ofcourse-hidden {
-  display: none;
+.ofcourse-login-wordage {
+  position: relative;
+  top: 10%;
+  left: 5%;
+}
+
+.ofcourse-slogan {
+  position: relative;
+  background: #FFFFFF;
+  text-align: right;
+  color: #441D9E;
+  width: 100%;
+  top: 15%;
+  box-shadow: 7px 7px 29px 0px rgba(0,0,0,0.6);
+}
+
+.ofcourse-login-wrapper {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+.ofcourse-welcome-wrapper {
+  position: fixed;
+  width: 50%;
+  height: 100%;
+}
+
+.ofcourse-login-logo {
+  display: inline-block;
+  position: absolute;
+  left: 50%;
+  top: -20%;
+  -webkit-border-radius: 99em;
+  -moz-border-radius: 99em;
+  border-radius: 99em;
+  transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+  box-shadow: 7px 7px 29px 0px rgba(0,0,0,0.6);
+  border: 5px solid #FFFFFF;
+  z-index: 10;
+}
+
+.ofcourse-login-text {
+  position: relative;
+  background-color: #3B579D;
+  height: 40px;
+  color: #FFFFFF;
+  font-size: 28pt;
+  top: 40%;
+  text-align: center;
+  -webkit-box-shadow: 4px 4px 12px 0px rgba(0,0,0,0.45);
+  -moz-box-shadow: 4px 4px 12px 0px rgba(0,0,0,0.45);
+  box-shadow: 4px 4px 12px 0px rgba(0,0,0,0.45);
+}
+
+.ofcourse-login-welcome {
+  display: inline-block;
+  position: relative;
+  background-color: #441D9E;
+  font-size: 32pt;
+  box-shadow: 7px 7px 29px 0px rgba(0,0,0,0.6);
+  left: 50%;
+  width: 90%;
+  height: 400px;
+  top: 60%;
+  border: solid 2px #FFFFFF;
+  transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
 }
 
 .ofcourse-login {
   display: inline-block;
-  background-color: #D2D2D2;
-  padding: 30px;
-  padding-top: 50px;
+  position: relative;
+  background-color: #FFFFFF;
+  padding-top: 0px;
   padding-bottom: 50px;
-  border-radius: 20px;
   box-shadow: 7px 7px 29px 0px rgba(0,0,0,0.6);
-  margin-left: 50%;
-  position: fixed;
-  top: 50%;
+  width: 215px;
+  height: 250px;
+  top: 70%;
+  left: 20%;
   transform: translate(-50%,-50%);
   -webkit-transform: translate(-50%,-50%);
+}
+
+@media only screen and (max-width: 1100px) {
+  .ofcourse-welcome-wrapper{
+    display: none !important;
+  }
+
+  .ofcourse-login {
+    left: 50%;
+  }
+
+  .ofcourse-login-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+@media only screen and (min-height: 800px) {
+  .ofcourse-login {
+    top: 50%;
+  }
+    
+  .ofcourse-login-welcome {
+    top: 40%;
+  }
 }
 
 .ofcourse-login div {
   display: inline;
 }
 
+.ofcourse-dev-login {
+  display: none;
+  text-align: center;
+  position: relative;
+  top: 20%;
+  width: 90%
+}
 .ofcourse-bar-break {
   display: block !important;
   border-style: inset;
@@ -39,17 +142,29 @@
   margin: 2em;
 }
 
-.ofcourse-centerImage {
-  text-align: center;
-}
-
 .ofcourse-fblogin {
+  position: relative;
+  width: 58px;
   display: block;
   text-align: center;
+  top: 30%;
+  left: 25%;
 }
 
 .ofcourse-form {
   margin-left: auto;
   margin-right: auto;
   width: 30%;
+}
+
+.ofcourse-footer {
+  position: relative;
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  top: 95%;
+  background: #D5D5D5;
+  color: #959595;
+  padding-top: 15px;
+  height: 5%;
+  z-index: -10;
 }

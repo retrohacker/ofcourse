@@ -2,6 +2,15 @@ body {
   background: #363644;
   height: 100%;
   overflow-x: hidden;
+  -webkit-user-select: none;       
+  -moz-user-select: none; 
+  -ms-user-select: none;
+  cursor: default;
+}
+
+.oc_logo_min {
+  width: 40%;
+  height: 40%;
 }
 
 .ofcourse-body h1 {
@@ -19,6 +28,10 @@ body {
   padding-top: 1em;
   position: absolute;
   width: 100%;
+}
+
+.ofcourse-hidden {
+  display: none;
 }
 
 html {

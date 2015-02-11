@@ -1,13 +1,24 @@
 div.ofcourse-login-bg
-  div.ofcourse-login
-    !{JADE['xl-logo']()}
-    div.ofcourse-bar-break
-    !{JADE['fblogin']()}
-
-fieldset.pure-group.ofcourse-hidden
-  - each item in locals
-    input.pure-input-1(id='#{item.id}' name='#{item.id}' type='text' placeholder='#{item.desc}')
-    br
-    button(type='submit' class=['pure-button pure-input-1 pure-button-primary'] onclick="workspace.navigate('home',{trigger:true})") Login
-    h2 -OR-
-    button(type='button' class='pure-button pure-input-1 pure-button-primary' onclick="workspace.navigate('register',{trigger:true})") Register
+  div.pure-g
+    div.pure-u-md-1-2
+      div.ofcourse-welcome-wrapper
+        div.ofcourse-login-welcome
+            !{JADE['wordageLogin']()}
+            div.ofcourse-slogan
+                |evolving education  
+    div.pure-u-md-1-2
+      div.ofcourse-login-wrapper
+        div.ofcourse-login
+          !{JADE['xl-logo']()}
+          p.ofcourse-login-text
+            | login with 
+          !{JADE['fblogin']()}
+          fieldset.pure-group.ofcourse-dev-login
+            - each item in locals
+              input.pure-input-1(id='#{item.id}' name='#{item.id}' type='text' placeholder='#{item.desc}')
+            br
+            button(type='submit' class=['pure-button pure-input-1 pure-button-primary'] onclick="workspace.navigate('home',{trigger:true})") Login
+            |  
+            button(type='button' class='pure-button pure-input-1 pure-button-primary' onclick="workspace.navigate('register',{trigger:true})") Register
+  div.ofcourse-footer
+    | ofCourse © 2015
