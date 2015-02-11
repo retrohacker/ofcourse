@@ -36,8 +36,10 @@ passport.use(new LocalStrategy({
   },
   function(username, password, done) {
     db.user.getUserByEmail(username,function(e,user){
-      if(e) return done(e, false, { message: 'Incorrect username.' });
-      if(user){
+      if(e) {
+	    logger.error('login error', e)  
+	    return done(e, false, { message: 'Incorrect username.' });
+      }if(user){
         return done(null, user.id);
       }
       return done(null, false,  { message: 'authentication error...' })
