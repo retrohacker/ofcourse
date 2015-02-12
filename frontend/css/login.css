@@ -13,18 +13,24 @@
 
 .ofcourse-login-wordage {
   position: relative;
-  top: 10%;
-  left: 5%;
+  top: 25%;
+  left: 25%;
+  z-index: 10;
 }
 
 .ofcourse-slogan {
+  display: hidden !important;
   position: relative;
-  background: #FFFFFF;
-  text-align: right;
-  color: #441D9E;
-  width: 100%;
-  top: 15%;
+  color: #FFFFFF;
+  font-size: 48pt;
+  width: 500px;
+  left: 22%;
+  top: 28%;
+  border: 3px solid WHITE;
+  padding-left: 10px;
+  border-radius: 3px;
   box-shadow: 7px 7px 29px 0px rgba(0,0,0,0.6);
+  z-index: 10;
 }
 
 .ofcourse-login-wrapper {
@@ -43,7 +49,7 @@
   display: inline-block;
   position: absolute;
   left: 50%;
-  top: -20%;
+  top: -25%;
   -webkit-border-radius: 99em;
   -moz-border-radius: 99em;
   border-radius: 99em;
@@ -68,30 +74,33 @@
 }
 
 .ofcourse-login-welcome {
-  display: inline-block;
   position: relative;
   background-color: #441D9E;
+  opacity: .3;
   font-size: 32pt;
   box-shadow: 7px 7px 29px 0px rgba(0,0,0,0.6);
-  left: 50%;
-  width: 90%;
-  height: 400px;
-  top: 60%;
-  border: solid 2px #FFFFFF;
-  transform: translate(-50%,-50%);
-  -webkit-transform: translate(-50%,-50%);
+  left: 10%;
+  width: 700px;
+  height: 200%;
+  top: 0px;
+  border-left: solid 2px #FFFFFF;
+  border-right: solid 2px #FFFFFF;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  z-index: 0;
 }
 
 .ofcourse-login {
   display: inline-block;
   position: relative;
   background-color: #FFFFFF;
+  opacity: .9;
   padding-top: 0px;
   padding-bottom: 50px;
   box-shadow: 7px 7px 29px 0px rgba(0,0,0,0.6);
-  width: 215px;
-  height: 250px;
-  top: 70%;
+  width: 300px;
+  height: 180px;
+  top: 60%;
   left: 25%;
   transform: translate(-50%,-50%);
   -webkit-transform: translate(-50%,-50%);
@@ -119,7 +128,7 @@
   }
     
   .ofcourse-login-welcome {
-    top: 40%;
+    top: 30%;
   }
 }
 
@@ -147,8 +156,8 @@
   width: 58px;
   display: block;
   text-align: center;
-  top: 30%;
-  left: 25%;
+  top: 35%;
+  left: 33%;
 }
 
 .ofcourse-form {
@@ -160,11 +169,12 @@
 .ofcourse-footer {
   position: relative;
   text-align: center;
+  opacity: .6;
   font-family: 'Open Sans', sans-serif;
-  top: 95%;
+  top: 97%;
   background: #D5D5D5;
   color: #959595;
-  padding-top: 15px;
-  height: 5%;
-  z-index: -10;
+  padding-top: 10px;
+  height: 15px;
+  z-index: 15;
 }
