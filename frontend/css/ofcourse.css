@@ -33,7 +33,6 @@ body {
   padding-top: 1em;
   position: absolute;
   width: 100%;
-  opacity: 0;
   -webkit-transition: opacity 0.4s ease-in-out;
   -moz-transition: opacity 0.4s ease-in-out;
   -ms-transition: opacity 0.4s ease-in-out;

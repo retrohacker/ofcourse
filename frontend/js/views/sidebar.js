@@ -70,7 +70,6 @@ var SidebarView = Backbone.View.extend({
     setTimeout( function() {
       $('.ofcourse-sidebar-wrapper').css('z-index', '-20')
     }, 500)
-    $('.ofcourse-body').css('opacity', 1)
     this.sidebarState = false
   },
   openSidebar:function(){
