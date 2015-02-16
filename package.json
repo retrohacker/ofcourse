@@ -45,6 +45,8 @@
     "passport-local": "^1.0.0",
     "pg": "^3.6.2",
     "pg-query": "^0.10.1",
+    "react": "^0.12.2",
+    "react-tap-event-plugin": "^0.1.4",
     "redis": "^0.12.1",
     "winston": "^0.8.3"
   }

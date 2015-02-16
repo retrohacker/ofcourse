@@ -5,7 +5,12 @@ body {
   -webkit-user-select: none;       
   -moz-user-select: none; 
   -ms-user-select: none;
-  cursor: default;
+  cursor: default; 
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
 }
 
 .oc_logo_min {
@@ -28,12 +33,37 @@ body {
   padding-top: 1em;
   position: absolute;
   width: 100%;
+  opacity: 0;
+  -webkit-transition: opacity 0.4s ease-in-out;
+  -moz-transition: opacity 0.4s ease-in-out;
+  -ms-transition: opacity 0.4s ease-in-out;
+  -o-transition: opacity 0.4s ease-in-out;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.ofcourse-blue {
+  background-color: #0099FF;
+}
+
+.ofcourse-red {
+  background-color: #FF3030;
+}
+
+.ofcourse-orange {
+  background-color: #FF8330
+}
+
+.ofcourse-purple {
+  background-color: #441D9E;
+}
+
+.ofcourse-green {
+  background-color: #8ee05e;
 }
 
 .ofcourse-hidden {
   display: none;
 }
-
 html {
   height: 100%;
 }
