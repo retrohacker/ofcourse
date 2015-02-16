@@ -21,7 +21,7 @@ var TaskbarView = Backbone.View.extend({
   defaultLocation: "body",
   buttons: [],
   initialize: function() {
-    this.setElement(this.template())
+    this.setElement(this.template(this.model.toJSON()))
     radio.on('unrender:TaskbarView',this.unrender,this)
     radio.on('render:TaskbarView',this.render,this)
     radio.on('unrender',this.unrender,this)

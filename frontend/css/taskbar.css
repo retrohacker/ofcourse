@@ -15,9 +15,25 @@
   transition: all 0.3s;
 }
 
+.ofcourse-taskbar-left {
+  position: absolute;
+  height: 100%;
+}
+
 .ofcourse-taskbar i {
+  position: absolute;
+  top: 0;
   padding: .5em;
   color: #E1E1E2;
+}
+
+.ofcourse-welcome-text {
+  position: relative;
+  font-family: Roboto;
+  font-size: .7em;
+  color: #FFFFFF;
+  left: 6em;
+  top: 30%;
 }
 
 .ofcourse-taskbar i:hover {
@@ -26,6 +42,7 @@
 
 .ofcourse-taskbar .ofcourse-taskbar-right i {
   float: right;
+  right: 0;
 }
 
 .ofcourse-taskbar .ofcourse-padding-right {
