@@ -65,9 +65,11 @@ var SidebarView = Backbone.View.extend({
   },
   closeSidebar:function(){
     $('.ofcourse-sidebar').css('opacity', 0)
-    $('.ofcourse-sidebar').css('transform','translateX(-125%)')
     $('.ofcourse-sidebar-background').css('opacity', 0)
-    $('.ofcourse-sidebar-wrapper').css('z-index', '-20')
+    $('.ofcourse-sidebar').css('transform','translateX(-125%)')
+    setTimeout( function() {
+      $('.ofcourse-sidebar-wrapper').css('z-index', '-20')
+    }, 500)
     $('.ofcourse-body').css('opacity', 1)
     this.sidebarState = false
   },
