@@ -139,7 +139,34 @@ function createTime(days,time) {
   //Convert to military time integers
   time = ''+time
   days = ''+days
-  days = days.split('').join()
+  days = days.trim().split('').map(function(day) {
+    switch(day) {
+    case 'M':
+      return 'Mon'
+      break
+    case 'T':
+      return 'Tue'
+      break
+    case 'W':
+      return 'Wed'
+      break
+    case 'R':
+      return 'Thu'
+      break
+    case 'F':
+      return 'Fri'
+      break
+    case 'S':
+      return 'Sat'
+      break
+    case 'U':
+      return 'Sun'
+      break
+    default:
+      console.error('Unknown day '+day)
+      return null
+    }
+  }).join()
   time = time.split('-')
   // 0 = start 1 = stop
   time[0] = time[0].trim()
