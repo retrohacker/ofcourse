@@ -66,9 +66,9 @@
 }
 
 .ofcourse-sidebar-tools {
-  position: relative;
-  top: 100%;
-  transform: translateY(-255%);
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
 .ofcourse-sidebar .ofcourse-menu-item {
