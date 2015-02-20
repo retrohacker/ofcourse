@@ -76,16 +76,16 @@ var mapTags = {
 // Cleanup the data
 classes.forEach(function(v,i) {
   var newClass = {}
-  newClass.time = []
+  newClass.cron = []
   if(v['CRN'] === ' ') { // We have multiple meeting times
     while(classes[i]['CRN'] === ' ') { //Empty space is unicode for something
       i--
     }
     if(v['Days'] !== 'TBA' &&  v['Time'] !== 'TBA')
-      classes[i].time.push(createTime(v['Days'],v['Time']))
+      classes[i].cron.push(createTime(v['Days'],v['Time']))
   }
   if(v['Days'] !== 'TBA' &&  v['Time'] !== 'TBA')
-    newClass.time.push(createTime(v['Days'],v['Time']))
+    newClass.cron.push(createTime(v['Days'],v['Time']))
 
   Object.keys(mapTags).forEach(function(v2) {
     newClass[mapTags[v2]] = v[v2]
@@ -191,9 +191,9 @@ function createTime(days,time) {
   if(meridiem[1] === 'pm') time[1][0]+=12
 
   //Convert to cron
-  cronStart = time[0][1]+" "+time[0][0]+" *  * "+days+" * "
-  duration = (time[1][0] * 60 + time[1][1]) - (time[0][0] * 60 + time[0][1])
-  return {cron:cronStart,duration:duration}
+  cronStart = time[0][1]+" "+time[0][0]+" *  * "+days
+  duration = (time[1][0] * 60 + time[1][1]) - (time[0][0] * 60 + time[0][1]) //minutes
+  return {cron:cronStart,duration:duration*60}
 }
 
 function getColumnsTitle(element) {
