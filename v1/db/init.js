@@ -74,6 +74,7 @@ function populateCourses(uni) {
         if(e) {
           logger.warn(e)
           cb()
+          return db.db("",function(){}) //keep loop from hanging. TODO: WHY?!??!?!?!?!?
         }
         parent.set('cid',cid)
         parent.set('cron',JSON.stringify(c.cron))

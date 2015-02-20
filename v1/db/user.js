@@ -14,7 +14,8 @@ user.insert = function insert(values,cb) {
 }
 
 user.update = function update(values,cb) {
-  db(sql.update(models.User,values.toJSON()),function(e,rows,result) {
+  var update = sql.update(models.User,values.toJSON())
+  db(update.str,update.arr,function(e,rows,result) {
     if(e) return cb(e)
     return cb(null,result.rows[0].id)
   })
