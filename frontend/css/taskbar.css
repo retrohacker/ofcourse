@@ -30,6 +30,7 @@
 .ofcourse-welcome-text {
   position: relative;
   font-family: Roboto;
+  font-weight: lighter;
   font-size: .7em;
   color: #FFFFFF;
   left: 6em;

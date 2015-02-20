@@ -76,7 +76,6 @@ var Workspace = Backbone.Router.extend({
     App.courseEvents.fetch()
   },
   'addAssignment': function(){
-    radio.trigger('unrender:page')
     App.courses.fetch({reset:true})
     var addAssignmentView = new AddAssignView({radio: radio, collection: App.courses})
       .render()
