@@ -6,7 +6,8 @@ var models = require('../models')
 
 //USING POSTGRES
 user.insert = function insert(values,cb) {
-  db(sql.insert(models.User,values.toJSON()),function(e,rows,result) {
+  var insert = sql.insert(models.User,values.toJSON())
+  db(insert.str,insert.arr,function(e,rows,result) {
     if(e) return cb(e)
     return cb(null,result.rows[0].id)
   })
@@ -69,7 +70,8 @@ user.getUserByEmail = function getUserByEmail(email,done) {
 }
 
 user.addCourse = function addCourse(course,userid,done) {
-  db(sql.insert(models.Course,course.toJSON()), function(err, rows, result) {
+  var insert = sql.insert(models.Course,course.toJSON())
+  db(insert.str,insert.arr, function(err, rows, result) {
     if(err) return done(err,null)
     return done(null,result.rows[0].id)
   });
@@ -77,14 +79,16 @@ user.addCourse = function addCourse(course,userid,done) {
 
 user.addEvent = function addEvent(userEvent,userid,done){
   userEvent.set({'userid': userid})
-  db(sql.insert(models.Event,userEvent.toJSON()), function(err, rows, result) {
+  var insert = sql.insert(models.Event,userEvent.toJSON())
+  db(insert.str,insert.arr, function(err, rows, result) {
     if(err) return done(err,null)
     return done(null,result.rows[0].id)
   });
 }
 
 user.addParentEvent = function addParentEvent(parentEvent,done){
-  db(sql.insert(models.ParentEvent,parentEvent.toJSON()), function(err, rows, result) {
+  var insert = sql.insert(models.ParentEvent,parentEvent.toJSON())
+  db(insert.str,insert.arr, function(err, rows, result) {
     if(err) return done(err,null)
     return done(null,result.rows[0].id)
   });

@@ -64,7 +64,7 @@ function populateCourses(uni) {
   fs.readFile(path.join(__dirname,'siu_spring_2015.json'),{encoding:'utf-8'},function(e,file) {
     if(e) return logger.error(e)
     var obj = JSON.parse(file)
-    async.eachSeries(obj.classes,function(c,cb) {
+    async.each(obj.classes,function(c,cb) {
       var course = new model.Course(c)
       course.set('university',uni)
       course.set('semester','Spring 2015')
@@ -82,6 +82,8 @@ function populateCourses(uni) {
           cb()
         })
       })
+    },function() {
+      logger.info("Finished populating assignments")
     })
   })
 }

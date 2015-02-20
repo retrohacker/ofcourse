@@ -77,7 +77,9 @@ router.post('/',function(req,res) {
             end: new Date(date.setSeconds(date.getSeconds() + item.duration)).toISOString(),
             type: 0
           })
-          db.db(db.sql.insert(models.Event,courseEvent.toJSON()), cb)
+          var insert = db.sql.insert(models.Event,courseEvent.toJSON())
+          console.log(JSON.stringify(insert))
+          db.db(insert.str,insert.arr, cb)
         },cb)
       },function(e) {
         return cb(e,pid)
