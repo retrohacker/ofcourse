@@ -1,7 +1,8 @@
 //Page for creating assignments that belong to a course
-div.oc-addAssign-wrapper
-  div.oc-addAssign-form
-    h1 Add Course Assignment
+div.ofcourse-addAssign-wrapper
+div.ofcourse-addAssign-box
+  div.ofcourse-addAssign-form
+    | Add Course Assignment
     form.pure-form
       fieldset.pure-group
         label(for="cid") Course
@@ -14,4 +15,4 @@ div.oc-addAssign-wrapper
         input.pure-input-1(id='due')
         lable(for="desc") Assignment Details
         textarea.pure-input-1(id='desc' rows='5')
-      button(type='button' class=['pure-button pure-input-1 pure-button-primary'] onclick="radio.trigger('submit:AddAssign')") Add Assignment
+      button(type='button' class=['pure-button pure-input-1 pure-button-primary wave-effect'] onclick="radio.trigger('submit:AddAssign')") Add Assignment
