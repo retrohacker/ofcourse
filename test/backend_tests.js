@@ -15,7 +15,8 @@ function user_model_validation_test_1() {
 		console.log("Backend User Model Validation Test 1" + "["+color.green("PASS")+"]")
 		pass++
 	}catch( Exception ){
-		console.log(Exception.message + "["+color.red("FAIL")+"]")
+	    console.log("Backend user Model Validation Test 1" + "["+color.red("FAIL")+"]")
+		console.log(Exception.message)
 		console.log(Exception)
 		console.log(user)
 		fail++
@@ -30,7 +31,8 @@ function user_model_validation_test_2() {
 		console.log("Backend User Model Validation Test 2" + "["+color.green("PASS")+"]")
 		pass++
 	}catch( Exception ){
-		console.log(Exception.message + "["+color.red("FAIL")+"]\n")
+	    console.log("Backend User Model Validation Test 2" + "["+color.red("FAIL")+"]")
+		console.log(Exception.message)
 		console.log(Exception)
 		console.log(user)
 		fail++
@@ -41,13 +43,46 @@ function course_model_validation_test_1() {
 	try{
 		var course = new models.Course()
 		var test_course = { university:1,id:5,title:"Theory of Something",department:"CS",number:491,section:001,start:"2015-02-01T04:05:06" ,end: "2015-02-30T04:05:06"};
-		assert.notEqual(course.set(test_course,{validate:true}),false, "Backend User Model Validation Test 1")//should throw an exception
+		assert.notEqual(course.set(test_course,{validate:true}),false, "Backend Course Model Validation Test 1")//should throw an exception
 		console.log("Backend Course Model Validation Test 1" + "["+color.green("PASS")+"]")
 		pass++
 	}catch( Exception ){
-		console.log(Exception.message + "["+color.red("FAIL")+"]\n")
+	    console.log("Backend Course Model Validation Test 1" + "["+color.red("FAIL")+"]")
+		console.log(Exception.message)
 		console.log(Exception)
 		console.log(course)
+		fail++
+	}
+}
+
+function event_model_validation_test_1() {
+	try{
+		var event = new models.Event()
+		var test_event = {id:1,userid:10,parnetid:2,courseid:3,title:"Test Event!",start:"2015-02-01T04:05:06",end:"2015-02-30T04:05:06",type:0,data:"this is test event data",status:"in progress"}
+		assert.notEqual(event.set(test_event,{validate:true}),false, "Backend Event Model Validation Test 1")//should throw an exception
+		console.log("Backend Event Model Validation Test 1" + "["+color.green("PASS")+"]")
+		pass++
+	}catch( Exception ){
+	    console.log("Backend Event Model Validation Test 1" + "["+color.red("FAIL")+"]")
+		console.log(Exception.message)
+		console.log(Exception)
+		console.log(event)
+		fail++
+	}
+}
+
+function university_model_validation_test_1() {
+	try{
+		var university = new models.University()
+		var test_university = {}
+		assert.notEqual(university.set(test_university,{validate:true}),false, "Backend University Model Validation Test 1")//should throw an exception
+		console.log("Backend University Model Validation Test 1" + "["+color.green("PASS")+"]")
+		pass++
+	}catch( Exception ){
+	    console.log("Backend University Model Validation Test 1" + "["+color.red("FAIL")+"]")
+		console.log(Exception.message)
+		console.log(Exception)
+		console.log(event)
 		fail++
 	}
 }
@@ -84,7 +119,8 @@ function user_database_test_1(){
 
 user_model_validation_test_1() 
 user_model_validation_test_2()
-course_model_validation_test_1() 
+course_model_validation_test_1()
+event_model_validation_test_1() 
 //user_database_test_1() 
 console.log(fail + color.red(" Failed"))
 console.log(pass + color.green(" Passed"))

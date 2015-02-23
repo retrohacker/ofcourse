@@ -28,10 +28,8 @@ var CourseModel =  Backbone.Model.extend({
 	    return 'expected course to have a start time'
 	  if(typeof attributes.end == 'undefined')
 	    return 'expected course to have a end time'
-	    
-	  //TODO: check attributes.start and attributes.end, 
-	  //both are SQL timestamp type, YYYYMMDDTHHMMSS    
-	    
+      //TODO: add ISO 8601 format check for start and end
+	  //both are SQL timestamp type, YYYYMMDDTHHMMSS     
 	  /*
 	   Will's suggestions:
 	  We take the string, split around the T 
