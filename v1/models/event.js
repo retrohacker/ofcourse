@@ -1,3 +1,4 @@
+//NOTE: This file exists as a symbolic link in frontend/js/models
 var Backbone = Backbone || require('backbone')
 
 var EventModel = Backbone.Model.extend({
