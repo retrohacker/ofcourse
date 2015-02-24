@@ -108,7 +108,7 @@ function backend_server_test_1(){
 			if(str)
 			console.log("Backend Test 1 - GET localhost:5000/ " + "["+color.green("PASS")+"]")
 			pass++
-			console.log(str);
+			//console.log(str);
 		  });
 		}
 		var req = http.request(request, callback);
@@ -122,11 +122,62 @@ function backend_server_test_1(){
 	}
 }
 
+function backend_login_test_1(){
+	try{
+
+		/*   { 'user-agent': 'curl/7.26.0',
+     host: 'localhost:5000',
+     'content-length': '19',
+     'content-type': 'application/x-www-form-urlencoded' },
+     * 
+     *  sessionID: 'v5MBfZCTDi_piqhscnIMXhBrggUtKUE6',
+
+     *
+	*/
+	
+		var login_parameters = 'email=test@test.net'
+		var request={
+		  host: 'localhost',
+		  port: 5000,
+		  path: '/v1/auth/login',
+		  method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+            //'Content-Length': post_data.length
+          }
+		  //form:'email=test@test.net'
+		}
+		callback = function(response) {
+		  var str = ''
+		  response.on('data', function (chunk) {
+			//console.log('data:' + chunk)
+			str += chunk;
+		  });
+		  response.on('end', function () {
+			if(str)
+			console.log("Backend Login Test 1 " + "["+color.green("PASS")+"]")
+			pass++
+			console.log(str);
+			console.log(response.headers)
+		  });
+		}
+		var req = http.request(request, callback);
+		req.write(login_parameters)
+		req.end()
+	}catch( Exception ){
+	    console.log("Backend Login Test 1 " + "["+color.red("FAIL")+"]")
+		console.log(Exception.message)
+		console.log(Exception)
+		console.log(event)
+		fail++
+	}
+}
+
 function backend_user_registration_test_1(){
 	try{
 		//make the request object
 		//'' 
-		var user= JSON.stringify({"firstName":"TestGuy1","lastName":"TestGuy1","university":"1","id":4123,"email":"testemail@myte3stemail.com"})
+		var user= JSON.stringify({"firstName":"TestGuy1","lastName":"TestGuy1","university":"1","id":420,"email":"test@test.net"})
 		var request={
 		  host: 'localhost',
 		  port: 5000,
@@ -242,6 +293,7 @@ user_model_validation_test_2()
 course_model_validation_test_1()
 event_model_validation_test_1() 
 backend_server_test_1()
+backend_login_test_1()
 backend_user_registration_test_1()
 backend_get_user_test_1()
 backend_create_course_test_1()

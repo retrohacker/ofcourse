@@ -40,8 +40,10 @@ passport.use(new LocalStrategy({
         logger.error('login error', e)  
         return done(e, false, { message: 'Incorrect username.' });
       }if(user){
+		logger.info("logged in a user", user.id)
         return done(null, user.id);
       }
+      logger.info("authentication error")
       return done(null, false,  { message: 'authentication error...' })
     })
   }
