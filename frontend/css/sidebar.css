@@ -1,21 +1,105 @@
+.ofcourse-sidebar-wrapper {
+  position: relative;
+  top: 0;
+  width: 100%;
+  left: 0;
+  height: 100%;
+  z-index: 20;
+}
+
 .ofcourse-sidebar {
   position: fixed;
   height: 100%;
-  background-color: #222;
+  background-color: #363644;
+  top: 0;
+  width: 20%;
+  overflow-x: hidden;
+  z-index: 25 !important;
+  min-width: 210px;
+  box-shadow: 7px 7px 29px 0px rgba(0,0,0,0.6);
+  -webkit-transition: all 0.6s;
+  -moz-transition: all 0.6s;
+  -ms-transition: all 0.6s;
+  -o-transition: all 0.6s;
+  transition: all 0.6s;
+}
+
+.ofcourse-sidebar-background {
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  background-color: #441D9E;
+  z-index: 20;
+  -webkit-transition: opacity 0.4s ease-in-out;
+  -moz-transition: opacity 0.4s ease-in-out;
+  -ms-transition: opacity 0.4s ease-in-out;
+  -o-transition: opacity 0.4s ease-in-out;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.ofcourse-sidebar-logos {
+  position: absolute;
   top: 0;
   left: 0;
-  width: 25%;
-  overflow-x: hidden;
-  min-width: 200px;
+  width: 100%;
+  height: 60px;
+  background-color: #441D9E;
+  text-align: center;
+  cursor: pointer;
+}
+
+.ofcourse-sidebar-logo {
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.ofcourse-sidebar-wordage {
+  position: relative;
+  top: -50px;
+  left: 100px;
+}
+
+.ofcourse-sidebar-menu {
+  position: relative;
+  top: 60px;
+}
+
+.ofcourse-sidebar-tools {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
 .ofcourse-sidebar .ofcourse-menu-item {
-  font-size: 1.5em;
-  padding: .5em;
-  color: #EEE;
-  border-bottom: #555 groove .1em;
+  line-height: 1.5em;
+  font-size: 1.2em;
+  font-family: Roboto;
+  font-weight: lighter;
+  color: #FFFFFF;
+  margin: 2px;
+  padding-top: .2em;
+  padding-bottom: .2em;
+  padding-left: .5em;
+  border: #2F2F34 solid 1px;
+  cursor: pointer; 
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -ms-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.ofcourse-menu-icon {
+  color:#fff;
+  width: 1.5em !important;
+  height: 1.5em !important;
+  line-height: 1.5em !important;
+  margin-right: .5em;
 }
 
 .ofcourse-sidebar .ofcourse-menu-item:hover {
-  background-color: #494949;
+  -webkit-box-shadow: 7px 9px 10px -3px rgba(0,0,0,0.62);
+  -moz-box-shadow: 7px 9px 10px -3px rgba(0,0,0,0.62);
+  box-shadow: 7px 9px 10px -3px rgba(0,0,0,0.62);
 }

@@ -43,24 +43,24 @@ router.post('/',function(req,res) {
       var parent = new models.ParentEvent()
       parent.set(course.toJSON())
       parent.set('cid',cid)
-      parent.set('cron', course.get('events'))
+      parent.set('cron', JSON.stringify(course.get('events')))
       db.user.addParentEvent(parent, function(e,pid){
-        var events = req.body.events
-        return cb(e,events, cid, pid)
+        return cb(e, cid, pid)
       })
     },
-    function connect(events, cid, pid, cb){
+    function connect(cid, pid, cb){
       client.connect(function(e){
-        return cb(e,events,cid,pid)
+        return cb(e,cid,pid)
       })
     },
-    function beginTransaction(events,cid,pid,cb) {
+    function beginTransaction(cid,pid,cb) {
       //client.query('BEGIN()', function(e, result){ // This doesn't work with pg-query
-        return cb(null,events,cid,pid)
+        return cb(null,cid,pid)
       //})
     },
-    function insertEvents(events, cid, pid, cb){
+    function insertEvents(cid, pid, cb){
       // For each cron and duration
+      var events = req.body.events
       async.each(events, function(item, cb){
         var sched = later.parse.cron(item.cron)
         var courseStart = new Date(course.attributes.start)
@@ -77,7 +77,9 @@ router.post('/',function(req,res) {
             end: new Date(date.setSeconds(date.getSeconds() + item.duration)).toISOString(),
             type: 0
           })
-          db.db(db.sql.insert(models.Event,courseEvent.toJSON()), cb)
+          var insert = db.sql.insert(models.Event,courseEvent.toJSON())
+          console.log(JSON.stringify(insert))
+          db.db(insert.str,insert.arr, cb)
         },cb)
       },function(e) {
         return cb(e,pid)

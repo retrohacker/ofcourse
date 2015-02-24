@@ -1,6 +1,3 @@
-var taskbar = new TaskbarView({radio: radio})
-var sidebar = new SidebarView({radio: radio})
-
 var Workspace = Backbone.Router.extend({
   routes:{
     "home": "home",
@@ -79,18 +76,19 @@ var Workspace = Backbone.Router.extend({
     App.courseEvents.fetch()
   },
   'addAssignment': function(){
-    radio.trigger('unrender:page')
     App.courses.fetch({reset:true})
     var addAssignmentView = new AddAssignView({radio: radio, collection: App.courses})
       .render()
   }
 });
+
 var App = App || {}
 App.user = new UserModel()
 App.user.fetch({
   success: init,
   error: init,
 })
+
 App.courses = new CourseCollection()
 App.courseEvents = new CourseEventsCollection()
 
@@ -106,6 +104,9 @@ function init() {
     workspace.navigate('login', {trigger: true});
   }
   else if(App.user.isLoggedIn()){
+    var taskbar = new TaskbarView({radio: radio, model: App.user})
+    var sidebar = new SidebarView({radio: radio})
+    
     radio.trigger('getTaskbar render:SidebarView')
     if(!App.user.hasUniversity()) {
       //TODO: remove these. they should not be hardcoded.
