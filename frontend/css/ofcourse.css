@@ -1,7 +1,7 @@
 body {
   background: #363644;
   height: 100%;
-  overflow-x: hidden;
+  overflow: hidden;
   -webkit-user-select: none;       
   -moz-user-select: none; 
   -ms-user-select: none;
@@ -40,16 +40,64 @@ body {
   transition: opacity 0.4s ease-in-out;
 }
 
+.ofcourse-scroll {
+  overflow-y: scroll;
+}
+
+.ofcourse-left {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  left: 25%;
+  top: 2.5%;
+  z-index: 15;
+  min-width: 400px;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+@media only screen and (min-width: 400px) {
+
+}
+
+.ofcourse-right {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  left: 25%;
+  top: 2.5%;
+  z-index: 10;
+  min-width: 400px;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
 .ofcourse-module-full {
   position: absolute;
   width: 90%;
   height: 80%;
   top: 2.5%;
   left: 5%;
-  overflow-y: scroll;
-  -webkit-box-shadow: 10px 10px 15px -5px rgba(0,0,0,0.75);
-  -moz-box-shadow: 10px 10px 15px -5px rgba(0,0,0,0.75);
-  box-shadow: 10px 10px 15px -5px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 0px 0px 14px 4px rgba(0,0,0,0.37);
+  -moz-box-shadow: 0px 0px 14px 4px rgba(0,0,0,0.37);
+  box-shadow: 0px 0px 14px 4px rgba(0,0,0,0.37);
+}
+
+.ofcourse-module {
+  position: relative;
+  width: 80%;
+  height: 80%;
+  top: 2.5%;
+  left: 1%;
+  -webkit-box-shadow: 0px 0px 14px 4px rgba(0,0,0,0.37);
+  -moz-box-shadow: 0px 0px 14px 4px rgba(0,0,0,0.37);
+  box-shadow: 0px 0px 14px 4px rgba(0,0,0,0.37);
 }
 
 .ofcourse-round-button {
@@ -58,15 +106,20 @@ body {
 
 .ofcourse-add-button {
   position: absolute !important;
-  bottom: 1.5em;
-  right: 1.5em;
+  bottom: 7em;
+  right: 3em;
   z-index: 15;
 }
 
 .ofcourse-button-hover:hover {
-  -webkit-box-shadow: 0px 0px 14px 4px rgba(0,0,0,0.38) !important;
-  -moz-box-shadow: 0px 0px 14px 4px rgba(0,0,0,0.38) !important;
-  box-shadow: 0px 0px 14px 4px rgba(0,0,0,0.38) !important;
+  -webkit-box-shadow: 0px 22px 14px -10px rgba(0,0,0,0.26) !important;
+  -moz-box-shadow: 0px 22px 14px -10px rgba(0,0,0,0.26) !important;
+  box-shadow: 0px 22px 14px -10px rgba(0,0,0,0.26) !important;
+}
+
+
+.ofcourse-mcolor-white {
+  background-color: #FFFFFF;
 }
 
 .ofcourse-mcolor-light {

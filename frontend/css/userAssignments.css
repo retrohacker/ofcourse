@@ -1,5 +1,5 @@
 .oc-userAssignments-pageWrapper {
-  position: fixed;
+  position: ab;
   height: 100%;
   width: 100%;
   text-align: center;
@@ -10,7 +10,7 @@
   margin: 10px;
   background: WHITE;
   padding-top: 2em;
-  -webkit-box-shadow: 10px 10px 15px -5px rgba(0,0,0,0.75);
-  -moz-box-shadow: 10px 10px 15px -5px rgba(0,0,0,0.75);
-  box-shadow: 10px 10px 15px -5px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 0px 0px 14px 4px rgba(0,0,0,0.37);
+  -moz-box-shadow: 0px 0px 14px 4px rgba(0,0,0,0.37);
+  box-shadow: 0px 0px 14px 4px rgba(0,0,0,0.37);
 }

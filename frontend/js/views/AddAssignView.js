@@ -1,8 +1,8 @@
 var AddAssignView = Backbone.View.extend({
-  defaultLocation: ".oc-userAssignments-pageWrapper.ofcourse-body",
+  defaultLocation: ".ofcourse-module-full.ofcourse-mcolor-white.add",
   template: JADE.addAssignment,
-  initialize: function(){
-    this.setElement(this.template(this.collection.toJSON()))
+  initialize: function(opts){
+    this.setElement(this.template(opts.courses.toJSON()))
     radio.on('unrender:AddAssignView',this.unrender, this)
     radio.on('render:AddAssignView',this.render,this)
     radio.on('unrender',this.unrender,this)
@@ -21,6 +21,7 @@ var AddAssignView = Backbone.View.extend({
   },
   submitted: function(){
     var cid = ''
+    var view = this
     jQuery.each(this.$('option'), function(i, item){
       if(item.selected){
         cid = item.id
@@ -34,19 +35,25 @@ var AddAssignView = Backbone.View.extend({
                                     'type': 1
                                   })
     assignment.save(null,{
-      success: function(model,res,opts){
-        workspace.navigate('userAssignments', {trigger: true})
+      success: function(){
+        view.collection.add(assignment)
       }
     })
+    $('.ofcourse-left').css({'transform': 'translateX(0%)'})
+    $('.ofcourse-right').css({'transform': 'translateX(0%)'})
+    this.unrender()
+    return this
   },
   rerender: function(){
     this.unrender()
     this.initialize()
     this.render()
+    return this
   },
   unrender: function() {
     this.stopListening()
     radio.off(null, null, this)
     this.$el.remove()
+    return this
   }
 });
