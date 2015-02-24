@@ -17,6 +17,7 @@ var AddAssignView = Backbone.View.extend({
     var location = location || this.defaultLocation
     //Add the view to the DOM
     $(location).append(this.$el)
+    this.createDatePicker()
     return this;
   },
   submitted: function(){
@@ -27,11 +28,20 @@ var AddAssignView = Backbone.View.extend({
         cid = item.id
       }
     });
+    var utc = new Date()
+    var offset = utc.toString().slice(28,29)
+    if(offset == '-')
+      var dueDateTime = new Date(utc.getTime() - (utc.getTimezoneOffset() * 60000)).toISOString().slice(0,19)
+    else
+      var dueDateTime = new Date(utc.getTime() + (utc.getTimezoneOffset() * 60000)).toISOString().slice(0,19)
+    if(this.$('#due').val() != '')
+      dueDateTime = this.$('#due').val()
+    console.log(dueDateTime)
     var assignment = new EventModel({'courseid': cid,
                                     'title': this.$('#title').val(),
                                     'desc': this.$('#desc').val(),
-                                    'start': this.$('#due').val(),
-                                    'end': this.$('#due').val(),
+                                    'start': dueDateTime,
+                                    'end': dueDateTime,
                                     'type': 1
                                   })
     assignment.save(null,{
@@ -39,10 +49,17 @@ var AddAssignView = Backbone.View.extend({
         view.collection.add(assignment)
       }
     })
+    radio.trigger('addDisable')
     $('.ofcourse-left').css({'transform': 'translateX(0%)'})
     $('.ofcourse-right').css({'transform': 'translateX(0%)'})
     this.unrender()
     return this
+  },
+  createDatePicker: function() {
+    this.$('#due').datetimepicker({
+      format:'Y-m-d H:i:s',
+      inline:true
+    })
   },
   rerender: function(){
     this.unrender()

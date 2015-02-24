@@ -11,7 +11,9 @@ div.ofcourse-addAssign-box
         label(for="title") Assignment Name
         input.pure-input-1(id='title')
         label(for="due") Due Date
-        input.pure-input-1(id='due')
+        div#due.ofcourse-date-select
+          i.fa.fa-calendar.waves-effect.waves-circle.waves-light.ofcourse-menu-icon.ofcourse-purple
+          input.pure-input-1.ofcourse-hidden
         lable(for="desc") Assignment Details
         textarea.pure-input-1(id='desc' rows='5')
       button(type='button' class=['pure-button pure-input-1 pure-button-primary wave-effect'] onclick="radio.trigger('submit:AddAssign')") Add Assignment

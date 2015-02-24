@@ -6,29 +6,22 @@
   text-align: center;
   opacity: .7;
   z-index: 30;
-  background: #441D9E;
 }
 
 .ofcourse-addAssign-box {
   position: absolute;
   width: 90%;
   height: 80%;
-  top: 2.5%;
   left: 5%;
-  background: #363644;
   text-align: center;
   z-index: 40;
   font-family: Roboto;
   font-weight: lighter;
-  color: WHITE;
-  -webkit-box-shadow: 0px 0px 14px 4px rgba(0,0,0,0.37);
-  -moz-box-shadow: 0px 0px 14px 4px rgba(0,0,0,0.37);
-  box-shadow: 0px 0px 14px 4px rgba(0,0,0,0.37);
 }
 
 .ofcourse-addAssign-form {
   position: relative;
   left: 25%;
-  top: 20%;
+  height: 100%;
   width: 50%;
 }

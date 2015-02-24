@@ -117,6 +117,10 @@ body {
   box-shadow: 0px 22px 14px -10px rgba(0,0,0,0.26) !important;
 }
 
+.ofcourse-date-select {
+  width: 50px;
+  height: 50px;
+}
 
 .ofcourse-mcolor-white {
   background-color: #FFFFFF;
@@ -147,8 +151,9 @@ body {
 }
 
 .ofcourse-hidden {
-  display: none;
+  display: none !important;
 }
+
 html {
   height: 100%;
 }
