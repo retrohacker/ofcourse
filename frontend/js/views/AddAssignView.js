@@ -1,5 +1,5 @@
 var AddAssignView = Backbone.View.extend({
-  defaultLocation: ".ofcourse-body",
+  defaultLocation: ".oc-userAssignments-pageWrapper.ofcourse-body",
   template: JADE.addAssignment,
   initialize: function(){
     this.setElement(this.template(this.collection.toJSON()))

@@ -5,7 +5,12 @@ body {
   -webkit-user-select: none;       
   -moz-user-select: none; 
   -ms-user-select: none;
-  cursor: default;
+  cursor: default; 
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
 }
 
 .oc_logo_min {
@@ -28,12 +33,69 @@ body {
   padding-top: 1em;
   position: absolute;
   width: 100%;
+  -webkit-transition: opacity 0.4s ease-in-out;
+  -moz-transition: opacity 0.4s ease-in-out;
+  -ms-transition: opacity 0.4s ease-in-out;
+  -o-transition: opacity 0.4s ease-in-out;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.ofcourse-module-full {
+  position: absolute;
+  width: 90%;
+  height: 80%;
+  top: 2.5%;
+  left: 5%;
+  overflow-y: scroll;
+  -webkit-box-shadow: 10px 10px 15px -5px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 15px -5px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 15px -5px rgba(0,0,0,0.75);
+}
+
+.ofcourse-round-button {
+  padding: .5em;
+}
+
+.ofcourse-add-button {
+  position: absolute !important;
+  bottom: 1.5em;
+  right: 1.5em;
+  z-index: 15;
+}
+
+.ofcourse-button-hover:hover {
+  -webkit-box-shadow: 0px 0px 14px 4px rgba(0,0,0,0.38) !important;
+  -moz-box-shadow: 0px 0px 14px 4px rgba(0,0,0,0.38) !important;
+  box-shadow: 0px 0px 14px 4px rgba(0,0,0,0.38) !important;
+}
+
+.ofcourse-mcolor-light {
+  background-color: #DAD2EC;
+}
+
+.ofcourse-blue {
+  background-color: #0099FF;
+}
+
+.ofcourse-red {
+  background-color: #FF3030;
+}
+
+.ofcourse-orange {
+  background-color: #FF8330
+}
+
+.ofcourse-purple {
+  background-color: #441D9E;
+}
+
+.ofcourse-green {
+  background-color: #8ee05e;
 }
 
 .ofcourse-hidden {
   display: none;
 }
-
 html {
   height: 100%;
 }

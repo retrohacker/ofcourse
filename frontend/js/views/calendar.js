@@ -21,6 +21,7 @@ var CalendarView = Backbone.View.extend({
       },
       timezone: 'local'
     });
+    $('.ofcourse-body').css('opacity', 1)
     return this
   },
   addAll: function() {

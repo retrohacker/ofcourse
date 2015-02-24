@@ -1,11 +1,34 @@
-.oc-addAssign-wrapper {
-  padding-left: 5%;
-  padding-right: 5%;
-  width: 90%;
+.ofcourse-addAssign-wrapper {
+  position: absolute;
+  width: 100%;
+  height: 140%;
+  top: -20%;
   text-align: center;
+  opacity: .7;
+  z-index: 30;
+  background: #441D9E;
 }
 
-.oc-addAssign-form {
-  max-width: 300px;
-  margin: 0 auto;
+.ofcourse-addAssign-box {
+  position: absolute;
+  width: 90%;
+  height: 80%;
+  top: 2.5%;
+  left: 5%;
+  background: #363644;
+  text-align: center;
+  z-index: 40;
+  font-family: Roboto;
+  font-weight: lighter;
+  color: WHITE;
+  -webkit-box-shadow: 10px 10px 15px -5px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 15px -5px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 15px -5px rgba(0,0,0,0.75);
+}
+
+.ofcourse-addAssign-form {
+  position: relative;
+  left: 25%;
+  top: 20%;
+  width: 50%;
 }

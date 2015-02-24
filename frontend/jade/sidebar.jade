@@ -1,9 +1,23 @@
-div(class=['ofcourse-sidebar'])
-  div#sidebar-home(class=['ofcourse-menu-item']) Home
-  div#sidebar-calendar(class=['ofcourse-menu-item']) Calendar
-  div#sidebar-courses(class=['ofcourse-menu-item']) Courses
-  div#sidebar-addcourse(class=['ofcourse-menu-item']) Add Course
-  div#sidebar-createcourse(class=['ofcourse-menu-item']) Create Course
-  div#sidebar-assignments(class=['ofcourse-menu-item']) View Assignments
-  div(class=['ofcourse-menu-item']) Settings
-  div#sidebar-logout(class=['ofcourse-menu-item']) Log Out
+div.ofcourse-sidebar-wrapper
+  div#sidebar-bg.ofcourse-sidebar-background
+  div.ofcourse-sidebar
+    div.ofcourse-sidebar-logos
+      div.ofcourse-sidebar-logo
+        !{JADE['logo-min-sm']()}
+    div.ofcourse-sidebar-menu
+      div#sidebar-calendar.ofcourse-menu-item.waves-effect.waves-light
+        i.fa.fa-calendar.waves-effect.waves-circle.waves-light.ofcourse-menu-icon.ofcourse-blue
+        | Calendar
+      div#sidebar-courses.ofcourse-menu-item.waves-effect.waves-light
+        i.fa.fa-bars.waves-effect.waves-circle.waves-light.ofcourse-menu-icon.ofcourse-green
+        | Courses
+      div#sidebar-assignments.ofcourse-menu-item.waves-effect.waves-light
+        i.fa.fa-folder.waves-effect.waves-circle.waves-light.ofcourse-menu-icon.ofcourse-orange
+        | Assignments
+    div.ofcourse-sidebar-tools
+      div.ofcourse-menu-item.waves-effect.waves-light
+        i.fa.fa-gear.waves-effect.waves-circle.waves-light.ofcourse-menu-icon.ofcourse-purple
+        | Settings
+      div#sidebar-logout.ofcourse-menu-item.waves-effect.waves-light 
+        i.fa.fa-user.waves-effect.waves-circle.waves-light.ofcourse-menu-icon.ofcourse-red
+        | Log Out

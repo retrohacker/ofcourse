@@ -21,7 +21,7 @@ var TaskbarView = Backbone.View.extend({
   defaultLocation: "body",
   buttons: [],
   initialize: function() {
-    this.setElement(this.template())
+    this.setElement(this.template(this.model.toJSON()))
     radio.on('unrender:TaskbarView',this.unrender,this)
     radio.on('render:TaskbarView',this.render,this)
     radio.on('unrender',this.unrender,this)
@@ -33,16 +33,16 @@ var TaskbarView = Backbone.View.extend({
   render: function() {
     if(this.state) return this
     this.addButtonLeft(new TaskbarButtonView({
-      className:'fa fa-fw fa-bars',
+      className:'fa fa-fw fa-bars waves-effect waves-light',
       onClick: function () {
         radio.trigger('sidebar:changeState')
       },
       title: "Settings"
     }))
     .addButtonRight(new TaskbarButtonView({
-      className:'fa fa-fw fa-paper-plane-o',
+      className:'fa fa-fw fa-paper-plane-o waves-effect waves-light',
       onClick: function() {
-        workspace.navigate('addAssignment',{trigger: true})
+        //Show Notifications
       },
       title: "Add Assignment"
     }))
