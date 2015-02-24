@@ -7,6 +7,8 @@ var color = require('cli-color')
 var pass = 0
 var fail = 0
 
+var http=require('http');
+
 function user_model_validation_test_1() {
 	try{
 		var user = new models.User()
@@ -87,41 +89,162 @@ function university_model_validation_test_1() {
 	}
 }
 
-//TODO: add tests for database functions
-
-/*
-function user_database_test_1(){
-	//console.log(db_user)
+function backend_server_test_1(){
 	try{
-		//console.log(db_user.insert.toString())
-		var user = new models.User()
-		var test_user_1 = { firstName: "Larryf" , lastName: "Testf", id: 2238 };
-		user.set(test_user_1,{validate:true})
-		console.log(db_user.insert(user,function(e,id) {
-			if(e) return e
-			if(id) return id
-			//if(e) throw(e)
-			//if(e) return res.status(500).json(e)
-			//req.login(id,function(e) {
-			//  if(e) return res.status(500).json(e)
-			//  return res.status(201).json({id:id})
-			//})
-		}))
-		//assert.equal(user.set(test_user_2,{validate:true}),false, "User Validation Test 2")//should throw an exception
-		console.log("User Database Test 2" + "["+color.green("PASS")+"]")
-		pass++
+		//make the request object
+		var request={
+		  host: 'localhost',
+		  port: 5000,
+		  path: '/',
+		  method: 'GET'
+		}
+		callback = function(response) {
+		  var str = ''
+		  response.on('data', function (chunk) {
+			//console.log('data:' + chunk)
+			str += chunk;
+		  });
+		  response.on('end', function () {
+			if(str)
+			console.log("Backend Test 1 - GET localhost:5000/ " + "["+color.green("PASS")+"]")
+			pass++
+			console.log(str);
+		  });
+		}
+		var req = http.request(request, callback);
+		req.end()
 	}catch( Exception ){
-		console.log(Exception.message + "["+color.red("FAIL")+"]\n")
+	    console.log("Backend Test 1 - GET localhost:5000/ " + "["+color.red("FAIL")+"]")
+		console.log(Exception.message)
+		console.log(Exception)
+		console.log(event)
 		fail++
 	}
 }
-*/
+
+function backend_user_registration_test_1(){
+	try{
+		//make the request object
+		//'' 
+		var user= JSON.stringify({"firstName":"TestGuy1","lastName":"TestGuy1","university":"1","id":4123,"email":"testemail@myte3stemail.com"})
+		var request={
+		  host: 'localhost',
+		  port: 5000,
+		  path: '/v1/user',
+		  method: 'POST',
+		  headers: { 
+			  'Content-Type': 'application/json'
+		   }
+		}
+		callback = function(response) {
+		  var str = ''
+		  response.on('data', function (chunk) {
+			//console.log('data:' + chunk)
+			str += chunk;
+		  });
+		  response.on('end', function () {
+			if(str)
+			console.log("Backend Test 2 - register new user " + "["+color.green("PASS")+"]")
+			pass++
+			console.log(str);
+		  });
+		}
+		var req = http.request(request, callback);
+		req.write(user)
+		req.end()
+	}catch( Exception ){
+	    console.log("Backend Test 2 - register new user " + "["+color.red("FAIL")+"]")
+		console.log(Exception.message)
+		console.log(Exception)
+		console.log(event)
+		fail++
+	}
+}
+
+function backend_get_user_test_1(){
+	try{
+		//make the request object
+		var request={
+		  host: 'localhost',
+		  port: 5000,
+		  path: '/v1/user',
+		  method: 'GET'
+		}
+		callback = function(response) {
+		  var str = ''
+		  response.on('data', function (chunk) {
+			//console.log('data:' + chunk)
+			str += chunk;
+		  });
+		  response.on('end', function () {
+			if(str)
+			console.log("Backend user Test - GET /v1/user " + "["+color.green("PASS")+"]")
+			pass++
+			console.log(str);
+		  });
+		}
+		var req = http.request(request, callback);
+		req.end()
+	}catch( Exception ){
+	    console.log("Backend user Test - GET /v1/user " + "["+color.red("FAIL")+"]")
+		console.log(Exception.message)
+		console.log(Exception)
+		console.log(event)
+		fail++
+	}
+}
+
+function backend_create_course_test_1(){
+	try{
+		//make the request object
+		//'' 
+		var course = new models.Course()
+		var test_course = { university:1,id:5,title:"Theory of Something",department:"CS",number:491,section:001,start:"2015-02-01T04:05:06" ,end: "2015-02-30T04:05:06"};
+		assert.notEqual(course.set(test_course,{validate:true}),false, "Backend Course Model Validation Test 1")//should throw an exception
+		var request={
+		  host: 'localhost',
+		  port: 5000,
+		  path: '/v1/course',
+		  method: 'POST',
+		  headers: { 
+			  'Content-Type': 'application/json'
+		   }
+		}
+		callback = function(response) {
+		  var str = ''
+		  response.on('data', function (chunk) {
+			//console.log('data:' + chunk)
+			str += chunk;
+		  });
+		  response.on('end', function () {
+			if(str)
+			console.log("Backend Create Course Test 1 " + "["+color.green("PASS")+"]")
+			pass++
+			console.log(str);
+		  });
+		}
+		var req = http.request(request, callback);
+		req.write(JSON.stringify(test_course))
+		req.end()
+	}catch( Exception ){
+	    console.log("Backend Create Course Test 1  " + "["+color.red("FAIL")+"]")
+		console.log(Exception.message)
+		console.log(Exception)
+		console.log(event)
+		fail++
+	}
+}
+
+//TODO: add tests for database functions
 
 user_model_validation_test_1() 
 user_model_validation_test_2()
 course_model_validation_test_1()
 event_model_validation_test_1() 
-//user_database_test_1() 
+backend_server_test_1()
+backend_user_registration_test_1()
+backend_get_user_test_1()
+backend_create_course_test_1()
 console.log(fail + color.red(" Failed"))
 console.log(pass + color.green(" Passed"))
 
