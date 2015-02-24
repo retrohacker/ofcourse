@@ -89,9 +89,9 @@ router.post('/',function(req,res) {
   function(e,pid){
     client.end()    
     if(e) {
-		logger.error('create course error ', e)
-		return res.status(500).end(e.stack+"\n"+JSON.stringify(e))
-	}
+      logger.error('create course error ', e)
+      return res.status(500).end(e.stack+"\n"+JSON.stringify(e))
+    }
     res.write(JSON.stringify({id:pid}))
     return res.end()
   })
@@ -102,8 +102,8 @@ router.get('/courses',function(req,res) {
   if(!req.user || !req.user.profile || !req.user.profile.id) return res.status(401).json("Please login")
   db.user.get(req.user.profile.id,function(e,user) {
     if(e) {
-		logger.error('database error getting user', e)
-		return res.status(500).json(e)//dont do this, remove this for production build, gives attackers too much info
+      logger.error('database error getting user', e)
+      return res.status(500).json(e)//dont do this, remove this for production build, gives attackers too much info
     }
     if(!user) res.status(500).json('user not found')
     db.user.getCoursesByUniversity(user.university,function(e,courses) {
