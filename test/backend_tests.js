@@ -6,7 +6,7 @@ var models = require('../v1/models')
 var color = require('cli-color')
 var pass = 0
 var fail = 0
-
+var cookie
 var http=require('http');
 
 function user_model_validation_test_1() {
@@ -84,14 +84,12 @@ function university_model_validation_test_1() {
 	    console.log("Backend University Model Validation Test 1" + "["+color.red("FAIL")+"]")
 		console.log(Exception.message)
 		console.log(Exception)
-		console.log(event)
 		fail++
 	}
 }
 
 function backend_server_test_1(){
 	try{
-		//make the request object
 		var request={
 		  host: 'localhost',
 		  port: 5000,
@@ -101,7 +99,6 @@ function backend_server_test_1(){
 		callback = function(response) {
 		  var str = ''
 		  response.on('data', function (chunk) {
-			//console.log('data:' + chunk)
 			str += chunk;
 		  });
 		  response.on('end', function () {
@@ -117,24 +114,13 @@ function backend_server_test_1(){
 	    console.log("Backend Test 1 - GET localhost:5000/ " + "["+color.red("FAIL")+"]")
 		console.log(Exception.message)
 		console.log(Exception)
-		console.log(event)
 		fail++
 	}
 }
 
+
 function backend_login_test_1(){
 	try{
-
-		/*   { 'user-agent': 'curl/7.26.0',
-     host: 'localhost:5000',
-     'content-length': '19',
-     'content-type': 'application/x-www-form-urlencoded' },
-     * 
-     *  sessionID: 'v5MBfZCTDi_piqhscnIMXhBrggUtKUE6',
-
-     *
-	*/
-	
 		var login_parameters = 'email=test@test.net'
 		var request={
 		  host: 'localhost',
@@ -143,14 +129,11 @@ function backend_login_test_1(){
 		  method: 'POST',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
-            //'Content-Length': post_data.length
           }
-		  //form:'email=test@test.net'
 		}
 		callback = function(response) {
 		  var str = ''
 		  response.on('data', function (chunk) {
-			//console.log('data:' + chunk)
 			str += chunk;
 		  });
 		  response.on('end', function () {
@@ -158,7 +141,19 @@ function backend_login_test_1(){
 			console.log("Backend Login Test 1 " + "["+color.green("PASS")+"]")
 			pass++
 			console.log(str);
-			console.log(response.headers)
+			headers = JSON.stringify(response.headers)
+			//console.log(response)
+			//console.log(headers)
+			idlocation = headers.search('connect.sid')
+			cookie = headers.substr(idlocation,headers.search('; Path')-idlocation)
+			console.log('Cookie:', cookie)
+			//call more tests after logging in
+			backend_get_user_test_1()
+			backend_create_course_test_1()
+			backend_create_event_test_1()
+			backend_get_courses_test_1()
+			backend_get_universities_test_1()
+			backend_get_events_test_1()
 		  });
 		}
 		var req = http.request(request, callback);
@@ -168,11 +163,205 @@ function backend_login_test_1(){
 	    console.log("Backend Login Test 1 " + "["+color.red("FAIL")+"]")
 		console.log(Exception.message)
 		console.log(Exception)
+		fail++
+	}
+}
+function backend_get_user_test_1(){
+	try{
+		var request={
+		  host: 'localhost',
+		  port: 5000,
+		  path: '/v1/user',
+		  method: 'GET',
+		  headers: {'Cookie': cookie}
+		}
+		callback = function(response) {
+		  var str = ''
+		  response.on('data', function (chunk) {
+			str += chunk;
+		  });
+		  response.on('end', function () {
+			if(str)
+			console.log("Backend user Test - GET /v1/user " + "["+color.green("PASS")+"]")
+			pass++
+			console.log(str);
+		  });
+		}
+		var req = http.request(request, callback);
+		req.end()
+	}catch( Exception ){
+	    console.log("Backend user Test - GET /v1/user " + "["+color.red("FAIL")+"]")
+		console.log(Exception.message)
+		console.log(Exception)
+		fail++
+	}
+}
+function backend_get_universities_test_1(){
+	try{
+		var request={
+		  host: 'localhost',
+		  port: 5000,
+		  path: '/v1/university/universities',
+		  method: 'GET',
+		  headers: {'Cookie': cookie}
+		}
+		callback = function(response) {
+		  var str = ''
+		  response.on('data', function (chunk) {
+			str += chunk;
+		  });
+		  response.on('end', function () {
+			if(str)
+			console.log("Backend universities test 1 - GET /v1/university/universities " + "["+color.green("PASS")+"]")
+			pass++
+			console.log(str);
+		  });
+		}
+		var req = http.request(request, callback);
+		req.end()
+	}catch( Exception ){
+	    console.log("Backend universities test 1 - GET /v1/university/universities " + "["+color.red("FAIL")+"]")
+		console.log(Exception.message)
+		console.log(Exception)
+		fail++
+	}
+}
+function backend_create_course_test_1(){
+	try{
+		var course = new models.Course()
+		var test_course = { university:1,id:15,title:"Theory of Something",department:"CS",number:491,section:001,start:"20150201" ,end: "20150228"};
+		assert.notEqual(course.set(test_course,{validate:true}),false, "Backend Course Model Validation Test 1")//should throw an exception
+		var request={
+		  host: 'localhost',
+		  port: 5000,
+		  path: '/v1/course',
+		  method: 'POST',
+		  headers: { 
+			  Cookie: cookie,
+			  'Content-Type': 'application/json'
+		   }
+		}
+		callback = function(response) {
+		  var str = ''
+		  response.on('data', function (chunk) {
+			str += chunk;
+		  });
+		  response.on('end', function () {
+			if(str)
+			console.log("Backend Create Course Test 1 " + "["+color.green("PASS")+"]")
+			pass++
+			console.log(str);
+		  });
+		}
+		var req = http.request(request, callback);
+		req.write(JSON.stringify(test_course))
+		req.end()
+	}catch( Exception ){
+	    console.log("Backend Create Course Test 1  " + "["+color.red("FAIL")+"]")
+		console.log(Exception.message)
+		console.log(Exception)
 		console.log(event)
 		fail++
 	}
 }
-
+function backend_create_event_test_1(){
+	try{
+		var event = new models.Event()
+		var test_event = {id:1,userid:10,parnetid:2,courseid:3,title:"Test Event!",start:"2015-02-01T04:05:06",end:"2015-02-30T04:05:06",type:0,data:"this is test event data",status:"in progress"}
+		assert.notEqual(event.set(test_event,{validate:true}),false, "Backend Create Event Test 1")//should throw an exception
+		var request={
+		  host: 'localhost',
+		  port: 5000,
+		  path: '/v1/event/event',
+		  method: 'POST',
+		  headers: { 
+			  Cookie: cookie,
+			  'Content-Type': 'application/json'
+		   }
+		}
+		callback = function(response) {
+		  var str = ''
+		  response.on('data', function (chunk) {
+			str += chunk;
+		  });
+		  response.on('end', function () {
+			if(str)
+			console.log("Backend Create Event Test 1 " + "["+color.green("PASS")+"]")
+			pass++
+			console.log(str);
+		  });
+		}
+		var req = http.request(request, callback);
+		req.write(JSON.stringify(test_event))
+		req.end()
+	}catch( Exception ){
+	    console.log("Backend Create Event Test 1  " + "["+color.red("FAIL")+"]")
+		console.log(Exception.message)
+		console.log(Exception)
+		console.log(event)
+		fail++
+	}
+}
+function backend_get_courses_test_1(){
+	try{
+		var request={
+		  host: 'localhost',
+		  port: 5000,
+		  path: '/v1/course/courses',
+		  method: 'GET',
+		  headers: {'Cookie': cookie}
+		}
+		callback = function(response) {
+		  var str = ''
+		  response.on('data', function (chunk) {
+			str += chunk;
+		  });
+		  response.on('end', function () {
+			if(str)
+			console.log("Backend get courses Test 1 - GET /v1/course/courses " + "["+color.green("PASS")+"]")
+			pass++
+			console.log(str);
+		  });
+		}
+		var req = http.request(request, callback);
+		req.end()
+	}catch( Exception ){
+	    console.log("Backend get courses Test 1 - GET /v1/course/courses " + "["+color.red("FAIL")+"]")
+		console.log(Exception.message)
+		console.log(Exception)
+		fail++
+	}
+}
+function backend_get_events_test_1(){
+	try{
+		var request={
+		  host: 'localhost',
+		  port: 5000,
+		  path: '/v1/event/events',
+		  method: 'GET',
+		  headers: {'Cookie': cookie}
+		}
+		callback = function(response) {
+		  var str = ''
+		  response.on('data', function (chunk) {
+			str += chunk;
+		  });
+		  response.on('end', function () {
+			if(str)
+			console.log("Backend get events Test 1 - GET /v1/event/events " + "["+color.green("PASS")+"]")
+			pass++
+			console.log(str);
+		  });
+		}
+		var req = http.request(request, callback);
+		req.end()
+	}catch( Exception ){
+	    console.log("Backend get events Test 1 - GET /v1/event/events " + "["+color.red("FAIL")+"]")
+		console.log(Exception.message)
+		console.log(Exception)
+		fail++
+	}
+}
 function backend_user_registration_test_1(){
 	try{
 		//make the request object
@@ -212,80 +401,6 @@ function backend_user_registration_test_1(){
 	}
 }
 
-function backend_get_user_test_1(){
-	try{
-		//make the request object
-		var request={
-		  host: 'localhost',
-		  port: 5000,
-		  path: '/v1/user',
-		  method: 'GET'
-		}
-		callback = function(response) {
-		  var str = ''
-		  response.on('data', function (chunk) {
-			//console.log('data:' + chunk)
-			str += chunk;
-		  });
-		  response.on('end', function () {
-			if(str)
-			console.log("Backend user Test - GET /v1/user " + "["+color.green("PASS")+"]")
-			pass++
-			console.log(str);
-		  });
-		}
-		var req = http.request(request, callback);
-		req.end()
-	}catch( Exception ){
-	    console.log("Backend user Test - GET /v1/user " + "["+color.red("FAIL")+"]")
-		console.log(Exception.message)
-		console.log(Exception)
-		console.log(event)
-		fail++
-	}
-}
-
-function backend_create_course_test_1(){
-	try{
-		//make the request object
-		//'' 
-		var course = new models.Course()
-		var test_course = { university:1,id:5,title:"Theory of Something",department:"CS",number:491,section:001,start:"2015-02-01T04:05:06" ,end: "2015-02-30T04:05:06"};
-		assert.notEqual(course.set(test_course,{validate:true}),false, "Backend Course Model Validation Test 1")//should throw an exception
-		var request={
-		  host: 'localhost',
-		  port: 5000,
-		  path: '/v1/course',
-		  method: 'POST',
-		  headers: { 
-			  'Content-Type': 'application/json'
-		   }
-		}
-		callback = function(response) {
-		  var str = ''
-		  response.on('data', function (chunk) {
-			//console.log('data:' + chunk)
-			str += chunk;
-		  });
-		  response.on('end', function () {
-			if(str)
-			console.log("Backend Create Course Test 1 " + "["+color.green("PASS")+"]")
-			pass++
-			console.log(str);
-		  });
-		}
-		var req = http.request(request, callback);
-		req.write(JSON.stringify(test_course))
-		req.end()
-	}catch( Exception ){
-	    console.log("Backend Create Course Test 1  " + "["+color.red("FAIL")+"]")
-		console.log(Exception.message)
-		console.log(Exception)
-		console.log(event)
-		fail++
-	}
-}
-
 //TODO: add tests for database functions
 
 user_model_validation_test_1() 
@@ -293,10 +408,13 @@ user_model_validation_test_2()
 course_model_validation_test_1()
 event_model_validation_test_1() 
 backend_server_test_1()
+//backend_user_registration_test_1()
 backend_login_test_1()
-backend_user_registration_test_1()
-backend_get_user_test_1()
-backend_create_course_test_1()
+// - backend_get_user_test_1()
+// - backend_create_course_test_1()
+// - backend_create_event_test_1()
+// - backend_get_courses_test_1()
+// - backend_get_universities_test_1()
+// - backend_get_events_test_1()
 console.log(fail + color.red(" Failed"))
 console.log(pass + color.green(" Passed"))
-

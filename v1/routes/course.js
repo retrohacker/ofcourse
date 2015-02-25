@@ -5,6 +5,7 @@ var passport = require('passport')
 var later = require('later')
 var pg = require('pg')
 var async = require('async')
+var logger = require('../../logger')
 
 var db = require('../db')
 var models = require('../models')

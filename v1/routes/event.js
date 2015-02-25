@@ -5,6 +5,7 @@ var passport = require('passport')
 
 var db = require('../db')
 var models = require('../models')
+var logger = require('../../logger')
 
 router.use(bodyParser.json())
 router.use(db.session)
