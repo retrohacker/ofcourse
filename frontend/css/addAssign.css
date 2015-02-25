@@ -11,7 +11,7 @@
 .ofcourse-addAssign-box {
   position: absolute;
   width: 90%;
-  height: 80%;
+  height: 99%;
   left: 5%;
   text-align: center;
   z-index: 40;
@@ -21,7 +21,25 @@
 
 .ofcourse-addAssign-form {
   position: relative;
-  left: 25%;
+  left: 5%;
   height: 100%;
-  width: 50%;
+  width: 90%;
+  border: none;
 }
+
+.ofcourse-addAssign-fieldset {
+  height: 100%;
+}
+
+@media only screen and (max-width: 400px) {
+  .ofcourse-addAssign-form {
+    left: 0%;
+    width: 100%;
+  }
+
+  .ofcourse-addAssign-box {
+    width: 100%;
+    left: 0px;
+  }
+}
+

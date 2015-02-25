@@ -1,19 +1,14 @@
 //Page for creating assignments that belong to a course
 div.ofcourse-addAssign-box
-  div.ofcourse-addAssign-form
-    | Add Course Assignment
-    form.pure-form
-      fieldset.pure-group
-        label(for="cid") Course
-        select.pure-input-1(id='cid')
-          - each item in locals
-            option(id='#{item.id}') #{item.title} #{item.number} - Section #{item.section}
-        label(for="title") Assignment Name
-        input.pure-input-1(id='title')
-        label(for="due") Due Date
-        div#due.ofcourse-date-select
-          i.fa.fa-calendar.waves-effect.waves-circle.waves-light.ofcourse-menu-icon.ofcourse-purple
-          input.pure-input-1.ofcourse-hidden
-        lable(for="desc") Assignment Details
-        textarea.pure-input-1(id='desc' rows='5')
-      button(type='button' class=['pure-button pure-input-1 pure-button-primary wave-effect'] onclick="radio.trigger('submit:AddAssign')") Add Assignment
+  | Add Course Assignment
+  form.ofcourse-addAssign-form
+    fieldset.ofcourse-clean-fieldset.ofcourse-addAssign-fieldset
+      select.ofcourse-clean-input(id='cid')
+        - each item in locals
+          option(id='#{item.id}') #{item.title} #{item.number} - Section #{item.section}
+      input.ofcourse-clean-input(id='title' placeholder='Assignment Name')
+      textarea.ofcourse-clean-input(id='desc' rows='5' placeholder='Type a description for this assignment...')
+      div#due.ofcourse-date-select
+        i.fa.fa-calendar.waves-effect.waves-circle.waves-light.ofcourse-menu-icon.ofcourse-purple
+        input.ofcourse-hidden
+    button(type='button' class=['pure-button pure-input-1 pure-button-primary wave-effect'] onclick="radio.trigger('submit:AddAssign')") Add Assignment

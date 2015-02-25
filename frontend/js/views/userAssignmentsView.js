@@ -35,8 +35,12 @@ var UserAssignmentsView = Backbone.View.extend({
     addAssignment: function(){
       var view = this
       if(!this.addAssign){
-        $('.ofcourse-left').css({'transform': 'translateX(-50%)'})
-        $('.ofcourse-right').css({'transform': 'translateX(+50%)'})
+        if($('.ofcourse-mobile').css('width') != '1px') {
+          $('.ofcourse-left').css({'transform': 'translateX(-50%)'})
+          $('.ofcourse-right').css({'transform': 'translateX(+50%)'})
+        } else {
+          $('.ofcourse-left').css({'transform': 'translateY(-200%)'})
+        }
         App.courses.fetch({
           success: function() {
             var addAssignmentView = new AddAssignView({radio: radio, collection: view.collection, courses: view.courses}).render()
