@@ -1,14 +1,12 @@
 //Page for creating assignments that belong to a course
 div.ofcourse-addAssign-box
-  | Add Course Assignment
   form.ofcourse-addAssign-form
     fieldset.ofcourse-clean-fieldset.ofcourse-addAssign-fieldset
+      input.ofcourse-clean-input.ofcourse-heading(id='title' placeholder='Assignment Name' autofocus)
       select.ofcourse-clean-input(id='cid')
         - each item in locals
           option(id='#{item.id}') #{item.title} #{item.number} - Section #{item.section}
-      input.ofcourse-clean-input(id='title' placeholder='Assignment Name')
-      textarea.ofcourse-clean-input(id='desc' rows='5' placeholder='Type a description for this assignment...')
+      textarea.ofcourse-clean-input(id='desc' rows='3' placeholder='Type a description for this assignment...')
       div#due.ofcourse-date-select
-        i.fa.fa-calendar.waves-effect.waves-circle.waves-light.ofcourse-menu-icon.ofcourse-purple
         input.ofcourse-hidden
-    button(type='button' class=['pure-button pure-input-1 pure-button-primary wave-effect'] onclick="radio.trigger('submit:AddAssign')") Add Assignment
+    button#submit.ofcourse-green.wave-effect.ofcourse-sq-button(type='button' onclick="radio.trigger('submit:AddAssign')") Add Assignment

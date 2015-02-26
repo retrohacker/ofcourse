@@ -80,7 +80,7 @@
 	margin-top: 0;
 }
 .xdsoft_datetimepicker  .xdsoft_datepicker.active+.xdsoft_timepicker{
-	margin-top:8px;
+	margin-top:5%;
 	margin-bottom:3px
 }
 .xdsoft_datetimepicker  .xdsoft_mounthpicker{
@@ -154,7 +154,7 @@
 	margin-top: 0;
 }
 .xdsoft_datetimepicker  .xdsoft_timepicker .xdsoft_time_box{
-	height:151px;
+	height:100%;
 	overflow:hidden;
 	border-bottom:1px solid #DDDDDD;
 }

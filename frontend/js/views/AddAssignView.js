@@ -12,6 +12,14 @@ var AddAssignView = Backbone.View.extend({
     this.listenTo(this.collection, 'remove', this.rerender)
     this.listenTo(this.collection, 'reset',this.rerender)
   },
+  events: {
+    'keyup': 'checkSubmit'
+  },
+  checkSubmit: function(e) {
+    if(e.keyCode == 13){
+      this.submitted()
+    }
+  },
   render: function(location) {
     //Set the DOM element to be rendered in
     var location = location || this.defaultLocation
