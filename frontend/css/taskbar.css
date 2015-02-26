@@ -15,6 +15,12 @@
   transition: all 0.3s;
 }
 
+.wordage {
+  margin-left: auto;
+  margin-right: auto;
+  width: 156px;
+}
+
 .ofcourse-taskbar-left {
   position: absolute;
   height: 100%;
@@ -41,7 +47,12 @@
   background-color: #141414;
 }
 
-.ofcourse-taskbar .ofcourse-taskbar-right i {
+.ofcourse-taskbar .ofcourse-taskbar-right-1 i {
+  float: right;
+  right: 2.3em;
+}
+
+.ofcourse-taskbar .ofcourse-taskbar-right-2 i {
   float: right;
   right: 0;
 }
@@ -55,4 +66,16 @@
 .ofcourse-taskbar .ofcourse-padding-left {
   padding-left: .5em;
   display: inline-block;
+}
+
+@media only screen and (max-width: 700px) {
+  .ofcourse-welcome-text {
+    display: none;
+  }
+
+@media only screen and (max-width: 400px) {
+  .wordage {
+    position: absolute;
+    left: 18%;
+  }
 }
