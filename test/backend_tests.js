@@ -154,6 +154,7 @@ function backend_login_test_1(){
 			backend_get_courses_test_1()
 			backend_get_universities_test_1()
 			backend_get_events_test_1()
+			backend_get_user_courses_test_1()
 		  });
 		}
 		var req = http.request(request, callback);
@@ -229,7 +230,7 @@ function backend_get_universities_test_1(){
 function backend_create_course_test_1(){
 	try{
 		var course = new models.Course()
-		var test_course = { university:1,id:15,title:"Theory of Something",department:"CS",number:491,section:001,start:"20150201" ,end: "20150228"};
+		var test_course = { university:1,id:15,title:"Theory of Something",location:"my dick",instructor:"my other dick",semester:"fall",department:"CS",number:491,section:001,start:"20150201" ,end: "20150228"};
 		assert.notEqual(course.set(test_course,{validate:true}),false, "Backend Course Model Validation Test 1")//should throw an exception
 		var request={
 		  host: 'localhost',
@@ -320,7 +321,8 @@ function backend_get_courses_test_1(){
 			if(str)
 			console.log("Backend get courses Test 1 - GET /v1/course/courses " + "["+color.green("PASS")+"]")
 			pass++
-			console.log(str);
+			console.log("this function returns all the courses - we're not going to log them");
+			//console.log(str);
 		  });
 		}
 		var req = http.request(request, callback);
@@ -357,6 +359,36 @@ function backend_get_events_test_1(){
 		req.end()
 	}catch( Exception ){
 	    console.log("Backend get events Test 1 - GET /v1/event/events " + "["+color.red("FAIL")+"]")
+		console.log(Exception.message)
+		console.log(Exception)
+		fail++
+	}
+}
+function backend_get_user_courses_test_1(){
+	try{
+		var request={
+		  host: 'localhost',
+		  port: 5000,
+		  path: '/v1/user/courses',
+		  method: 'GET',
+		  headers: {'Cookie': cookie}
+		}
+		callback = function(response) {
+		  var str = ''
+		  response.on('data', function (chunk) {
+			str += chunk;
+		  });
+		  response.on('end', function () {
+			if(str)
+			console.log("Backend get user courses Test 1 - GET /v1/user/courses " + "["+color.green("PASS")+"]")
+			pass++
+			console.log(str);
+		  });
+		}
+		var req = http.request(request, callback);
+		req.end()
+	}catch( Exception ){
+	    console.log("Backend get user courses Test 1 - GET /v1/user/courses" + "["+color.red("FAIL")+"]")
 		console.log(Exception.message)
 		console.log(Exception)
 		fail++
@@ -416,5 +448,6 @@ backend_login_test_1()
 // - backend_get_courses_test_1()
 // - backend_get_universities_test_1()
 // - backend_get_events_test_1()
+// - backend_get_user_courses_test_1()
 console.log(fail + color.red(" Failed"))
 console.log(pass + color.green(" Passed"))
