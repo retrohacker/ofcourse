@@ -2,7 +2,7 @@ var router = module.exports = require('express').Router()
 
 var bodyParser = require('body-parser')
 var passport = require('passport')
-
+var async = require('async')
 var db = require('../db')
 var models = require('../models')
 
