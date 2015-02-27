@@ -55,3 +55,36 @@ router.get('/',function(req,res) {
     res.status(200).json(user)
   })
 })
+
+router.get('/courses', function (req, res, next) {
+  if(!req.user || !req.user.profile || !req.user.profile.id) return res.status(401).json("Please login")
+  async.waterfall([
+    function getUserCourseIDs(cb){
+      db.user.getUserCourseIDs(req.user.profile.id, function(e,courseIDs){
+	  if(e) {
+        logger.error('database error: could not fetch user', e)  
+      }
+      return cb(e, courseIDs)
+      })
+    },
+    function getCoursesByCourseIDs(courseIDs, cb){
+      async.each(courseIDs,function(course, cb){
+		    db.user.getCourse(course.cid,function(e,course){
+	        if(e) {
+            logger.error('database error: /user/courses: ', e)  
+          }
+          res.write(JSON.stringify(course)) 
+          return res.end()
+        }) 
+      },cb)
+    }
+  ],
+  function(e,courses){
+    client.end()    
+    if(e) {
+      logger.error('get courses error ', e)
+      return res.status(500).end(e.stack+"\n"+JSON.stringify(e))
+    }
+    return res.end()
+  })
+})
