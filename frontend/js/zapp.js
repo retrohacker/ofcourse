@@ -33,6 +33,9 @@ var Workspace = Backbone.Router.extend({
     var calendarView = new CalendarView({radio: radio, collection: App.eventCollection})
       .render();
     App.eventCollection.fetch({reset:true})//not the most efficient way to populate collection, but needed because of calender.js events
+    console.log("collection")
+    console.log(App.eventCollection)
+    
   },
   'addCourse': function(){
     radio.trigger('unrender:page getTaskbar');

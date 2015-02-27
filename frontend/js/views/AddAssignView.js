@@ -26,13 +26,24 @@ var AddAssignView = Backbone.View.extend({
         cid = item.id
       }
     });
+    var inputTime = this.$('#due').val()
+    console.log(inputTime)
+    
+
+    var timeArr = inputTime.split(/[a-zA-Z]/);
+
+    var date = new Date(timeArr[0] + " " + timeArr[1])
+    console.log(date)
+    var isoTime = date.toISOString()
+    console.log(isoTime)
     var assignment = new EventModel({'courseid': cid,
                                     'title': this.$('#title').val(),
                                     'desc': this.$('#desc').val(),
-                                    'start': this.$('#due').val(),
-                                    'end': this.$('#due').val(),
+                                    'start': isoTime,
+                                    'end': isoTime,
                                     'type': 1
                                   })
+    console.log(assignment)
     assignment.save(null,{
       success: function(model,res,opts){
         workspace.navigate('userAssignments', {trigger: true})
