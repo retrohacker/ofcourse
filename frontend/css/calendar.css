@@ -1,6 +1,6 @@
 .ofcourse-body .fc {
   padding: 0 .5em .5em;
-  margin-top: 1em;
+  margin-top: 0;
   margin-left: 15%;
   margin-right: 15%;
 }
@@ -24,9 +24,13 @@
 }
 
 .ofcourse-body .fc .fc-toolbar button:hover {
-  -webkit-box-shadow: 0px 15px 14px -10px rgba(0,0,0,0.26) !important;
-  -moz-box-shadow: 0px 15px 14px -10px rgba(0,0,0,0.26) !important;
-  box-shadow: 0px 15px 14px -10px rgba(0,0,0,0.26) !important;
+  -webkit-box-shadow: 0px 15px 14px 0px rgba(0,0,0,0.26) !important;
+  -moz-box-shadow: 0px 15px 14px 0px rgba(0,0,0,0.26) !important;
+  box-shadow: 0px 15px 14px 0px rgba(0,0,0,0.26) !important;
+}
+
+.ofcourse-body .fc .fc-toolbar button:focus {
+    outline: none;
 }
 
 .ofcourse-body .fc-toolbar .fc-left {
@@ -112,6 +116,7 @@
     width: 2.5em;
     height: 2.5em;
     margin: .2em;
+    padding: 0;
   }
 
   .ofcourse-body .fc-toolbar .fc-left {
