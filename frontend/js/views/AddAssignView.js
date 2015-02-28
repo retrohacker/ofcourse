@@ -36,20 +36,18 @@ var AddAssignView = Backbone.View.extend({
         cid = item.id
       }
     });
-    var utc = new Date()
-    var offset = utc.toString().slice(28,29)
-    if(offset == '-')
-      var dueDateTime = new Date(utc.getTime() - (utc.getTimezoneOffset() * 60000)).toISOString().slice(0,19)
-    else
-      var dueDateTime = new Date(utc.getTime() + (utc.getTimezoneOffset() * 60000)).toISOString().slice(0,19)
-    if(this.$('#due').val() != '')
-      dueDateTime = this.$('#due').val()
-    console.log(dueDateTime)
+    var inputTime = this.$('#due').val()   
+
+    var timeArr = inputTime.split(/[a-zA-Z]/);
+
+    var date = new Date(timeArr[0] + " " + timeArr[1])
+    var isoTime = date.toISOString()
+    
     var assignment = new EventModel({'courseid': cid,
                                     'title': this.$('#title').val(),
                                     'desc': this.$('#desc').val(),
-                                    'start': dueDateTime,
-                                    'end': dueDateTime,
+                                    'start': isoTime,
+                                    'end': isoTime,
                                     'type': 1
                                   })
     assignment.save(null,{
