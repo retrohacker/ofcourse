@@ -31,6 +31,27 @@ user.get = function get(id,cb) {
 user.getEvents = function getEvents(id,cb) {
   db("select * from events where userid="+id,function(e,rows,result) {
     if(e) return cb(e)
+    for(i = 0; i < result.rows.length;i++){
+
+      //correct start time
+      var stringDate = String(result.rows[i].start)
+      var splitDate = stringDate.split(" ")
+      //replace timestamp with utc (DB assumes local but is really UTC)
+      splitDate[5] = 'GMT-0000'
+      splitDate[6] = '(UTC)'
+      dateString = splitDate.join(" ")
+      //set start as corrected timezone timestamp
+      result.rows[i].start = new Date(dateString)
+
+      // repeat for end date
+      stringDate = String(result.rows[i].end)
+      splitDate = stringDate.split(" ")
+      splitDate[5] = 'GMT-0000'
+      splitDate[6] = '(UTC)'
+      dateString = splitDate.join(" ")
+      result.rows[i].end = new Date(dateString)
+    }
+  
     cb(null,result.rows)
   })
 }
