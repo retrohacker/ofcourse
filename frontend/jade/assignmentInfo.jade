@@ -1,5 +1,7 @@
 div.pure-g.oc-userAssignments-assignment(id='#{locals.id}')
-  h1.pure-u-1-3.oc-assignment-info #{locals.title}
+  div.pure-u-1-3.oc-assignment-info 
+    div.ofcourse-assignment-name #{locals.title}
+    div.ofcourse-assignment-data - #{locals.data}
   div.pure-u-1-3.ofcourse-empty
   div.pure-u-1-3
     div#complete.ofcourse-menu-item.waves-effect.waves-light(onclick="radio.trigger('submit:completeAssignment#{locals.id}')")

@@ -1,5 +1,5 @@
 var AddAssignView = Backbone.View.extend({
-  defaultLocation: ".ofcourse-module-full.ofcourse-mcolor-white.add",
+  defaultLocation: ".ofcourse-module-full.ofcourse-mcolor-light.add",
   template: JADE.addAssignment,
   initialize: function(opts){
     this.setElement(this.template(opts.courses.toJSON()))
@@ -36,20 +36,39 @@ var AddAssignView = Backbone.View.extend({
         cid = item.id
       }
     });
-    var inputTime = this.$('#due').val()   
+    //Get default time value if none selected
+    var dueDateTime = new Date()
+    //var offset = utc.toString().slice(28,29)
+    //if(offset == '-')
+    //  var dueDateTime = new Date(utc.getTime() - (utc.getTimezoneOffset() * 60000)).toISOString().slice(0,19)
+    //else
+    //  var dueDateTime = new Date(utc.getTime() + (utc.getTimezoneOffset() * 60000)).toISOString().slice(0,19)
 
-    var timeArr = inputTime.split(/[a-zA-Z]/);
+    //If a tiime and date is selected
+    if(this.$('#due').val() != ''){
+      var date = new Date(this.$('#due').val())
+      dueDateTime = date
+    } else {
+    //If no time and date is selected, use default and split
+      /*console.log(dueDateTime)
+      var timeArr = dueDateTime.split(/[a-zA-Z]/);
+      console.log(timeArr)
+      var date = new Date(timeArr[0] + " " + timeArr[1])
+      dueDateTime = date
+      console.log(date)*/
+    }
 
-    var date = new Date(timeArr[0] + " " + timeArr[1])
-    var isoTime = date.toISOString()
-    
+    var isoTime = dueDateTime.toISOString()
+    console.log(isoTime)
+
     var assignment = new EventModel({'courseid': cid,
                                     'title': this.$('#title').val(),
-                                    'desc': this.$('#desc').val(),
-                                    'start': isoTime,
-                                    'end': isoTime,
+                                    'data': this.$('#desc').val(),
+                                    'start': dueDateTime,
+                                    'end': dueDateTime,
                                     'type': 1
                                   })
+    console.log(assignment)
     assignment.save(null,{
       success: function(){
         view.collection.add(assignment)

@@ -16,8 +16,18 @@
   width: 66%;
   font-family: Roboto;
   font-weight: lighter;
-  font-size: 1.5em;
   padding-top: .8em;
+}
+
+.ofcourse-assignment-name {
+  display: inline;
+  font-size: 1.5em;
+}
+
+.ofcourse-assignment-data {
+  display: inline;
+  font-size: 1em;
+  padding-left: 1em;
 }
 
 .ofcourse-assignment-action {

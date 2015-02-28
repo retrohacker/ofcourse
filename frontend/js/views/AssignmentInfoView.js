@@ -1,5 +1,5 @@
 var AssignmentInfoView = Backbone.View.extend({
-    defaultLocation: ".ofcourse-module-full.ofcourse-mcolor-white.assignments",
+    defaultLocation: ".ofcourse-module-full.ofcourse-mcolor-light.assignments",
     template: JADE.assignmentInfo,
     initialize: function(opts){
       this.setElement(this.template(this.model.toJSON()))

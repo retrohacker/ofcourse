@@ -852,6 +852,7 @@ be a descendant of the grid when it is being dragged.
 
 .fc-time-grid-event {
 	overflow: hidden; /* don't let the bg flow over rounded corners */
+	min-height: 9px;
 }
 
 .fc-time-grid-event > .fc-content { /* contains the time and title, but no bg and resizer */
