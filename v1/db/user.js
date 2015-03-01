@@ -35,21 +35,24 @@ user.getEvents = function getEvents(id,cb) {
 
       //correct start time
       var stringDate = String(result.rows[i].start)
-      /*var splitDate = stringDate.split(" ")
+      var splitDate = stringDate.split(" ")
+      
       //replace timestamp with utc (DB assumes local but is really UTC)
       splitDate[5] = 'GMT-0000'
       splitDate[6] = '(UTC)'
-      dateString = splitDate.join(" ")*/
+      dateString = splitDate.join(" ")
+
+      
       //set start as corrected timezone timestamp
-      result.rows[i].start = new Date(stringDate)
+      result.rows[i].start = new Date(dateString)
 
       // repeat for end date
       stringDate = String(result.rows[i].end)
-      /*splitDate = stringDate.split(" ")
+      splitDate = stringDate.split(" ")
       splitDate[5] = 'GMT-0000'
       splitDate[6] = '(UTC)'
-      dateString = splitDate.join(" ")*/
-      result.rows[i].end = new Date(stringDate)
+      dateString = splitDate.join(" ")
+      result.rows[i].end = new Date(dateString)
     }
   
     cb(null,result.rows)
