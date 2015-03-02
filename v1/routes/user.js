@@ -3,6 +3,7 @@ var router = module.exports = require('express').Router()
 var bodyParser = require('body-parser')
 var passport = require('passport')
 var async = require('async')
+var pg = require('pg')
 var db = require('../db')
 var models = require('../models')
 
@@ -58,6 +59,10 @@ router.get('/',function(req,res) {
 
 router.get('/courses', function (req, res, next) {
   if(!req.user || !req.user.profile || !req.user.profile.id) return res.status(401).json("Please login")
+
+  //
+  var client = new pg.Client(db.db.connectionParameters)
+
   async.waterfall([
     function getUserCourseIDs(cb){
       db.user.getUserCourseIDs(req.user.profile.id, function(e,courseIDs){

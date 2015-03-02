@@ -76,9 +76,10 @@ var Workspace = Backbone.Router.extend({
     App.courseEvents.fetch()
   },
   'addAssignment': function(){
-    App.courses.fetch({reset:true})
-    var addAssignmentView = new AddAssignView({radio: radio, collection: App.courses})
+    App.userCourses.fetch({reset:true})
+    var addAssignmentView = new AddAssignView({radio: radio, collection: App.userCourses})
       .render()
+    console.log(App.userCourses)
   }
 });
 
@@ -91,6 +92,7 @@ App.user.fetch({
 
 App.courses = new CourseCollection()
 App.courseEvents = new CourseEventsCollection()
+App.userCourses = new UserCourseCollection()
 
 App.eventCollection = new EventCollection([])
 App.eventCollection.fetch({reset:true})
