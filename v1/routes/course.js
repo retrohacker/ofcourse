@@ -61,6 +61,7 @@ router.post('/',function(req,res) {
     function insertEvents(cid, pid, cb){
       // For each cron and duration
       var events = req.body.events
+      if(events)
       async.each(events, function(item, cb){
         var sched = later.parse.cron(item.cron)
         var courseStart = new Date(course.attributes.start)
