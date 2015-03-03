@@ -6,18 +6,32 @@ var models = require('../v1/models')
 var color = require('cli-color')
 var pass = 0
 var fail = 0
+var verbosity = 0
 var cookie
 var http=require('http');
 
-//TODO: randomize course id so that insert functions properly, give sane error message when ID overlaps
-//TODO: process command line args for -v --verbose mode
+//TODO: randomize course id so that insert functions properly, give sane error message when ID overlaps,
+// and course must have unique combination of these values
+// error: duplicate key value violates unique constraint "courses_department_number_section_semester_key"
 
 var test_user_1 = { firstName: "Larry" , lastName: "Test", id: 5 };
 var test_user_2 = { firstName: "Larry" , lastName: "Test", id: -666 };
 var test_course_1 = { university:1,id:5,title:"Theory of Something",department:"CS",number:491,section:001,start:"2015-02-01T04:05:06" ,end: "2015-02-30T04:05:06"};
 var test_event = {id:1,userid:10,parnetid:2,courseid:3,title:"Test Event!",start:"2015-02-01T04:05:06",end:"2015-02-30T04:05:06",type:0,data:"this is test event data",status:"in progress"}
-var test_course_2 = { university:1,id:13112312,title:"Theory off Something",location:"my fdick",instructor:"my othfer dick",semester:"fall",department:"CS",number:491,section:001,start:"20150201" ,end: "20150228"};
+var test_course_2 = { university:1,id:1366442,title:"Theory off Something",location:"my fdick",instructor:"my othfer dick",semester:"fall",department:"CS",number:491,section:032,start:"20150201" ,end: "20150228"};
 				
+//check command args for verbose mode
+process.argv.forEach(function (val, index, array) {
+  if (val ==  "-v" || val == "--verbose"){
+    verbosity = 1
+  }
+  //console.log(index + ': ' + val);
+});
+
+console.log('INFO: we are going to set verbose mode anyways for now')
+verbosity = 1
+
+
 /*
  Things to consider/double check:
 type checking for strings...
@@ -25,19 +39,19 @@ length checking for strings... will postgres automatically chop the string?
 * do i need to return an error if a varchar(50) input is too long?
 */ 
 
-//TODO: add tests for database functions
-
 
 //after the login, the functions are called in the callback of the login,
 //so that we are logged in and have session ID
-//TODO: change to async.series or whatever
-
+//TODO: change to async.series or whatever - doesnt work because HTTP callbacks,
+//  node will call all the functions in order but they dont wait for the return
+//TODO: add tests for database functions
 user_model_validation_test_1() 
 user_model_validation_test_2()
 course_model_validation_test_1()
 event_model_validation_test_1() 
 backend_server_test_1()
 //backend_user_registration_test_1()
+//async.series([
 backend_login_test_1()
 // - backend_get_user_test_1()
 // - backend_create_course_test_1()
@@ -46,8 +60,8 @@ backend_login_test_1()
 // - backend_get_universities_test_1()
 // - backend_get_events_test_1()
 // - backend_get_user_courses_test_1()
-console.log(fail + color.red(" Failed"))
-console.log(pass + color.green(" Passed"))
+console.log("backend model tests: " + fail + color.red(" Failed"))
+console.log("backend model tests: " + pass + color.green(" Passed"))
 
 function user_model_validation_test_1() {
 	try{
@@ -141,7 +155,8 @@ function backend_server_test_1(){
 			if(str)
 			console.log("Backend Test 1 - GET localhost:5000/ " + "["+color.green("PASS")+"]")
 			pass++
-			//console.log(str);
+      if(verbosity == 1)
+			  console.log(str)
 		  });
 		}
 		var req = http.request(request, callback);
@@ -176,13 +191,15 @@ function backend_login_test_1(){
 			if(str)
 			console.log("Backend Login Test 1 " + "["+color.green("PASS")+"]")
 			pass++
-			//console.log(str);
+      if(verbosity == 1)
+			  console.log(str)
 			headers = JSON.stringify(response.headers)
 			//console.log(response)
 			//console.log(headers)
 			idlocation = headers.search('connect.sid')
 			cookie = headers.substr(idlocation,headers.search('; Path')-idlocation)
-			console.log('Cookie:', cookie)
+			if(verbosity == 1)
+			  console.log('Cookie:', cookie)
 			//call more tests after logging in
 			backend_get_user_test_1()
 			backend_create_course_test_1()
@@ -221,7 +238,8 @@ function backend_get_user_test_1(){
 			if(str)
 			console.log("Backend user Test " + "["+color.green("PASS")+"]")
 			pass++
-			console.log(str);
+			if(verbosity == 1)
+			  console.log(str);
 		  });
 		}
 		var req = http.request(request, callback);
@@ -252,7 +270,8 @@ function backend_get_universities_test_1(){
 			if(str)
 			console.log("Backend universities test 1 " + "["+color.green("PASS")+"]")
 			pass++
-			console.log(str);
+			if(verbosity == 1)
+			  console.log(str);
 		  });
 		}
 		var req = http.request(request, callback);
@@ -287,7 +306,8 @@ function backend_create_course_test_1(){
 			if(str)
 			console.log("Backend Create Course Test 1 " + "["+color.green("PASS")+"]")
 			pass++
-			console.log(str);
+			if(verbosity == 1)
+			  console.log(str)
 		  });
 		}
 		var req = http.request(request, callback);
@@ -326,7 +346,8 @@ function backend_create_event_test_1(){
 			if(str)
 			console.log("Backend Create Event Test 1 " + "["+color.green("PASS")+"]")
 			pass++
-			console.log(str);
+			if(verbosity == 1)
+			  console.log(str)
 		  });
 		}
 		var req = http.request(request, callback);
@@ -358,8 +379,9 @@ function backend_get_courses_test_1(){
 			if(str)
 			console.log("Backend get courses Test 1 - GET /v1/course/courses " + "["+color.green("PASS")+"]")
 			pass++
-			console.log("this function returns all the courses - we're not going to log them");
-			//console.log(str);
+			if(verbosity == 1)
+        console.log("INFO: this function returns all the courses - we're not going to print them")
+			  //console.log(str)
 		  });
 		}
 		var req = http.request(request, callback);
@@ -389,7 +411,8 @@ function backend_get_events_test_1(){
 			if(str)
 			console.log("Backend get events Test 1 - GET /v1/event/events " + "["+color.green("PASS")+"]")
 			pass++
-			console.log(str);
+			if(verbosity == 1)
+			  console.log(str)
 		  });
 		}
 		var req = http.request(request, callback);
@@ -419,7 +442,8 @@ function backend_get_user_courses_test_1(){
 			if(str)
 			console.log("Backend get user courses Test 1 - GET /v1/user/courses " + "["+color.green("PASS")+"]")
 			pass++
-			console.log(str);
+      if(verbosity == 1)
+        console.log(str)
 		  });
 		}
 		var req = http.request(request, callback);
@@ -455,7 +479,8 @@ function backend_user_registration_test_1(){
 			if(str)
 			console.log("Backend Test 2 - register new user " + "["+color.green("PASS")+"]")
 			pass++
-			console.log(str);
+			if(verbosity == 1)
+			  console.log(str)
 		  });
 		}
 		var req = http.request(request, callback);
