@@ -9,10 +9,49 @@ var fail = 0
 var cookie
 var http=require('http');
 
+//TODO: randomize course id so that insert functions properly, give sane error message when ID overlaps
+//TODO: process command line args for -v --verbose mode
+
+var test_user_1 = { firstName: "Larry" , lastName: "Test", id: 5 };
+var test_user_2 = { firstName: "Larry" , lastName: "Test", id: -666 };
+var test_course_1 = { university:1,id:5,title:"Theory of Something",department:"CS",number:491,section:001,start:"2015-02-01T04:05:06" ,end: "2015-02-30T04:05:06"};
+var test_event = {id:1,userid:10,parnetid:2,courseid:3,title:"Test Event!",start:"2015-02-01T04:05:06",end:"2015-02-30T04:05:06",type:0,data:"this is test event data",status:"in progress"}
+var test_course_2 = { university:1,id:13112312,title:"Theory off Something",location:"my fdick",instructor:"my othfer dick",semester:"fall",department:"CS",number:491,section:001,start:"20150201" ,end: "20150228"};
+				
+/*
+ Things to consider/double check:
+type checking for strings...
+length checking for strings... will postgres automatically chop the string? 
+* do i need to return an error if a varchar(50) input is too long?
+*/ 
+
+//TODO: add tests for database functions
+
+
+//after the login, the functions are called in the callback of the login,
+//so that we are logged in and have session ID
+//TODO: change to async.series or whatever
+
+user_model_validation_test_1() 
+user_model_validation_test_2()
+course_model_validation_test_1()
+event_model_validation_test_1() 
+backend_server_test_1()
+//backend_user_registration_test_1()
+backend_login_test_1()
+// - backend_get_user_test_1()
+// - backend_create_course_test_1()
+// - backend_create_event_test_1()
+// - backend_get_courses_test_1()
+// - backend_get_universities_test_1()
+// - backend_get_events_test_1()
+// - backend_get_user_courses_test_1()
+console.log(fail + color.red(" Failed"))
+console.log(pass + color.green(" Passed"))
+
 function user_model_validation_test_1() {
 	try{
 		var user = new models.User()
-		var test_user_1 = { firstName: "Larry" , lastName: "Test", id: 5 };
 		assert.notEqual(user.set(test_user_1,{validate:true}), false, "Backend User Model Validation Test 1")
 		console.log("Backend User Model Validation Test 1" + "["+color.green("PASS")+"]")
 		pass++
@@ -28,7 +67,6 @@ function user_model_validation_test_1() {
 function user_model_validation_test_2() {
 	try{
 		var user = new models.User()
-		var test_user_2 = { firstName: "Larry" , lastName: "Test", id: -666 };
 		assert.equal(user.set(test_user_2,{validate:true}),false, "Backend User Model Validation Test 2")//should throw an exception
 		console.log("Backend User Model Validation Test 2" + "["+color.green("PASS")+"]")
 		pass++
@@ -44,8 +82,7 @@ function user_model_validation_test_2() {
 function course_model_validation_test_1() {
 	try{
 		var course = new models.Course()
-		var test_course = { university:1,id:5,title:"Theory of Something",department:"CS",number:491,section:001,start:"2015-02-01T04:05:06" ,end: "2015-02-30T04:05:06"};
-		assert.notEqual(course.set(test_course,{validate:true}),false, "Backend Course Model Validation Test 1")//should throw an exception
+		assert.notEqual(course.set(test_course_1,{validate:true}),false, "Backend Course Model Validation Test 1")//should throw an exception
 		console.log("Backend Course Model Validation Test 1" + "["+color.green("PASS")+"]")
 		pass++
 	}catch( Exception ){
@@ -60,7 +97,6 @@ function course_model_validation_test_1() {
 function event_model_validation_test_1() {
 	try{
 		var event = new models.Event()
-		var test_event = {id:1,userid:10,parnetid:2,courseid:3,title:"Test Event!",start:"2015-02-01T04:05:06",end:"2015-02-30T04:05:06",type:0,data:"this is test event data",status:"in progress"}
 		assert.notEqual(event.set(test_event,{validate:true}),false, "Backend Event Model Validation Test 1")//should throw an exception
 		console.log("Backend Event Model Validation Test 1" + "["+color.green("PASS")+"]")
 		pass++
@@ -140,7 +176,7 @@ function backend_login_test_1(){
 			if(str)
 			console.log("Backend Login Test 1 " + "["+color.green("PASS")+"]")
 			pass++
-			console.log(str);
+			//console.log(str);
 			headers = JSON.stringify(response.headers)
 			//console.log(response)
 			//console.log(headers)
@@ -183,7 +219,7 @@ function backend_get_user_test_1(){
 		  });
 		  response.on('end', function () {
 			if(str)
-			console.log("Backend user Test - GET /v1/user " + "["+color.green("PASS")+"]")
+			console.log("Backend user Test " + "["+color.green("PASS")+"]")
 			pass++
 			console.log(str);
 		  });
@@ -191,12 +227,13 @@ function backend_get_user_test_1(){
 		var req = http.request(request, callback);
 		req.end()
 	}catch( Exception ){
-	    console.log("Backend user Test - GET /v1/user " + "["+color.red("FAIL")+"]")
+	    console.log("Backend user Test " + "["+color.red("FAIL")+"]")
 		console.log(Exception.message)
 		console.log(Exception)
 		fail++
 	}
 }
+
 function backend_get_universities_test_1(){
 	try{
 		var request={
@@ -213,7 +250,7 @@ function backend_get_universities_test_1(){
 		  });
 		  response.on('end', function () {
 			if(str)
-			console.log("Backend universities test 1 - GET /v1/university/universities " + "["+color.green("PASS")+"]")
+			console.log("Backend universities test 1 " + "["+color.green("PASS")+"]")
 			pass++
 			console.log(str);
 		  });
@@ -221,7 +258,7 @@ function backend_get_universities_test_1(){
 		var req = http.request(request, callback);
 		req.end()
 	}catch( Exception ){
-	    console.log("Backend universities test 1 - GET /v1/university/universities " + "["+color.red("FAIL")+"]")
+	    console.log("Backend universities test 1 " + "["+color.red("FAIL")+"]")
 		console.log(Exception.message)
 		console.log(Exception)
 		fail++
@@ -230,8 +267,7 @@ function backend_get_universities_test_1(){
 function backend_create_course_test_1(){
 	try{
 		var course = new models.Course()
-		var test_course = { university:1,id:15,title:"Theory of Something",location:"my dick",instructor:"my other dick",semester:"fall",department:"CS",number:491,section:001,start:"20150201" ,end: "20150228"};
-		assert.notEqual(course.set(test_course,{validate:true}),false, "Backend Course Model Validation Test 1")//should throw an exception
+		assert.notEqual(course.set(test_course_2,{validate:true}),false, "Backend Course Model Validation Test 1")//should throw an exception
 		var request={
 		  host: 'localhost',
 		  port: 5000,
@@ -255,16 +291,17 @@ function backend_create_course_test_1(){
 		  });
 		}
 		var req = http.request(request, callback);
-		req.write(JSON.stringify(test_course))
+		req.write(JSON.stringify(test_course_2))
 		req.end()
 	}catch( Exception ){
 	    console.log("Backend Create Course Test 1  " + "["+color.red("FAIL")+"]")
 		console.log(Exception.message)
 		console.log(Exception)
-		console.log(event)
+		console.log(course)
 		fail++
 	}
 }
+
 function backend_create_event_test_1(){
 	try{
 		var event = new models.Event()
@@ -432,22 +469,3 @@ function backend_user_registration_test_1(){
 		fail++
 	}
 }
-
-//TODO: add tests for database functions
-
-user_model_validation_test_1() 
-user_model_validation_test_2()
-course_model_validation_test_1()
-event_model_validation_test_1() 
-backend_server_test_1()
-//backend_user_registration_test_1()
-backend_login_test_1()
-// - backend_get_user_test_1()
-// - backend_create_course_test_1()
-// - backend_create_event_test_1()
-// - backend_get_courses_test_1()
-// - backend_get_universities_test_1()
-// - backend_get_events_test_1()
-// - backend_get_user_courses_test_1()
-console.log(fail + color.red(" Failed"))
-console.log(pass + color.green(" Passed"))
