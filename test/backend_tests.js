@@ -28,7 +28,7 @@ process.argv.forEach(function (val, index, array) {
   //console.log(index + ': ' + val);
 });
 
-console.log('INFO: we are going to set verbose mode anyways for now')
+console.log('INFO: we are going to set verbose mode anyways for now \n')
 verbosity = 1
 
 
@@ -156,7 +156,7 @@ function backend_server_test_1(){
 			console.log("Backend Test 1 - GET localhost:5000/ " + "["+color.green("PASS")+"]")
 			pass++
       if(verbosity == 1)
-			  console.log(str)
+			  console.log(str + '\n')
 		  });
 		}
 		var req = http.request(request, callback);
@@ -192,7 +192,7 @@ function backend_login_test_1(){
 			console.log("Backend Login Test 1 " + "["+color.green("PASS")+"]")
 			pass++
       if(verbosity == 1)
-			  console.log(str)
+			  console.log(str + '\n')
 			headers = JSON.stringify(response.headers)
 			//console.log(response)
 			//console.log(headers)
@@ -239,7 +239,7 @@ function backend_get_user_test_1(){
 			console.log("Backend user Test " + "["+color.green("PASS")+"]")
 			pass++
 			if(verbosity == 1)
-			  console.log(str);
+			  console.log(str + '\n');
 		  });
 		}
 		var req = http.request(request, callback);
@@ -271,7 +271,7 @@ function backend_get_universities_test_1(){
 			console.log("Backend universities test 1 " + "["+color.green("PASS")+"]")
 			pass++
 			if(verbosity == 1)
-			  console.log(str);
+			  console.log(str + '\n');
 		  });
 		}
 		var req = http.request(request, callback);
@@ -307,11 +307,11 @@ function backend_create_course_test_1(){
 			console.log("Backend Create Course Test 1 " + "["+color.green("PASS")+"]")
 			pass++
 			if(verbosity == 1)
-			  console.log(str)
+			  console.log(str + '\n')
 		  });
 		}
 		var req = http.request(request, callback);
-		req.write(JSON.stringify(test_course_2))
+		req.write(JSON.stringify(course))
 		req.end()
 	}catch( Exception ){
 	    console.log("Backend Create Course Test 1  " + "["+color.red("FAIL")+"]")
@@ -347,7 +347,7 @@ function backend_create_event_test_1(){
 			console.log("Backend Create Event Test 1 " + "["+color.green("PASS")+"]")
 			pass++
 			if(verbosity == 1)
-			  console.log(str)
+			  console.log(str + '\n')
 		  });
 		}
 		var req = http.request(request, callback);
@@ -381,7 +381,7 @@ function backend_get_courses_test_1(){
 			pass++
 			if(verbosity == 1)
         console.log("INFO: this function returns all the courses - we're not going to print them")
-			  //console.log(str)
+			  //console.log(str + '\n')
 		  });
 		}
 		var req = http.request(request, callback);
@@ -412,7 +412,7 @@ function backend_get_events_test_1(){
 			console.log("Backend get events Test 1 - GET /v1/event/events " + "["+color.green("PASS")+"]")
 			pass++
 			if(verbosity == 1)
-			  console.log(str)
+			  console.log(str + '\n')
 		  });
 		}
 		var req = http.request(request, callback);
@@ -443,7 +443,7 @@ function backend_get_user_courses_test_1(){
 			console.log("Backend get user courses Test 1 - GET /v1/user/courses " + "["+color.green("PASS")+"]")
 			pass++
       if(verbosity == 1)
-        console.log(str)
+        console.log(str + '\n')
 		  });
 		}
 		var req = http.request(request, callback);
@@ -480,7 +480,7 @@ function backend_user_registration_test_1(){
 			console.log("Backend Test 2 - register new user " + "["+color.green("PASS")+"]")
 			pass++
 			if(verbosity == 1)
-			  console.log(str)
+			  console.log(str + '\n')
 		  });
 		}
 		var req = http.request(request, callback);
