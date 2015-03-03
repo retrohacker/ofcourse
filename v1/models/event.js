@@ -34,8 +34,8 @@ EventModel.types = {
   parentid: 'integer references parent_events(id)',
   courseid: 'integer references courses(id) not null',
   title: 'varchar(150) not null',//Event title on the calendar
-  start: 'timestamp not null',   //Start date time YYYY-MM-DD HH:MM:SS
-  end: 'timestamp not null',     //End date time
+  start: 'timestamp with time zone not null',   //Start date time YYYY-MM-DD HH:MM:SS
+  end: 'timestamp with time zone not null',     //End date time
   type: 'integer not null',      // Eventually will be a real enumeration
   data: 'text',                   //json object
   status: 'text'
