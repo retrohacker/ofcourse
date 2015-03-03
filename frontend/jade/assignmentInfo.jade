@@ -1,5 +1,10 @@
-div.oc-userAssignments-assignment.pure-g(id='#{locals.id}')
-  h1.pure-u-1-3 #{locals.title}
+div.pure-g.oc-userAssignments-assignment(id='#{locals.id}')
+  div.pure-u-1-3.oc-assignment-info 
+    div.ofcourse-assignment-name #{locals.title}
+    div.ofcourse-assignment-data - #{locals.data}
+  div.pure-u-1-3.ofcourse-empty
   div.pure-u-1-3
-  div.pure-u-1-3
-    button(type='button' class=['pure-button pure-input-1 pure-button-primary'] onclick="radio.trigger('submit:completeAssignment#{locals.id}')") Complete
+    div#complete.ofcourse-menu-item.waves-effect.waves-light(onclick="radio.trigger('submit:completeAssignment#{locals.id}')")
+      i.fa.fa-check.waves-effect.waves-circle.waves-light.ofcourse-menu-icon.ofcourse-green.ofcourse-round-button
+    //div#delete.ofcourse-menu-item.waves-effect.waves-light(onclick="radio.trigger('submit:deleteAssignment#{locals.id}')")
+      i.fa.fa-times.waves-effect.waves-circle.waves-light.ofcourse-menu-icon.ofcourse-red.ofcourse-round-button

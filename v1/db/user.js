@@ -31,6 +31,30 @@ user.get = function get(id,cb) {
 user.getEvents = function getEvents(id,cb) {
   db("select * from events where userid="+id,function(e,rows,result) {
     if(e) return cb(e)
+    for(i = 0; i < result.rows.length;i++){
+
+      //correct start time
+      var stringDate = String(result.rows[i].start)
+      var splitDate = stringDate.split(" ")
+      
+      //replace timestamp with utc (DB assumes local but is really UTC)
+      splitDate[5] = 'GMT-0000'
+      splitDate[6] = '(UTC)'
+      dateString = splitDate.join(" ")
+
+      
+      //set start as corrected timezone timestamp
+      result.rows[i].start = new Date(dateString)
+
+      // repeat for end date
+      stringDate = String(result.rows[i].end)
+      splitDate = stringDate.split(" ")
+      splitDate[5] = 'GMT-0000'
+      splitDate[6] = '(UTC)'
+      dateString = splitDate.join(" ")
+      result.rows[i].end = new Date(dateString)
+    }
+  
     cb(null,result.rows)
   })
 }
@@ -66,7 +90,7 @@ user.getUserByEmail = function getUserByEmail(email,done) {
     if(result.rowCount > 1) {
       return done('error: multiple users with that email address',rows[0])
     }
-    return done(null,rows)
+    return done(null,rows[0])
   });
 }
 
@@ -97,6 +121,20 @@ user.addParentEvent = function addParentEvent(parentEvent,done){
 
 user.getUniversities = function getUniversity(cb) {
   db("select * from universities",function(e,rows,result) {
+    if(e) return cb(e)
+    cb(null,result.rows)
+  })
+}
+
+user.getUserCourseIDs = function getUserCourseIDs(userid,cb) {
+  db("select * from course_user where uid="+userid,function(e,rows,result) {
+    if(e) return cb(e)
+    cb(null,result.rows)
+  })
+}
+
+user.getCourse = function getCourse(cid,cb) {
+  db("select * from courses where id="+cid,function(e,rows,result) {
     if(e) return cb(e)
     cb(null,result.rows)
   })

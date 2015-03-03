@@ -4,26 +4,57 @@
   top: 0;
   left: 0;
   width: 100%;
-  padding-top: .5em;
-  padding-bottom: .5em;
+  height: 2em;
   background-color: #242430;
   box-shadow: 0 .1em .5em 0.1em #2E2E3D;
   font-size: 1.5em;
-  z-index: 6;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.wordage {
+  margin-left: auto;
+  margin-right: auto;
+  width: 156px;
+}
+
+.ofcourse-taskbar-left {
+  position: absolute;
+  height: 100%;
 }
 
 .ofcourse-taskbar i {
-  padding: .25em;
-  border-radius: .5em;
+  position: absolute;
+  top: 0;
+  padding: .5em;
   color: #E1E1E2;
+}
+
+.ofcourse-welcome-text {
+  position: relative;
+  font-family: Roboto;
+  font-weight: lighter;
+  font-size: .7em;
+  color: #FFFFFF;
+  left: 6em;
+  top: 30%;
 }
 
 .ofcourse-taskbar i:hover {
   background-color: #141414;
 }
 
-.ofcourse-taskbar .ofcourse-taskbar-right i {
+.ofcourse-taskbar .ofcourse-taskbar-right-1 i {
   float: right;
+  right: 2.3em;
+}
+
+.ofcourse-taskbar .ofcourse-taskbar-right-2 i {
+  float: right;
+  right: 0;
 }
 
 .ofcourse-taskbar .ofcourse-padding-right {
@@ -35,4 +66,17 @@
 .ofcourse-taskbar .ofcourse-padding-left {
   padding-left: .5em;
   display: inline-block;
+}
+
+@media only screen and (max-width: 700px) {
+  .ofcourse-welcome-text {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .wordage {
+    position: absolute;
+    left: 18%;
+  }
 }

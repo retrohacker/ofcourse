@@ -1,17 +1,12 @@
 //Page for creating assignments that belong to a course
-div.oc-addAssign-wrapper
-  div.oc-addAssign-form
-    h1 Add Course Assignment
-    form.pure-form
-      fieldset.pure-group
-        label(for="cid") Course
-        select.pure-input-1(id='cid')
-          - each item in locals
-            option(id='#{item.id}') #{item.title} #{item.number} - Section #{item.section}
-        label(for="title") Assignment Name
-        input.pure-input-1(id='title')
-        label(for="due") Due Date
-        input.pure-input-1(id='due')
-        lable(for="desc") Assignment Details
-        textarea.pure-input-1(id='desc' rows='5')
-      button(type='button' class=['pure-button pure-input-1 pure-button-primary'] onclick="radio.trigger('submit:AddAssign')") Add Assignment
+div.ofcourse-addAssign-box
+  form.ofcourse-addAssign-form
+    fieldset.ofcourse-clean-fieldset.ofcourse-addAssign-fieldset
+      input.ofcourse-clean-input.ofcourse-heading(id='title' placeholder='Assignment Name' autofocus)
+      select.ofcourse-clean-input(id='cid')
+        - each item in locals
+          option(id='#{item.id}') #{item.title} #{item.number} - Section #{item.section}
+      textarea.ofcourse-clean-input(id='desc' rows='3' placeholder='Type a description for this assignment...')
+      div#due.ofcourse-date-select
+        input.ofcourse-hidden
+    button#submit.ofcourse-green.wave-effect.ofcourse-sq-button(type='button' onclick="radio.trigger('submit:AddAssign')") Add Assignment

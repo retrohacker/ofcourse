@@ -170,7 +170,8 @@
   text-align: center;
   opacity: .6;
   font-family: 'Open Sans', sans-serif;
-  top: 97%;
+  top: 100%;
+  transform: translateY(-100%);
   background: #D5D5D5;
   color: #959595;
   padding-top: 10px;
