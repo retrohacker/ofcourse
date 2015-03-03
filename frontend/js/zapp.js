@@ -9,7 +9,6 @@ var Workspace = Backbone.Router.extend({
     "createCourse": "createCourse",
     "courses":"courses",
     "viewCourse":"viewCourse",
-    "addAssignment" : "addAssignment",
     "userAssignments" : "userAssignments"
   },
   'home': function(){
@@ -41,7 +40,7 @@ var Workspace = Backbone.Router.extend({
                                                        model: App.user
                                                       }).render()
     App.courses.fetch({reset:true})//not the most efficient way to populate collection
-   },  
+   },
   'createCourse':function(){
     radio.trigger('unrender:page getTaskbar')
     this.createCourseParentView = new CreateCourseParentView({collection: App.courses, 
@@ -61,9 +60,10 @@ var Workspace = Backbone.Router.extend({
     App.eventCollection.fetch({
       success: loadAssignments
     })
-    console.log("render")
     function loadAssignments(){
-      var userAssignments = new UserAssignmentsView({radio: radio, collection: App.eventCollection})
+      var userAssignments = new UserAssignmentsView({radio: radio, 
+                                                     collection: App.eventCollection,
+                                                     courses: App.courses})
         .render()
     }
   },
