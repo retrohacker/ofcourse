@@ -78,10 +78,10 @@ var defaults = {
 		next: "next",
 		prevYear: "prev year",
 		nextYear: "next year",
-		today: 'today',
-		month: 'month',
-		week: 'week',
-		day: 'day'
+		today: 'now',
+		month: 'm',
+		week: 'w',
+		day: 'd'
 	},
 
 	buttonIcons: {
@@ -1159,7 +1159,10 @@ function Header(calendar, options) {
 							classes = [
 								'fc-' + buttonName + '-button',
 								tm + '-button',
-								tm + '-state-default'
+								tm + '-state-default',
+								'waves-circle',
+								'waves-effect',
+								'waves-light'
 							];
 
 							button = $( // type="button" so that it doesn't submit a form

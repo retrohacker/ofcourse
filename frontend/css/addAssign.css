@@ -6,29 +6,46 @@
   text-align: center;
   opacity: .7;
   z-index: 30;
-  background: #441D9E;
 }
 
 .ofcourse-addAssign-box {
   position: absolute;
   width: 90%;
-  height: 80%;
-  top: 2.5%;
+  height: 99%;
   left: 5%;
-  background: #363644;
   text-align: center;
   z-index: 40;
   font-family: Roboto;
   font-weight: lighter;
-  color: WHITE;
-  -webkit-box-shadow: 10px 10px 15px -5px rgba(0,0,0,0.75);
-  -moz-box-shadow: 10px 10px 15px -5px rgba(0,0,0,0.75);
-  box-shadow: 10px 10px 15px -5px rgba(0,0,0,0.75);
 }
 
 .ofcourse-addAssign-form {
   position: relative;
-  left: 25%;
-  top: 20%;
-  width: 50%;
+  left: 5%;
+  height: 100%;
+  width: 90%;
+  border: none;
 }
+
+.ofcourse-addAssign-fieldset {
+  height: 85%;
+}
+
+@media only screen and (max-height: 800px) {
+  .ofcourse-addAssign-form {
+    margin-top: 10px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .ofcourse-addAssign-form {
+    left: 0%;
+    width: 100%;
+  }
+
+  .ofcourse-addAssign-box {
+    width: 100%;
+    left: 0px;
+  }
+}
+

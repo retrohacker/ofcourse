@@ -22,6 +22,7 @@ var TaskbarView = Backbone.View.extend({
   buttons: [],
   initialize: function() {
     this.setElement(this.template(this.model.toJSON()))
+    this.buttonPos = 0
     radio.on('unrender:TaskbarView',this.unrender,this)
     radio.on('render:TaskbarView',this.render,this)
     radio.on('unrender',this.unrender,this)
@@ -40,11 +41,18 @@ var TaskbarView = Backbone.View.extend({
       title: "Settings"
     }))
     .addButtonRight(new TaskbarButtonView({
+      className:'fa fa-fw fa-plus waves-effect waves-light',
+      onClick: function() {
+        //will produce small quick assignment box
+      },
+      title: "Add Assignment"
+    }))
+    .addButtonRight(new TaskbarButtonView({
       className:'fa fa-fw fa-paper-plane-o waves-effect waves-light',
       onClick: function() {
         //Show Notifications
       },
-      title: "Add Assignment"
+      title: "Show Notifications"
     }))
     var location = location || this.defaultLocation
     $(location).prepend(this.$el)
@@ -63,7 +71,8 @@ var TaskbarView = Backbone.View.extend({
     return this.addButton(button,'.ofcourse-taskbar-center')
   },
   addButtonRight: function(button) {
-    return this.addButton(button,'.ofcourse-taskbar-right')
+    this.buttonPos = this.buttonPos + 1
+    return this.addButton(button,'.ofcourse-taskbar-right-' + this.buttonPos)
   },
   addButton: function(button,location) {
     this.buttons.push(button)

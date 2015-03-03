@@ -9,7 +9,6 @@ var Workspace = Backbone.Router.extend({
     "createCourse": "createCourse",
     "courses":"courses",
     "viewCourse":"viewCourse",
-    "addAssignment" : "addAssignment",
     "userAssignments" : "userAssignments"
   },
   'home': function(){
@@ -61,9 +60,10 @@ var Workspace = Backbone.Router.extend({
     App.eventCollection.fetch({
       success: loadAssignments
     })
-    console.log("render")
     function loadAssignments(){
-      var userAssignments = new UserAssignmentsView({radio: radio, collection: App.eventCollection})
+      var userAssignments = new UserAssignmentsView({radio: radio, 
+                                                     collection: App.eventCollection,
+                                                     courses: App.courses})
         .render()
     }
   },
@@ -75,11 +75,6 @@ var Workspace = Backbone.Router.extend({
                                           .render()
     App.courseEvents.fetch()
   },
-  'addAssignment': function(){
-    App.courses.fetch({reset:true})
-    var addAssignmentView = new AddAssignView({radio: radio, collection: App.courses})
-      .render()
-  }
 });
 
 var App = App || {}
