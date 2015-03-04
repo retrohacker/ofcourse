@@ -9,6 +9,9 @@ var fail = 0
 var verbosity = 0
 var cookie
 var http=require('http');
+var pg = require('pg-query')
+var connString = process.env.DATABASE_URL || "postgres://postgres@127.0.0.1:5432/postgres"
+
   
 //TODO: randomize course id so that insert functions properly, give sane error message when ID overlaps,
 // and course must have unique combination of these values
@@ -17,8 +20,8 @@ var http=require('http');
 var test_user_1 = { firstName: "Larry" , lastName: "Test", id: 5 };
 var test_user_2 = { firstName: "Larry" , lastName: "Test", id: -666 };
 var test_course_1 = { university:1,id:5,title:"Theory of Something",department:"CS",number:491,section:001,start:"2015-02-01T04:05:06" ,end: "2015-02-30T04:05:06"};
-var test_event = {id:1,userid:10,parnetid:2,courseid:3,title:"Test Event!",start:"2015-02-01 04:05:06",end:"2015-02-10 04:05:06",type:0,data:"this is test event data",status:"in progress"}
-var test_course_2 = { university:1,id:1366442,title:"Theory off Something",location:"my fdick",instructor:"my othfer dick",semester:"fall",department:"CS",number:491,section:032,start:"20150201" ,end: "20150228"};
+var test_event = {id:1001,userid:10,parentid:2,courseid:3,title:"Test Event!",start:"2015-02-01 04:05:06",end:"2015-02-10 04:05:06",type:0,data:"this is test event data",status:"in progress"}
+var test_course_2 = { university:1,id:11228,title:"Theory off Something",location:"my fdick",instructor:"my othfer dick",semester:"fall",department:"TTT",number:491,section:112,start:"20150201",end:"20150228"};
         
 //check command args for verbose mode
 process.argv.forEach(function (val, index, array) {
@@ -28,7 +31,7 @@ process.argv.forEach(function (val, index, array) {
   //console.log(index + ': ' + val);
 });
 
-console.log('INFO: we are going to set verbose mode anyways for now \n')
+console.log('INFO: default is verbose mode for now \n')
 verbosity = 1
 
 
@@ -60,9 +63,64 @@ test_client_series_1()
 // - backend_get_universities_test_1()
 // - backend_get_events_test_1()
 // - backend_get_user_courses_test_1()
-console.log("backend model tests: " + fail + color.red(" Failed"))
-console.log("backend model tests: " + pass + color.green(" Passed"))
+//console.log("backend model tests: " + fail + color.red(" Failed"))
+//console.log("backend model tests: " + pass + color.green(" Passed"))
+cleanup()
 
+function cleanup(){
+  try{
+    pg.connectionParameters = connString
+    cmdString = ("delete from courses where id='" + test_course_2.id + "'" +
+      " and department='" + test_course_2.department + "'" +
+      " and number='" + test_course_2.number + "'" +
+      " and section='" + test_course_2.section + "'" +
+      " and title='" + test_course_2.title + "'" +
+      " and start='" + test_course_2.start + "'" +
+      //" and end='" + test_course_2.end + "'" +
+      " and university='" + test_course_2.university + "'" )
+      //" returning *")
+    pg(cmdString,function(e,rows,result) {
+      if(e){
+        console.log("Cleaning up after tests" + " ["+color.red("FAIL")+"]")
+        console.log("database error:\n", e)
+      }else{
+        console.log("Cleaning up after tests" + " ["+color.green("PASS")+"]")
+        if(verbosity == 1)
+          console.log(cmdString)
+          console.log(rows)
+          console.log(result)
+          console.log("\n")
+      }
+    })
+    cmdString2 = ("delete from events where id=" + test_event.id + "" +
+      //" and userid=" + test_event.userid +
+      " and courseid=" + test_event.courseid +
+      " and parentid=" + test_event.parentid +
+      " and type=" + test_event.type )
+      //" returning *")
+      //" and data='" + test_event.data + "'" +
+      //" and title='" + test_course_2.title + "'" )
+      //" and start='" + test_course_2.start + "'")
+      //" and end='" + test_course_2.end + "'" +
+      //" and status='" + test_course_2.status + "'" )
+    pg(cmdString2,function(e,rows,result) {
+      if(e){
+        console.log("Cleaning up after tests" + " ["+color.red("FAIL")+"]")
+        console.log("database error:\n", e)
+      }else{
+        console.log("Cleaning up after tests" + " ["+color.green("PASS")+"]")
+        if(verbosity == 1)
+          console.log(cmdString2)
+          console.log(rows)
+          console.log(result)
+          console.log("\n")
+      }
+    })
+  }catch( Exception ){
+    console.log("Cleaning up after tests" + " ["+color.red("FAIL")+"]")
+    console.log(Exception)
+  }
+}
 function user_model_validation_test_1() {
   try{
     var testName = "Backend User Model Validation Test 1"
@@ -251,7 +309,7 @@ function backend_get_user_test_1(){
     callback = function(response) {
       var str = ''
       response.on('data', function (chunk) {
-      str += chunk;
+        str += chunk;
       });
       response.on('end', function () {
       if(str)
@@ -262,6 +320,12 @@ function backend_get_user_test_1(){
       });
     }
     var req = http.request(request, callback);
+    req.on('error', function(error) {
+      console.log(testName + " ["+color.red("FAIL")+"]")
+      if(verbosity == 1)
+        console.log(error)
+      fail++
+    });
     req.end()
   }catch( Exception ){
       console.log(testName + " ["+color.red("FAIL")+"]")
@@ -295,6 +359,12 @@ function backend_get_universities_test_1(){
       });
     }
     var req = http.request(request, callback);
+    req.on('error', function(error) {
+      console.log(testName + " ["+color.red("FAIL")+"]")
+      if(verbosity == 1)
+        console.log(error)
+      fail++
+    });
     req.end()
   }catch( Exception ){
       console.log(testName + " ["+color.red("FAIL")+"]")
@@ -324,6 +394,10 @@ function backend_create_course_test_1(){
         str += chunk;
       });
       response.on('end', function () {
+        if(str.indexOf("error") > -1) {
+          console.log(testName + " ["+color.red("FAIL")+"]")
+          fail++
+        }
         if(str)
           console.log(testName + " ["+color.green("PASS")+"]")
         pass++
@@ -333,6 +407,12 @@ function backend_create_course_test_1(){
     }
     var req = http.request(request, callback);
     req.write(JSON.stringify(course))
+    req.on('error', function(error) {
+      console.log(testName + " ["+color.red("FAIL")+"]")
+      if(verbosity == 1)
+        console.log(error)
+      fail++
+    });
     req.end()
   }catch( Exception ){
     console.log(testName + " ["+color.red("FAIL")+"]")
@@ -364,6 +444,10 @@ function backend_create_event_test_1(){
         str += chunk;
       });
       response.on('end', function () {
+        if(str.indexOf("error") > -1) {
+          console.log(testName + " ["+color.red("FAIL")+"]")
+          fail++
+        }
         if(str)
           console.log(testName + " ["+color.green("PASS")+"]")
         pass++
@@ -373,6 +457,12 @@ function backend_create_event_test_1(){
     }
     var req = http.request(request, callback);
     req.write(JSON.stringify(test_event))
+    req.on('error', function(error) {
+      console.log(testName + " ["+color.red("FAIL")+"]")
+      if(verbosity == 1)
+        console.log(error)
+      fail++
+    });
     req.end()
   }catch( Exception ){
     console.log(testName + " ["+color.red("FAIL")+"]")
@@ -407,6 +497,12 @@ function backend_get_courses_test_1(){
       });
     }
     var req = http.request(request, callback);
+    req.on('error', function(error) {
+      console.log(testName + " ["+color.red("FAIL")+"]")
+      if(verbosity == 1)
+        console.log(error)
+      fail++
+    });
     req.end()
   }catch( Exception ){
       console.log(testName + " ["+color.red("FAIL")+"]")
@@ -428,7 +524,7 @@ function backend_get_events_test_1(){
     callback = function(response) {
       var str = ''
       response.on('data', function (chunk) {
-      str += chunk;
+        str += chunk;
       });
       response.on('end', function () {
         if(str)
@@ -439,6 +535,12 @@ function backend_get_events_test_1(){
       });
     }
     var req = http.request(request, callback);
+    req.on('error', function(error) {
+      console.log(testName + " ["+color.red("FAIL")+"]")
+      if(verbosity == 1)
+        console.log(error)
+      fail++
+    });
     req.end()
   }catch( Exception ){
     console.log(testName + " ["+color.red("FAIL")+"]")
@@ -471,6 +573,12 @@ function backend_get_user_courses_test_1(){
       });
     }
     var req = http.request(request, callback);
+    req.on('error', function(error) {
+      console.log(testName + " ["+color.red("FAIL")+"]")
+      if(verbosity == 1)
+        console.log(error)
+      fail++
+    });
     req.end()
   }catch( Exception ){
     console.log(testName + " ["+color.red("FAIL")+"]")
@@ -507,6 +615,12 @@ function backend_user_registration_test_1(){
     }
     var req = http.request(request, callback);
     req.write(user)
+    req.on('error', function(error) {
+      console.log(testName + " ["+color.red("FAIL")+"]")
+      if(verbosity == 1)
+        console.log(error)
+      fail++
+    });
     req.end()
   }catch( Exception ){
     console.log(testName + " ["+color.red("FAIL")+"]")
