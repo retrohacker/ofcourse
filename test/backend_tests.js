@@ -116,6 +116,21 @@ function cleanup(){
           console.log("\n")
       }
     })
+    cmdString3 = ("delete from parent_events where cid=" + test_course_2.id + "")
+    console.log(cmdString3)
+    pg(cmdString3,function(e,rows,result) {
+      if(e){
+        console.log("Cleaning up after tests" + " ["+color.red("FAIL")+"]")
+        console.log("database error:\n", e)
+      }else{
+        console.log("Cleaning up after tests" + " ["+color.green("PASS")+"]")
+        if(verbosity == 1)
+          console.log(cmdString3)
+          console.log(rows)
+          console.log(result)
+          console.log("\n")
+      }
+    })
   }catch( Exception ){
     console.log("Cleaning up after tests" + " ["+color.red("FAIL")+"]")
     console.log(Exception)
