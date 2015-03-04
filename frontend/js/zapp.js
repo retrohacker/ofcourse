@@ -1,6 +1,3 @@
-var taskbar = new TaskbarView({radio: radio})
-var sidebar = new SidebarView({radio: radio})
-
 var Workspace = Backbone.Router.extend({
   routes:{
     "home": "home",
@@ -12,7 +9,6 @@ var Workspace = Backbone.Router.extend({
     "createCourse": "createCourse",
     "courses":"courses",
     "viewCourse":"viewCourse",
-    "addAssignment" : "addAssignment",
     "userAssignments" : "userAssignments"
   },
   'home': function(){
@@ -44,7 +40,7 @@ var Workspace = Backbone.Router.extend({
                                                        model: App.user
                                                       }).render()
     App.courses.fetch({reset:true})//not the most efficient way to populate collection
-   },  
+   },
   'createCourse':function(){
     radio.trigger('unrender:page getTaskbar')
     this.createCourseParentView = new CreateCourseParentView({collection: App.courses, 
@@ -64,9 +60,10 @@ var Workspace = Backbone.Router.extend({
     App.eventCollection.fetch({
       success: loadAssignments
     })
-    console.log("render")
     function loadAssignments(){
-      var userAssignments = new UserAssignmentsView({radio: radio, collection: App.eventCollection})
+      var userAssignments = new UserAssignmentsView({radio: radio, 
+                                                     collection: App.eventCollection,
+                                                     courses: App.courses})
         .render()
     }
   },
@@ -79,20 +76,23 @@ var Workspace = Backbone.Router.extend({
     App.courseEvents.fetch()
   },
   'addAssignment': function(){
-    radio.trigger('unrender:page')
-    App.courses.fetch({reset:true})
-    var addAssignmentView = new AddAssignView({radio: radio, collection: App.courses})
+    App.userCourses.fetch({reset:true})
+    var addAssignmentView = new AddAssignView({radio: radio, collection: App.userCourses})
       .render()
+    console.log(App.userCourses)
   }
 });
+
 var App = App || {}
 App.user = new UserModel()
 App.user.fetch({
   success: init,
   error: init,
 })
+
 App.courses = new CourseCollection()
 App.courseEvents = new CourseEventsCollection()
+App.userCourses = new UserCourseCollection()
 
 App.eventCollection = new EventCollection([])
 App.eventCollection.fetch({reset:true})
@@ -106,6 +106,9 @@ function init() {
     workspace.navigate('login', {trigger: true});
   }
   else if(App.user.isLoggedIn()){
+    var taskbar = new TaskbarView({radio: radio, model: App.user})
+    var sidebar = new SidebarView({radio: radio})
+    
     radio.trigger('getTaskbar render:SidebarView')
     if(!App.user.hasUniversity()) {
       //TODO: remove these. they should not be hardcoded.

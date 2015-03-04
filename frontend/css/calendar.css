@@ -1,12 +1,67 @@
 .ofcourse-body .fc {
   padding: 0 .5em .5em;
+  margin-top: 0;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+.ofcourse-body .fc-toolbar {
+  margin-bottom: 0;
 }
 
 .ofcourse-body .fc .fc-toolbar button {
+  border-radius: 200px;
+  width: 4em;
+  height: 4em;
+  margin: 1em;
   background-image: none;
-  background-color: #6440C1;
-  color: #F2F2F3;
+  background-color: #441D9E;
+  color: #FFFFFF;
   text-shadow: none;
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,1);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,1);
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,1);
+}
+
+.ofcourse-body .fc .fc-toolbar button:hover {
+  -webkit-box-shadow: 0px 15px 14px 0px rgba(0,0,0,0.26) !important;
+  -moz-box-shadow: 0px 15px 14px 0px rgba(0,0,0,0.26) !important;
+  box-shadow: 0px 15px 14px 0px rgba(0,0,0,0.26) !important;
+}
+
+.ofcourse-body .fc .fc-toolbar button:focus {
+    outline: none;
+}
+
+.ofcourse-body .fc-toolbar .fc-left {
+  position: absolute;
+  left: 0%;
+  width: 50%;
+  top: 100%;
+  transform: translateY(-200%);
+  height: 3em;
+  z-index: 15;
+}
+
+.ofcourse-body .fc .fc-toolbar > * > * {
+  float: center;
+}
+
+.ofcourse-body .fc-toolbar .fc-right {
+  position: absolute;
+  right: 0;
+  width: 50%;
+  top: 100%;
+  transform: translateY(-200%);
+  height: 3em;
+  z-index: 15;
+}
+
+.ofcourse-body .fc-button-group {
+  position: relative;
+  bottom: 1em;
+  z-index: 15;
+  height: 3em;
 }
 
 .ofcourse-body .fc-state-disabled {
@@ -20,7 +75,7 @@
 }
 
 .ofcourse-body .fc-day-header {
-  background-color: ##242430;
+  background-color: #242430;
   padding: .4em;
   color: #F2F2F3;
   font-weight: normal;
@@ -49,4 +104,26 @@
 .ofcourse-body .fc hr {
   padding: 0;
   border-width: 2px;
+}
+
+@media (max-width: 700px) {
+  .ofcourse-body .fc {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .ofcourse-body .fc .fc-toolbar button {
+    width: 2.5em;
+    height: 2.5em;
+    margin: .2em;
+    padding: 0;
+  }
+
+  .ofcourse-body .fc-toolbar .fc-left {
+    transform: translateY(-60%);
+  }
+
+  .ofcourse-body .fc-toolbar .fc-right {
+    transform: translateY(-60%);
+  }
 }
