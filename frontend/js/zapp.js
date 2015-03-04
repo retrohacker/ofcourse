@@ -60,10 +60,11 @@ var Workspace = Backbone.Router.extend({
     App.eventCollection.fetch({
       success: loadAssignments
     })
+    App.userCourses.fetch({reset:true})
     function loadAssignments(){
       var userAssignments = new UserAssignmentsView({radio: radio, 
                                                      collection: App.eventCollection,
-                                                     courses: App.courses})
+                                                     courses: App.userCourses})
         .render()
     }
   },
