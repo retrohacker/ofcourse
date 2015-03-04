@@ -1,6 +1,10 @@
-div(class=['pure-g','ofcourse-taskbar'])
-  div(class=['pure-u-1-3'])
-    div(class=['ofcourse-padding-left','ofcourse-taskbar-left'])
-  div(class=['pure-u-1-3','ofcourse-taskbar-center'])
-  div(class=['pure-u-1-3'])
-    div(class=['ofcourse-padding-right','ofcourse-taskbar-right'])
+div.pure-g.ofcourse-taskbar
+  div.pure-u-1-3
+    div.ofcourse-taskbar-left 
+      div.ofcourse-welcome-text Welcome, #{locals.firstName}
+  div.pure-u-1-3.ofcourse-taskbar-center
+    div.wordage
+      img(src="/static/images/ofcourse-wordage-232x75.png" height='50')
+  div.pure-u-1-3
+    div.ofcourse-taskbar-right-1
+    div.ofcourse-taskbar-right-2

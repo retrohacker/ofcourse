@@ -6,14 +6,16 @@ var models = require('../models')
 
 //USING POSTGRES
 user.insert = function insert(values,cb) {
-  db(sql.insert(models.User,values.toJSON()),function(e,rows,result) {
+  var insert = sql.insert(models.User,values.toJSON())
+  db(insert.str,insert.arr,function(e,rows,result) {
     if(e) return cb(e)
     return cb(null,result.rows[0].id)
   })
 }
 
 user.update = function update(values,cb) {
-  db(sql.update(models.User,values.toJSON()),function(e,rows,result) {
+  var update = sql.update(models.User,values.toJSON())
+  db(update.str,update.arr,function(e,rows,result) {
     if(e) return cb(e)
     return cb(null,result.rows[0].id)
   })
@@ -29,6 +31,30 @@ user.get = function get(id,cb) {
 user.getEvents = function getEvents(id,cb) {
   db("select * from events where userid="+id,function(e,rows,result) {
     if(e) return cb(e)
+    for(i = 0; i < result.rows.length;i++){
+
+      //correct start time
+      var stringDate = String(result.rows[i].start)
+      var splitDate = stringDate.split(" ")
+      
+      //replace timestamp with utc (DB assumes local but is really UTC)
+      splitDate[5] = 'GMT-0000'
+      splitDate[6] = '(UTC)'
+      dateString = splitDate.join(" ")
+
+      
+      //set start as corrected timezone timestamp
+      result.rows[i].start = new Date(dateString)
+
+      // repeat for end date
+      stringDate = String(result.rows[i].end)
+      splitDate = stringDate.split(" ")
+      splitDate[5] = 'GMT-0000'
+      splitDate[6] = '(UTC)'
+      dateString = splitDate.join(" ")
+      result.rows[i].end = new Date(dateString)
+    }
+  
     cb(null,result.rows)
   })
 }
@@ -64,12 +90,13 @@ user.getUserByEmail = function getUserByEmail(email,done) {
     if(result.rowCount > 1) {
       return done('error: multiple users with that email address',rows[0])
     }
-    return done(null,rows)
+    return done(null,rows[0])
   });
 }
 
 user.addCourse = function addCourse(course,userid,done) {
-  db(sql.insert(models.Course,course.toJSON()), function(err, rows, result) {
+  var insert = sql.insert(models.Course,course.toJSON())
+  db(insert.str,insert.arr, function(err, rows, result) {
     if(err) return done(err,null)
     return done(null,result.rows[0].id)
   });
@@ -77,14 +104,16 @@ user.addCourse = function addCourse(course,userid,done) {
 
 user.addEvent = function addEvent(userEvent,userid,done){
   userEvent.set({'userid': userid})
-  db(sql.insert(models.Event,userEvent.toJSON()), function(err, rows, result) {
+  var insert = sql.insert(models.Event,userEvent.toJSON())
+  db(insert.str,insert.arr, function(err, rows, result) {
     if(err) return done(err,null)
     return done(null,result.rows[0].id)
   });
 }
 
 user.addParentEvent = function addParentEvent(parentEvent,done){
-  db(sql.insert(models.ParentEvent,parentEvent.toJSON()), function(err, rows, result) {
+  var insert = sql.insert(models.ParentEvent,parentEvent.toJSON())
+  db(insert.str,insert.arr, function(err, rows, result) {
     if(err) return done(err,null)
     return done(null,result.rows[0].id)
   });
@@ -92,6 +121,20 @@ user.addParentEvent = function addParentEvent(parentEvent,done){
 
 user.getUniversities = function getUniversity(cb) {
   db("select * from universities",function(e,rows,result) {
+    if(e) return cb(e)
+    cb(null,result.rows)
+  })
+}
+
+user.getUserCourseIDs = function getUserCourseIDs(userid,cb) {
+  db("select * from course_user where uid="+userid,function(e,rows,result) {
+    if(e) return cb(e)
+    cb(null,result.rows)
+  })
+}
+
+user.getCourse = function getCourse(cid,cb) {
+  db("select * from courses where id="+cid,function(e,rows,result) {
     if(e) return cb(e)
     cb(null,result.rows)
   })

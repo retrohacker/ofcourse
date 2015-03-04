@@ -10,6 +10,9 @@ var glob = require('glob')
 var path = require('path')
 var async = require('async')
 var logger = require('../../logger')
+var model = require('../models')
+var fs = require('fs')
+var db = require('./index.js')
 
 /**
  * This is a special case. We are loading in all models from the models
@@ -33,33 +36,74 @@ module.exports = function(db) { //TODO: give this a callback
   async.eachSeries(models,function(model,cb) {
     logger.info("Attempting to create table "+model+"...")
     var model = require(path.join(modelsPath,model+'.js'))
-    db(createTable(model.tableName,model.types),cb)
-  },function(e){
+    db(createTable(model.tableName,model.types,model.unique),cb)
+  },
+  function(e) {
     if(e) throw e;
     db("select * from universities where name='Southern Illinois University'",function(e,rows,result) {
       if(e) return e
-      if(result.rowCount == 0){
+      if(result.rowCount == 0) {
         logger.info('init.js: inserting default universities into database')
         db("insert into universities (name,abbreviation,state,city) values "
-        + "('Southern Illinois University','SIU','IL','Carbondale'),"
-        + "('The Delaware One','TDO','DE','Delewareville')",function(e,rows,result) {
+        + "('Southern Illinois University','SIU','IL','Carbondale') returning id",function(e,rows,result) {
           if(e) return e
+          populateCourses(result.rows[0].id)
           return null
         })
-    }
-    logger.info("Done setting up db")})
-
+      }
+      else {
+        populateCourses(result.rows[0].id)
+      }
+      logger.info("Done setting up db")
+    })
     return null
   })
 }
 
-function createTable(title,types) {
+function populateCourses(uni) {
+  fs.readFile(path.join(__dirname,'siu_spring_2015.json'),{encoding:'utf-8'},function(e,file) {
+    if(e) return logger.error(e)
+    var obj = JSON.parse(file)
+    async.each(obj.classes,function(c,cb) {
+      var course = new model.Course(c)
+      course.set('university',uni)
+      course.set('semester','Spring 2015')
+      var parent = new model.ParentEvent(c)
+      logger.info('Adding '+c.title)
+      db.user.addCourse(course,0,function(e,cid) {
+        if(e) {
+          logger.warn(e)
+          cb()
+          return db.db("",function(){}) //keep loop from hanging. TODO: WHY?!??!?!?!?!?
+        }
+        parent.set('cid',cid)
+        parent.set('cron',JSON.stringify(c.cron))
+        db.user.addParentEvent(parent,function(e) {
+          if(e) logger.warn(e)
+          cb()
+        })
+      })
+    },function() {
+      logger.info("Finished populating assignments")
+    })
+  })
+}
+
+function createTable(title,types,unique) {
   var result = 'CREATE TABLE IF NOT EXISTS '+title+' ('
   Object.keys(types).forEach(function(v) {
     result += '"'+v+'" ' // Add the var name
     result += types[v] + ',' // Add var type
   })
-  result = result.slice(0,-1) // remove trailing comma
+  if(unique) {
+    result += " UNIQUE ("
+    unique.forEach(function(u) {
+      result += u + ","
+    })
+    result = result.slice(0,-1) // remove trailing comma
+    result += ")"
+  } else
+    result = result.slice(0,-1) // remove trailing comma
   result += ')'
   return result
 }

@@ -12,8 +12,9 @@ var SidebarView = Backbone.View.extend({
     return this
   },
   events: {
-    "click .ofcourse-menu-item":"closeSidebar",
-    "click #sidebar-addcourse":"openAddCourse",
+    "click .ofcourse-sidebar-logos":"openHome",
+    "click #sidebar-bg": "closeSidebar",
+    "click #sidebar-addcourse": "openAddCourse",
     "click #sidebar-calendar": "openCalendar",
     "click #sidebar-courses": "openCourses",
     "click #sidebar-home": "openHome",
@@ -63,23 +64,19 @@ var SidebarView = Backbone.View.extend({
     else this.openSidebar()
   },
   closeSidebar:function(){
-    var width = this.$el.outerWidth()
-    //Need to translate ofcourse-body
-    $('.ofcourse-body').css('left',0)
-    //Need to translate ofcourse-taskbar
-    $('.ofcourse-taskbar').css('left',0)
-    //Need to translate self way the fuck out
-    this.$el.css('left',"-"+width*100+"px")
+    $('.ofcourse-sidebar').css('opacity', 0)
+    $('.ofcourse-sidebar-background').css('opacity', 0)
+    $('.ofcourse-sidebar').css('transform','translateX(-125%)')
+    setTimeout( function() {
+      $('.ofcourse-sidebar-wrapper').css('z-index', '-20')
+    }, 500)
     this.sidebarState = false
   },
   openSidebar:function(){
-    var width = this.$el.outerWidth() + "px"
-    //Need to translate ofcourse-body
-    $('.ofcourse-body').css('left',width)
-    //Need to translate ofcourse-taskbar
-    $('.ofcourse-taskbar').css('left',width)
-    //Need to translate self
-    this.$el.css('left',0)
+    $('.ofcourse-sidebar').css('opacity', 1)
+    $('.ofcourse-sidebar-wrapper').css('z-index', '20')
+    $('.ofcourse-sidebar-background').css('opacity', .2)
+    $('.ofcourse-sidebar').css('transform', 'translateX(0px)')
     this.sidebarState = true
   }
 });

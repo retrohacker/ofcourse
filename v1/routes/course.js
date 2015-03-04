@@ -5,6 +5,7 @@ var passport = require('passport')
 var later = require('later')
 var pg = require('pg')
 var async = require('async')
+var logger = require('../../logger')
 
 var db = require('../db')
 var models = require('../models')
@@ -15,7 +16,7 @@ router.use(passport.initialize())
 router.use(passport.session())
 
 router.post('/',function(req,res) {
-  if(!req.user || !req.user.profile || !req.user.profile.id) return res.status(401).json(new Error("Please login"))
+  if(!req.user || !req.user.profile || !req.user.profile.id) return res.status(401).json("Please login")
   var course = new models.Course()
   if(!course.set(req.body,{validate:true})) {
     return res.status(400).json({e:course.validationError})
@@ -43,24 +44,24 @@ router.post('/',function(req,res) {
       var parent = new models.ParentEvent()
       parent.set(course.toJSON())
       parent.set('cid',cid)
-      parent.set('cron', course.get('events'))
+      parent.set('cron', JSON.stringify(course.get('events')))
       db.user.addParentEvent(parent, function(e,pid){
-        var events = req.body.events
-        return cb(e,events, cid, pid)
+        return cb(e, cid, pid)
       })
     },
-    function connect(events, cid, pid, cb){
+    function connect(cid, pid, cb){
       client.connect(function(e){
-        return cb(e,events,cid,pid)
+        return cb(e,cid,pid)
       })
     },
-    function beginTransaction(events,cid,pid,cb) {
+    function beginTransaction(cid,pid,cb) {
       //client.query('BEGIN()', function(e, result){ // This doesn't work with pg-query
-        return cb(null,events,cid,pid)
+        return cb(null,cid,pid)
       //})
     },
-    function insertEvents(events, cid, pid, cb){
+    function insertEvents(cid, pid, cb){
       // For each cron and duration
+      var events = req.body.events
       async.each(events, function(item, cb){
         var sched = later.parse.cron(item.cron)
         var courseStart = new Date(course.attributes.start)
@@ -77,7 +78,9 @@ router.post('/',function(req,res) {
             end: new Date(date.setSeconds(date.getSeconds() + item.duration)).toISOString(),
             type: 0
           })
-          db.db(db.sql.insert(models.Event,courseEvent.toJSON()), cb)
+          var insert = db.sql.insert(models.Event,courseEvent.toJSON())
+          console.log(JSON.stringify(insert))
+          db.db(insert.str,insert.arr, cb)
         },cb)
       },function(e) {
         return cb(e,pid)
@@ -85,8 +88,11 @@ router.post('/',function(req,res) {
     }
   ],
   function(e,pid){
-    client.end()
-    if (e) return res.status(500).end(e.stack+"\n"+JSON.stringify(e))
+    client.end()    
+    if(e) {
+      logger.error('create course error ', e)
+      return res.status(500).end(e.stack+"\n"+JSON.stringify(e))
+    }
     res.write(JSON.stringify({id:pid}))
     return res.end()
   })
@@ -94,13 +100,19 @@ router.post('/',function(req,res) {
 
 //CourseCollection
 router.get('/courses',function(req,res) {
-  if(!req.user || !req.user.profile || !req.user.profile.id) return res.status(401).json(new Error("Please login"))
+  if(!req.user || !req.user.profile || !req.user.profile.id) return res.status(401).json("Please login")
   db.user.get(req.user.profile.id,function(e,user) {
-    if(e) return res.status(500).json(e)//dont do this, remove this for production build, gives attackers too much info
-    if(!user) res.status(500).json(new Error('user not found'))
+    if(e) {
+      logger.error('database error getting user', e)
+      return res.status(500).json(e)//dont do this, remove this for production build, gives attackers too much info
+    }
+    if(!user) res.status(500).json('user not found')
     db.user.getCoursesByUniversity(user.university,function(e,courses) {
-      if(e) return res.status(500).json(e)//dont do this, remove this for production build, gives attackers too much info
-      if(!courses) res.status(500).json(new Error('user not found'))
+      if(e) {
+		logger.error('database error getting courses', e)
+		return res.status(500).json(e)//dont do this, remove this for production build, gives attackers too much info
+      }
+      if(!courses) res.status(500).json('user not found')
       res.status(200).json(courses)
     })
   })
