@@ -4,25 +4,25 @@ var Backbone = Backbone || require('backbone')
 var EventModel = Backbone.Model.extend({
   url: '/v1/event/event',
   validate:function(attributes,options) {
-	  if(typeof attributes.id != 'number')
-		return 'expected number for id'
-      if(attributes.id < 0)
-      	return 'expected event id to be greater than 0'
-      if(typeof attributes.userid != 'number')
-		return 'expected number for userid'
-	  if(typeof attributes.courseid != 'number')
-		return 'expected number for courseid'
-	  if(typeof attributes.title == 'undefined')
-	    return 'expected event to have a title'
-	  if(attributes.title.length > 150)
-		return 'course title is too long. 50 chars max.'  
-	  if(typeof attributes.start == 'undefined')
-	    return 'expected event to have a start time'
-	  if(typeof attributes.end == 'undefined')
-	    return 'expected event to have a end time'
-	  if(typeof attributes.type != 'number')
-		return 'expected number for type'
-	  //TODO: add validation for data and status
+    if(typeof attributes.id != 'number')
+      return 'expected number for id'
+    if(attributes.id < 0)
+      return 'expected event id to be greater than 0'
+    if(typeof attributes.userid != 'number')
+      return 'expected number for userid'
+    if(typeof attributes.courseid != 'number')
+      return 'expected number for courseid'
+    if(typeof attributes.title == 'undefined')
+      return 'expected event to have a title'
+    if(attributes.title.length > 150)
+      return 'course title is too long. 50 chars max.'  
+    if(typeof attributes.start == 'undefined')
+      return 'expected event to have a start time'
+    if(typeof attributes.end == 'undefined')
+      return 'expected event to have a end time'
+    if(typeof attributes.type != 'number')
+      return 'expected number for type'
+    //TODO: add validation for data and status
       //TODO: add ISO 8601 format check for start and end
   }
 });

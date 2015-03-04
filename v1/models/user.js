@@ -6,14 +6,14 @@ var Backbone = Backbone || require('backbone')
 var UserModel = Backbone.Model.extend({
   url: '/v1/user',
   validate:function(attributes,options){
-	if(attributes.id && (typeof attributes.id != 'number' || attributes.id < 0))
+  if(attributes.id && (typeof attributes.id != 'number' || attributes.id < 0))
     return 'expected number for id'
   if(typeof attributes.firstName != 'string')
     return 'expected string for firstName'
-	if(typeof attributes.lastName != 'string')
+  if(typeof attributes.lastName != 'string')
     return 'expected string for lastName'
-	 //if(attributes.university && typeof attributes.university != 'string')
-      //return 'expected string for university'
+  //if(attributes.university && typeof attributes.university != 'string')
+    //return 'expected string for university'
   if(attributes.email && typeof attributes.email != 'string')
     return 'expected string for email'
   if(attributes.email){
