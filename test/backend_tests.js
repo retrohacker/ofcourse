@@ -17,7 +17,7 @@ var http=require('http');
 var test_user_1 = { firstName: "Larry" , lastName: "Test", id: 5 };
 var test_user_2 = { firstName: "Larry" , lastName: "Test", id: -666 };
 var test_course_1 = { university:1,id:5,title:"Theory of Something",department:"CS",number:491,section:001,start:"2015-02-01T04:05:06" ,end: "2015-02-30T04:05:06"};
-var test_event = {id:1,userid:10,parnetid:2,courseid:3,title:"Test Event!",start:"2015-02-01T04:05:06",end:"2015-02-30T04:05:06",type:0,data:"this is test event data",status:"in progress"}
+var test_event = {id:1,userid:10,parnetid:2,courseid:3,title:"Test Event!",start:"2015-02-01 04:05:06",end:"2015-02-10 04:05:06",type:0,data:"this is test event data",status:"in progress"}
 var test_course_2 = { university:1,id:1366442,title:"Theory off Something",location:"my fdick",instructor:"my othfer dick",semester:"fall",department:"CS",number:491,section:032,start:"20150201" ,end: "20150228"};
 				
 //check command args for verbose mode
@@ -191,15 +191,15 @@ function backend_login_test_1(){
 			if(str)
 			console.log("Backend Login Test 1 " + "["+color.green("PASS")+"]")
 			pass++
-      if(verbosity == 1)
-			  console.log(str + '\n')
 			headers = JSON.stringify(response.headers)
 			//console.log(response)
 			//console.log(headers)
 			idlocation = headers.search('connect.sid')
 			cookie = headers.substr(idlocation,headers.search('; Path')-idlocation)
-			if(verbosity == 1)
+			if(verbosity == 1){
 			  console.log('Cookie:', cookie)
+			  console.log(str + '\n')
+      }
 			//call more tests after logging in
 			backend_get_user_test_1()
 			backend_create_course_test_1()
@@ -325,8 +325,7 @@ function backend_create_course_test_1(){
 function backend_create_event_test_1(){
 	try{
 		var event = new models.Event()
-		var test_event = {id:1,userid:10,parnetid:2,courseid:3,title:"Test Event!",start:"2015-02-01T04:05:06",end:"2015-02-30T04:05:06",type:0,data:"this is test event data",status:"in progress"}
-		assert.notEqual(event.set(test_event,{validate:true}),false, "Backend Create Event Test 1")//should throw an exception
+		assert.notEqual(event.set(test_event,{validate:true}),false, "Backend Create Event Test 1")
 		var request={
 		  host: 'localhost',
 		  port: 5000,
@@ -380,7 +379,7 @@ function backend_get_courses_test_1(){
 			console.log("Backend get courses Test 1 - GET /v1/course/courses " + "["+color.green("PASS")+"]")
 			pass++
 			if(verbosity == 1)
-        console.log("INFO: this function returns all the courses - we're not going to print them")
+        console.log("INFO: this function returns all the courses - we're not going to print them\n")
 			  //console.log(str + '\n')
 		  });
 		}
@@ -440,7 +439,7 @@ function backend_get_user_courses_test_1(){
 		  });
 		  response.on('end', function () {
 			if(str)
-			console.log("Backend get user courses Test 1 - GET /v1/user/courses " + "["+color.green("PASS")+"]")
+			  console.log("Backend get user courses Test 1 - GET /v1/user/courses " + "["+color.green("PASS")+"]")
 			pass++
       if(verbosity == 1)
         console.log(str + '\n')
