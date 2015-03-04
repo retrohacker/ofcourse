@@ -117,7 +117,6 @@ function cleanup(){
       }
     })
     cmdString3 = ("delete from parent_events where cid=" + test_course_2.id + "")
-    console.log(cmdString3)
     pg(cmdString3,function(e,rows,result) {
       if(e){
         console.log("Cleaning up after tests" + " ["+color.red("FAIL")+"]")
