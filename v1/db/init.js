@@ -47,12 +47,12 @@ module.exports = function(db) { //TODO: give this a callback
         db("insert into universities (name,abbreviation,state,city) values "
         + "('Southern Illinois University','SIU','IL','Carbondale') returning id",function(e,rows,result) {
           if(e) return e
-          populateCourses(result.rows[0].id)
+          //populateCourses(result.rows[0].id)
           return null
         })
       }
       else {
-        populateCourses(result.rows[0].id)
+        //populateCourses(result.rows[0].id)
       }
       logger.info("Done setting up db")
     })
