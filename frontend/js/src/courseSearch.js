@@ -21,6 +21,7 @@ function ofcourseCourseSearch(title) {
 function ofcourseSearchResults() {
   odcsIsSync = false
   odcsResults = new CourseCollection(JSON.parse(this.responseText))
-  var odcsView = new CourseSearchResultsView({collection:ocdsResults})
+  //var odcsView = new CourseSearchResultsView({collection:ocdsResults})
+  App.courses.set('collection', odcsResults)
   console.log(odcsResults.toJSON())
 }

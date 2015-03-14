@@ -16,7 +16,8 @@ var CourseSearchParentView = Backbone.View.extend({
     return this;
   },
   createChildren: function(){
-    this.children.push()
+    this.children.push(new CourseSearchChild_SearchBoxView({}).render());
+    this.children.push(new CourseSearchChild_ResultBoxView({collection:this.collection}).render());
     return this;
   },
   unrender: function() {

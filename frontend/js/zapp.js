@@ -51,7 +51,7 @@ var Workspace = Backbone.Router.extend({
   'courses':function(){
     radio.trigger('unrender:page getTaskbar')
     App.courses.fetch({reset:true})
-    var userCoursesParentView = new UserCoursesParentView({radio: radio,
+    var courseSearchParentView = new CourseSearchParentView({radio: radio,
                                                            collection: App.courses
                                                           }).render()
   },
