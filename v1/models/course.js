@@ -8,10 +8,12 @@ var CourseModel =  Backbone.Model.extend({
       return 'expected number for university'
     if(attributes.university < 0)
       return 'expected university greater than 0'
-    if(typeof attributes.id != 'number')
-      return 'expected number for id'
-    if(attributes.id < 0)
-      return 'expected course id to be greater than 0'
+    if(typeof attributes.id != 'undefined'){
+      if(typeof attributes.id != 'number')
+        return 'expected number for id'
+      if(attributes.id < 0)
+        return 'expected course id to be greater than 0'
+    }
     if(typeof attributes.title == 'undefined')
       return 'expected course to have a title'
     if(attributes.title.length > 50)
