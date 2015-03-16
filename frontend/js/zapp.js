@@ -52,8 +52,7 @@ var Workspace = Backbone.Router.extend({
     radio.trigger('unrender:page getTaskbar')
     App.courses.fetch({reset:true})
     var courseSearchParentView = new CourseSearchParentView({radio: radio,
-                                                           collection: App.courses
-                                                          }).render()
+                                                             collection: App.searchCourses}).render()
   },
   'userAssignments':function(){
     radio.trigger('unrender:page getTaskbar')
@@ -96,6 +95,7 @@ App.userCourses = new UserCourseCollection()
 
 App.eventCollection = new EventCollection([])
 App.eventCollection.fetch({reset:true})
+App.searchCourses = new CourseCollection()
 
 var workspace = new Workspace({radio: radio});
 Backbone.history.start();

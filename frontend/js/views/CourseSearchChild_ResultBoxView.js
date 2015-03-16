@@ -24,12 +24,15 @@ var CourseSearchChild_ResultBoxView = Backbone.View.extend({
       return this
     },
     createAndRenderChildren: function (){
+      console.log("children rendered");
       for(var i = 0; i < this.collection.length; i++){
+        console.log(this.collection.at(i));
         new CourseSearchChild_SingleCourseView({model: this.collection.at(i)}).render()
       }
       return this
     },
     rerender: function() {
+      console.log("rerender triggered");
       radio.trigger('unrender:CourseSearchChild_SingleCourseView')
       this.createAndRenderChildren()
       return this

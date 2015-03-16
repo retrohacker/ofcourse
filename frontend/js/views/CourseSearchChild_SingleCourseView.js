@@ -1,5 +1,5 @@
 var CourseSearchChild_SingleCourseView = Backbone.View.extend({
-  defaultLocation: ".oc-courses-courseContainer",
+  defaultLocation: ".oc-userCourses-courseContainer",
   template: JADE.userCoursesDiv,
   initialize: function(opts){
     var info = {title: this.model.get('title'),
@@ -25,6 +25,7 @@ var CourseSearchChild_SingleCourseView = Backbone.View.extend({
     this.$el.remove()
   },
   onclick: function() {
+    App.userCourses.fetch()
     App.userCourses.add(this.model)
     App.userCourses.save()
     console.log('Course Added')

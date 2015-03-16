@@ -4,10 +4,16 @@ var CourseSearchParentView = Backbone.View.extend({
   initialize: function(opts){
     this.setElement(this.template()),
     this.children = [],
+    this.collection = new CourseCollection([]);
     radio.on('unrender:CreateCourseParentView', this.unrender,this)
     radio.on('render:CreateCourseParentView', this.render,this)
     radio.on('unrender:page',this.unrender, this)
     radio.on('unrender', this.unrender,this)
+    
+    this.listenTo(this.collection, 'add', this.rerender)
+    this.listenTo(this.collection, 'remove', this.rerender)
+    this.listenTo(this.collection, 'reset', this.rerender)
+
   },
   render: function(location){
     var location = location || this.defaultLocation
@@ -22,6 +28,9 @@ var CourseSearchParentView = Backbone.View.extend({
   },
   unrender: function() {
     this.$el.remove()
-  }
+  },
+  rerender: function(){
+    console.log("WORKING!!!!!!!!!");
+ }
 });
 
