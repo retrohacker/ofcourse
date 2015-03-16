@@ -22,6 +22,7 @@ var UserAssignmentsView = Backbone.View.extend({
       var location = location || this.defaultLocation
       $(location).append(this.$el)
       this.renderInfo()
+      radio.trigger('unrender:LoadingView')
       return this
     },
     renderInfo: function() {
@@ -41,10 +42,12 @@ var UserAssignmentsView = Backbone.View.extend({
         } else {
           $('.ofcourse-left').css({'transform': 'translateY(-200%)'})
         }
+        var loadingView = new LoadingView({radio: radio, color: '#441D9E'}).render()
         App.courses.fetch({
           success: function() {
             var addAssignmentView = new AddAssignView({radio: radio, collection: view.collection, courses: view.courses}).render()
             view.addEnable()
+            radio.trigger('unrender:LoadingView')
           }
         })
       } else {
