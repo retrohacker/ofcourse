@@ -1,0 +1,24 @@
+.ofcourse-quick-assign-wrapper {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 3em;
+}
+
+.ofcourse-quick-assign-popup {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  height: 100%;
+  z-index: 19;
+}
+
+.ofcourse-quick-assign-bg {
+  position: absolute;
+  top: 0;
+  opacity: .2;
+  width: 100%;
+  height: 100%;
+  z-index: 18;
+}
