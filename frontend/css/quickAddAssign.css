@@ -22,3 +22,9 @@
   height: 100%;
   z-index: 18;
 }
+
+@media only screen and (max-width: 650px) {
+  .ofcourse-quick-assign-popup {
+    width: 100%;
+  }
+}
