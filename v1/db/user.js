@@ -110,6 +110,13 @@ user.addEvent = function addEvent(userEvent,userid,done){
     return done(null,result.rows[0].id)
   });
 }
+user.joinCourse = function joinCourse(CourseId, UserId,done){
+  db("insert into course_user ('cid', 'uid') values ( " + CourseId + " , " + UserId + ")", function(e,rows,result){
+    if(e) return cb(e)
+    cb(null, result.rows)
+  })
+  
+  }
 
 user.addParentEvent = function addParentEvent(parentEvent,done){
   var insert = sql.insert(models.ParentEvent,parentEvent.toJSON())
