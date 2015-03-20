@@ -13,6 +13,10 @@ body {
   transition: all 0.3s;
 }
 
+textarea {
+  resize: none;
+}
+
 .oc_logo_min {
   width: 40%;
   height: 40%;
