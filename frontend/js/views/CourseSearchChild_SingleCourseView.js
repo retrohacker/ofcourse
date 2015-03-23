@@ -27,7 +27,13 @@ var CourseSearchChild_SingleCourseView = Backbone.View.extend({
   onclick: function() {
     App.userCourses.fetch()
     App.userCourses.add(this.model)
-    App.userCourses.save()
+    
+    var data = {"cid" : this.model.get('id'), "uid" : App.user.get('id') }
+    
+    $.post('/v1/user/joinCourse', data, function(){
+     workspace.navigate('home', {trigger: true})
+    }) 
+
     console.log('Course Added')
     radio.trigger('open:course')
   }
