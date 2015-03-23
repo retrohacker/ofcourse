@@ -111,9 +111,10 @@ user.addEvent = function addEvent(userEvent,userid,done){
   });
 }
 user.joinCourse = function joinCourse(CourseId, UserId,done){
-  db("insert into course_user ('cid', 'uid') values ( " + CourseId + " , " + UserId + ")", function(e,rows,result){
-    if(e) return cb(e)
-    cb(null, result.rows)
+  console.log("insert into course_user (cid, uid) values ( " + CourseId + " , " + UserId + ")")
+  db("insert into course_user (cid, uid) values ( " + CourseId + " , " + UserId + ")", function(e,rows,result){
+    if(e) return done(e,null)
+    return done(null, result.rows)
   })
   
   }
