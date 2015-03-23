@@ -54,10 +54,11 @@ var Workspace = Backbone.Router.extend({
     App.courses.fetch({reset:true})
     var loadingView = new LoadingView({radio: radio}).render('body')
     
-    var courseSearchParentView = new CourseSearchParentView({radio: radio,
-                                                             collection: App.searchCourses}).render()
     App.courses.fetch({
       success: function () {
+
+      var courseSearchParentView = new CourseSearchParentView({radio: radio,
+                                                             collection: App.searchCourses}).render()
         radio.trigger('unrender:LoadingView')
       }
     })
