@@ -61,7 +61,6 @@ var Workspace = Backbone.Router.extend({
         radio.trigger('unrender:LoadingView')
       }
     })
->>>>>>> origin/master
   },
   'userAssignments':function(){
     radio.trigger('unrender:page getTaskbar')
