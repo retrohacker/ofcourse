@@ -34,8 +34,8 @@ var CourseSearchChild_SingleCourseView = Backbone.View.extend({
     $.ajax({
       url: '/v1/user/joinCourse',
       type: "POST",
-      data: data,
-      headers: {'Content-Type': 'application/jason'},
+      data: JSON.stringify(data),
+      headers: {'Content-Type': 'application/json'},
       success: function(){
         workspace.navigate('home', {trigger: true})
       }

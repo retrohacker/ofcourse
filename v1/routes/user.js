@@ -107,12 +107,7 @@ router.get('/courses', function (req, res, next) {
 router.post('/joinCourse', function(req,res,next) {
   
   if(!req.user || !req.user.profile || !req.user.profile.id) return res.status(401).json("Please login")
-  console.log(req)
-  console.log(req.attributes)
-  console.log(req.params)
-  console.log(req.FormData)
-  console.log(req.body)
-  db.user.joinCourse(req.cid , req.uid, function(e){
+  db.user.joinCourse(req.body.cid , req.body.uid, function(e){
     if(e) {
       logger.error('database error: could not add user to course ', e)
     }
