@@ -14,11 +14,9 @@ var SidebarView = Backbone.View.extend({
   events: {
     "click .ofcourse-sidebar-logos":"openHome",
     "click #sidebar-bg": "closeSidebar",
-    "click #sidebar-addcourse": "openAddCourse",
     "click #sidebar-calendar": "openCalendar",
     "click #sidebar-courses": "openCourses",
     "click #sidebar-home": "openHome",
-    "click #sidebar-createcourse": "openCreateCourse",
     "click #sidebar-assignments": "openAssignments",
     "click #sidebar-logout": "logout"
   },
@@ -31,21 +29,14 @@ var SidebarView = Backbone.View.extend({
   openHome: function() {
     workspace.navigate('home',{trigger:true})
   },
-  openCalendar: function() {
+  openCalendar: function() { 
     workspace.navigate('calendar',{trigger:true})
-  },
-  openCreateCourse: function() {
-    workspace.navigate('createCourse', {trigger:true})
   },
   openCourses: function() {
     workspace.navigate('courses',{trigger:true})
   },
   openAssignments: function() {
     workspace.navigate('userAssignments',{trigger:true})
-  },
-  openAddCourse: function() {
-
-    workspace.navigate('addCourse',{trigger:true})
   },
   render: function() {
     var location = location || this.defaultLocation
@@ -69,7 +60,7 @@ var SidebarView = Backbone.View.extend({
     $('.ofcourse-sidebar').css('transform','translateX(-125%)')
     setTimeout( function() {
       $('.ofcourse-sidebar-wrapper').css('z-index', '-20')
-    }, 500)
+    }, 500) 
     this.sidebarState = false
   },
   openSidebar:function(){

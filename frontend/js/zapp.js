@@ -52,19 +52,27 @@ var Workspace = Backbone.Router.extend({
   'courses':function(){
     radio.trigger('unrender:page getTaskbar')
     App.courses.fetch({reset:true})
+    var loadingView = new LoadingView({radio: radio}).render('body')
+    
     var courseSearchParentView = new CourseSearchParentView({radio: radio,
                                                              collection: App.searchCourses}).render()
-    test = courseSearchParentView;
+    App.courses.fetch({
+      success: function () {
+        radio.trigger('unrender:LoadingView')
+      }
+    })
+>>>>>>> origin/master
   },
   'userAssignments':function(){
     radio.trigger('unrender:page getTaskbar')
     App.eventCollection.fetch({
       success: loadAssignments
     })
+    App.userCourses.fetch({reset:true})
     function loadAssignments(){
       var userAssignments = new UserAssignmentsView({radio: radio, 
                                                      collection: App.eventCollection,
-                                                     courses: App.courses})
+                                                     courses: App.userCourses})
         .render()
     }
   },
