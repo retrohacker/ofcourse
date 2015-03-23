@@ -20,7 +20,7 @@ var connString = process.env.DATABASE_URL || "postgres://postgres@127.0.0.1:5432
 var test_user_1 = { firstName: "Larry" , lastName: "Test", id: 5 };
 var test_user_2 = { firstName: "Larry" , lastName: "Test", id: -666 };
 var test_course_1 = { university:1,id:5,title:"Theory of Something",department:"CS",number:491,section:001,start:"2015-02-01T04:05:06" ,end: "2015-02-30T04:05:06"};
-var test_event = {id:1001,userid:10,parentid:2,courseid:3,title:"Test Event!",start:"2015-02-01 04:05:06",end:"2015-02-10 04:05:06",type:0,data:"this is test event data",status:"in progress"}
+var test_event = {userid:10,parentid:2,courseid:3,title:"Test Event!",start:"2015-02-01 04:05:06",end:"2015-02-10 04:05:06",type:0,data:"this is test event data",status:"in progress"}
 var test_course_2 = { university:1,id:11228,title:"Theory off Something",location:"my fdick",instructor:"my othfer dick",semester:"fall",department:"TTT",number:491,section:112,start:"20150201",end:"20150228"};
         
 //check command args for verbose mode
@@ -57,7 +57,7 @@ backend_server_test_1()
 //async.series([
 test_client_series_1()
 // - backend_get_user_test_1()
-// - backend_create_course_test_1()
+// - backend_create_course_test_1() DISABLED
 // - backend_create_event_test_1()
 // - backend_get_courses_test_1()
 // - backend_get_universities_test_1()
@@ -286,7 +286,7 @@ function test_client_series_1(){
       }
       //call more tests after logging in
       backend_get_user_test_1()
-      backend_create_course_test_1()
+      //backend_create_course_test_1()
       backend_create_event_test_1()
       backend_get_courses_test_1()
       backend_get_universities_test_1()
