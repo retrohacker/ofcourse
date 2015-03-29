@@ -22,9 +22,6 @@ function ofcourseSearchResults() {
   odcsIsSync = false
   odcsResults = new CourseCollection(JSON.parse(this.responseText))
   //var odcsView = new CourseSearchResultsView({collection:ocdsResults})
-
-  App.searchCourses.reset()
-  App.searchCourses.add(odcsResults.models)
   radio.trigger('upDateSearchCollection', odcsResults);
   
   console.log("courses being set");
