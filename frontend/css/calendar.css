@@ -5,6 +5,11 @@
   margin-right: 15%;
 }
 
+.ofcourse-cal-container {
+  position: fixed;
+  height: 90%;
+}
+
 .ofcourse-body .fc-toolbar {
   margin-bottom: 0;
 }
