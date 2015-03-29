@@ -1,5 +1,5 @@
 var CourseSearchChild_ResultBoxView = Backbone.View.extend({
-    defaultLocation: ".ofcourse-body",
+    defaultLocation: ".ofcourse-module-full",
     template: JADE.userCoursesContainer,
     initialize: function(opts){
       this.setElement(this.template()),

@@ -1,5 +1,5 @@
 var CourseSearchChild_SearchBoxView = Backbone.View.extend({
-    defaultLocation: '.ofcourse-body',
+    defaultLocation: '.oc-courses-pageWrapper',
     template: JADE.joinCourse,
     initialize: function(opts){
       this.setElement(this.template()),
