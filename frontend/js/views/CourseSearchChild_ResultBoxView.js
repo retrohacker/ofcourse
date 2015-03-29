@@ -22,7 +22,6 @@ var CourseSearchChild_ResultBoxView = Backbone.View.extend({
     },
     createAndRenderChildren: function (){
       for(var i = 0; i < this.collection.length; i++){
-        console.log(this.collection.at(i));
         new CourseSearchChild_SingleCourseView({model: this.collection.at(i)}).render()
       }
       return this

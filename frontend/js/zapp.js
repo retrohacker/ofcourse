@@ -57,8 +57,7 @@ var Workspace = Backbone.Router.extend({
     App.courses.fetch({
       success: function () {
 
-      var courseSearchParentView = new CourseSearchParentView({radio: radio,
-                                                             collection: App.searchCourses}).render()
+      var courseSearchParentView = new CourseSearchParentView({radio: radio}).render()
         radio.trigger('unrender:LoadingView')
       }
     })
@@ -105,7 +104,6 @@ App.userCourses = new UserCourseCollection()
 
 App.eventCollection = new EventCollection([])
 App.eventCollection.fetch({reset:true})
-App.searchCourses = new CourseCollection()
 
 var workspace = new Workspace({radio: radio});
 Backbone.history.start();
