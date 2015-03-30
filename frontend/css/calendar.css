@@ -111,6 +111,18 @@
   border-width: 2px;
 }
 
+.fc-view-container {
+  background-color: #363644;
+  -webkit-box-shadow: 0px 21px 81px 15px rgba(54,54,68,1);
+  -moz-box-shadow: 0px 21px 81px 15px rgba(54,54,68,1);
+  box-shadow: 0px 21px 81px 15px rgba(54,54,68,1);
+}
+
+.fc-day-number {
+  color: WHITE;
+  text-shadow: -1px 0px 6px rgba(0, 0, 0, 1);
+}
+
 @media (max-width: 700px) {
   .ofcourse-body .fc {
     margin-left: 0;
