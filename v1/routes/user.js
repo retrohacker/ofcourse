@@ -90,8 +90,6 @@ router.get('/courses', function (req, res, next) {
 	        if(e) {
             logger.error('database error: /user/courses: ', e)
           }
-          res.write(JSON.stringify(course))
-          return res.end()
         })
       },cb)
     }
@@ -101,6 +99,7 @@ router.get('/courses', function (req, res, next) {
       logger.error('get courses error ', e)
       return res.status(500).end(e.stack+"\n"+JSON.stringify(e))
     }
+    res.write(JSON.stringify(courses))
     return res.end()
   })
 })
