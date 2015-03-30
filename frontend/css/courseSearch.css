@@ -1,3 +1,66 @@
+.oc-courses-pageWrapper {
+  position: relative;
+  height: 100%;
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.oc-userCourses-courseContainer {
+  position: absolute;
+  top: 5em;
+  left: 5em;
+  width: 90%;
+  height: 80%;
+}
+
+.ofcourse-course-info {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-left: 5%;
+}
+
 .ofcourse-course-search-title {
-  width: 100%;
+  width: 80%;
+}
+
+.oc-userCourses-courseDiv {
+  width: 90%;
+  margin: 10px;
+  background: WHITE;
+  cursor: pointer;
+  -webkit-box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.37);
+  -moz-box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.37);
+  box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.37); 
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.oc-userCourses-courseDiv:hover {
+  background-color: #BBEC9E;
+  -webkit-box-shadow: 0px 10px 14px -5px rgba(0,0,0,0.37);
+  -moz-box-shadow: 0px 10px 14px -5px rgba(0,0,0,0.37);
+  box-shadow: 0px 10px 14px -5px rgba(0,0,0,0.37);
+}
+
+@media only screen and (max-width: 400px) {
+  .oc-courses-pageWrapper {
+    left: 0;
+    width: 100%;
+  }
+
+  .oc-userCourses-courseContainer {
+    left: 1em;
+    width: 95%;
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  .oc-userCourses-courseContainer {
+    left: 1em;
+    width: 95%;
+  }
 }

@@ -26,6 +26,7 @@ var AddAssignView = Backbone.View.extend({
     //Add the view to the DOM
     $(location).append(this.$el)
     this.createDatePicker()
+    $('#title').focus();
     return this;
   },
   submitted: function(){
@@ -78,6 +79,7 @@ var AddAssignView = Backbone.View.extend({
     $('.ofcourse-left').css({'transform': 'translateX(0%)'})
     $('.ofcourse-right').css({'transform': 'translateX(0%)'})
     this.unrender()
+    radio.trigger('unrender:QuickAddAssignView')
     return this
   },
   createDatePicker: function() {
