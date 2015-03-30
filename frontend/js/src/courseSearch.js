@@ -10,6 +10,7 @@ function ofcourseDelayedCourseSearch(txtbox) {
 }
 
 function ofcourseCourseSearch(title) {
+  var loadingView = new LoadingView({radio: radio, color: '#441D9E'}).render()
   odcsIsSync = true
   var request = new XMLHttpRequest()
   request.onload = ofcourseSearchResults
@@ -25,4 +26,5 @@ function ofcourseSearchResults() {
   radio.trigger('upDateSearchCollection', odcsResults);
   
   console.log("courses being set");
+  radio.trigger('unrender:LoadingView')
 }

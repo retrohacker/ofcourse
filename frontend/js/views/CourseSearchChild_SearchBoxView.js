@@ -19,6 +19,7 @@ var CourseSearchChild_SearchBoxView = Backbone.View.extend({
     render: function(location){
       var location = location || this.defaultLocation
       $(location).append(this.$el)
+      $('.ofcourse-course-search-title').focus();
       return this;
     },
     createChildren: function(){

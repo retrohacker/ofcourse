@@ -30,5 +30,17 @@
   background: WHITE;
   -webkit-box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.37);
   -moz-box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.37);
-  box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.37);
+  box-shadow: 0px 0px 14px 1px rgba(0,0,0,0.37); 
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.oc-userCourses-courseDiv:hover {
+  background-color: #BBEC9E;
+  -webkit-box-shadow: 0px 10px 14px -5px rgba(0,0,0,0.37);
+  -moz-box-shadow: 0px 10px 14px -5px rgba(0,0,0,0.37);
+  box-shadow: 0px 10px 14px -5px rgba(0,0,0,0.37);
 }

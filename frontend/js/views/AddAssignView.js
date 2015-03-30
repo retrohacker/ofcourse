@@ -26,6 +26,7 @@ var AddAssignView = Backbone.View.extend({
     //Add the view to the DOM
     $(location).append(this.$el)
     this.createDatePicker()
+    $('#title').focus();
     return this;
   },
   submitted: function(){
