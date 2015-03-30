@@ -48,7 +48,7 @@ router.put('/',function(req,res) {
   if(!req.user || !req.user.profile || !req.user.profile.id) return res.status(401).json("Not Logged In")
    var user = new models.User()
   if(!user.set(req.body,{validate:true})){
-	logger.error('new user registration model validation error', e)  
+  logger.error('new user registration model validation error', e)  
     return res.status(400).json({e:user.validationError})
   }
   user.set('id',req.user.profile.id)
@@ -74,26 +74,19 @@ router.get('/',function(req,res) {
 
 router.get('/courses', function (req, res, next) {
   if(!req.user || !req.user.profile || !req.user.profile.id) return res.status(401).json("Please login")
-
   async.waterfall([
     function getUserCourseIDs(cb){
       db.user.getUserCourseIDs(req.user.profile.id, function(e,courseIDs){
-	  if(e) {
-        logger.error('database error: could not fetch user', e)
-      }
-      return cb(e, courseIDs)
+        return cb(e, courseIDs)
       })
     },
     function getCoursesByCourseIDs(courseIDs, cb){
-      async.each(courseIDs,function(course, cb){
-		    db.user.getCourse(course.cid,function(e,course){
-	        if(e) {
-            logger.error('database error: /user/courses: ', e)
-          }
-          res.write(JSON.stringify(course))
-          return res.end()
-        })
+      async.map(courseIDs,function(course, cb){
+        db.user.getCourse(course.cid,cb)
       },cb)
+    },
+    function sendResponse(courses) {
+      res.status(200).json(courses)
     }
   ],
   function(e,courses){
@@ -101,11 +94,9 @@ router.get('/courses', function (req, res, next) {
       logger.error('get courses error ', e)
       return res.status(500).end(e.stack+"\n"+JSON.stringify(e))
     }
-    return res.end()
   })
 })
 router.post('/joinCourse', function(req,res,next) {
-  
   if(!req.user || !req.user.profile || !req.user.profile.id) return res.status(401).json("Please login")
   db.user.joinCourse(req.body.cid , req.body.uid, function(e){
     if(e) {
