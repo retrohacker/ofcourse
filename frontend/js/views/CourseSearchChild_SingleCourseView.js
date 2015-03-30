@@ -27,12 +27,12 @@ var CourseSearchChild_SingleCourseView = Backbone.View.extend({
   onclick: function() {
     App.userCourses.fetch()
     App.userCourses.add(this.model)
-    
+
     var data = {"cid" : this.model.get('id'), "uid" : App.user.get('id') }
 
-     
+
     $.ajax({
-      url: '/v1/user/joinCourse',
+      url: '/v1/user/course',
       type: "POST",
       data: JSON.stringify(data),
       headers: {'Content-Type': 'application/json'},
