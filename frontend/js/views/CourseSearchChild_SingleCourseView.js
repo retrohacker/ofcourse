@@ -41,7 +41,6 @@ var CourseSearchChild_SingleCourseView = Backbone.View.extend({
       }
     }) 
 
-    console.log('Course Added')
     radio.trigger('open:course')
   }
 });
