@@ -31,7 +31,7 @@ user.get = function get(id,cb) {
 user.getEvents = function getEvents(id,cb) {
   db("select * from events where userid="+id,function(e,rows,result) {
     if(e) return cb(e)
-    /*
+    
     for(i = 0; i < result.rows.length;i++){
       console.log("stringDate: ", result.rows[i].start)
       //correct start time
@@ -58,7 +58,7 @@ user.getEvents = function getEvents(id,cb) {
       dateString = splitDate.join(" ")
       result.rows[i].end = new Date(dateString)
     }
-  */
+  
     cb(null,result.rows)
   })
 }
