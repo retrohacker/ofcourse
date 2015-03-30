@@ -43,7 +43,8 @@ var TaskbarView = Backbone.View.extend({
     .addButtonRight(new TaskbarButtonView({
       className:'fa fa-fw fa-plus waves-effect waves-light',
       onClick: function() {
-        //will produce small quick assignment box
+        var quickAddAssign = new QuickAddAssignView({radio: radio})
+        .render()
       },
       title: "Add Assignment"
     }))
