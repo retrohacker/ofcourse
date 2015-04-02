@@ -40,6 +40,11 @@ verbosity = 1
 type checking for strings...
 length checking for strings... will postgres automatically chop the string? 
 * do i need to return an error if a varchar(50) input is too long?
+* 
+* 
+* test add assignment!
+* 
+* 
 */ 
 
 
