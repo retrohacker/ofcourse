@@ -13,7 +13,7 @@ verbosity = 1
 /** 
  * 
  * places to test for date/time:
- * 
+ * POST /v1/course
  * 
  * 
  * 
@@ -89,14 +89,15 @@ function get_session(){
         console.log('Cookie:', cookie)
         console.log(str + '\n')
       }
+      join_course_test_1()
       //call more tests after logging in
       //backend_get_user_test_1()
       //backend_create_course_test_1()
       //backend_create_event_test_1()
       //backend_get_courses_test_1()
       //backend_get_universities_test_1()
-      //backend_get_events_test_1()
-      //backend_get_user_courses_test_1()
+      backend_get_events_test_1()
+      backend_get_user_courses_test_1()
       });
     }
     var req = http.request(request, callback);
@@ -109,6 +110,124 @@ function get_session(){
     req.end()
   }catch( Exception ){
     console.log(testName + "["+color.red("FAIL")+"]")
+    console.log(Exception.message)
+    console.log(Exception)
+  }
+}
+
+
+
+function join_course_test_1(){
+  try{
+    var testName = "join course test 1"
+    var params = JSON.stringify({"cid":"3043","uid":"420"})
+    var request={
+      host: 'localhost',
+      port: 5000,
+      path: '/v1/user/course',
+      method: 'POST',
+      headers: { 
+        Cookie: cookie,
+        'Content-Type': 'application/json'
+      }
+    }
+    callback = function(response) {
+      var str = ''
+      response.on('data', function (chunk) {
+        str += chunk;
+      });
+      response.on('end', function () {
+        if(str.indexOf("error") > -1) {
+          console.log(testName + " ["+color.red("FAIL")+"]")
+        }
+        if(str)
+          console.log(testName + " ["+color.green("PASS")+"]")
+        if(verbosity == 1)
+          console.log(str + '\n')
+      });
+    }
+    var req = http.request(request, callback);
+    req.write(params)
+    req.on('error', function(error) {
+      console.log(testName + " ["+color.red("FAIL")+"]")
+      if(verbosity == 1)
+        console.log(error)
+    });
+    req.end()
+  }catch( Exception ){
+    console.log(testName + " ["+color.red("FAIL")+"]")
+    console.log(Exception.message)
+    console.log(Exception)
+    console.log(course)
+  }
+}
+
+function backend_get_events_test_1(){
+  try{
+    var testName = "Backend get events Test 1 - GET /v1/event/events"
+    var request={
+      host: 'localhost',
+      port: 5000,
+      path: '/v1/event/events',
+      method: 'GET',
+      headers: {'Cookie': cookie}
+    }
+    callback = function(response) {
+      var str = ''
+      response.on('data', function (chunk) {
+        str += chunk;
+      });
+      response.on('end', function () {
+        if(str)
+          console.log(testName + " ["+color.green("PASS")+"]")
+        if(verbosity == 1)
+          console.log(str + '\n')
+      });
+    }
+    var req = http.request(request, callback);
+    req.on('error', function(error) {
+      console.log(testName + " ["+color.red("FAIL")+"]")
+      if(verbosity == 1)
+        console.log(error)
+    });
+    req.end()
+  }catch( Exception ){
+    console.log(testName + " ["+color.red("FAIL")+"]")
+    console.log(Exception.message)
+    console.log(Exception)
+  }
+}
+function backend_get_user_courses_test_1(){
+  try{
+    var testName = "Backend get user courses Test 1 - GET /v1/user/courses"
+    var request={
+      host: 'localhost',
+      port: 5000,
+      path: '/v1/user/courses',
+      method: 'GET',
+      headers: {'Cookie': cookie}
+    }
+    callback = function(response) {
+      var str = ''
+      response.on('data', function (chunk) {
+        str += chunk;
+      });
+      response.on('end', function () {
+        if(str)
+          console.log(testName + " ["+color.green("PASS")+"]")
+        if(verbosity == 1)
+          console.log(str + '\n')
+      });
+    }
+    var req = http.request(request, callback);
+    req.on('error', function(error) {
+      console.log(testName + " ["+color.red("FAIL")+"]")
+      if(verbosity == 1)
+        console.log(error)
+    });
+    req.end()
+  }catch( Exception ){
+    console.log(testName + " ["+color.red("FAIL")+"]")
     console.log(Exception.message)
     console.log(Exception)
   }
