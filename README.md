@@ -43,6 +43,11 @@ test user registration:
   curl -X POST --header "Content-Type: application/json" -d '{"firstName":"testfirst","lastName":"testlast","university":"siu","id":1234,"email":"testemail@mytestemail.com"}' localhost:5000/v1/user
 ```
 
+test create course:
+```
+  curl -X POST --header "Content-Type: application/json" -d '{"university":1,"id":11228,"title":"Theory of Something","location":"test location","instructor":"some asshole","semester":"fall","department":"TTT","number":491,"section":112,"start":"20150201","end":"20150228"}' localhost:5000/v1/user
+```
+
 insert universities into database:
 ```  
   insert into universities (name,abbreviation,state,city) values
@@ -89,7 +94,7 @@ sample Courses:
 clear database:
 ```
   drop table courses cascade; drop table events cascade; drop table fb cascade; drop table parent_events cascade; 
-  drop table universities cascade; drop table users cascade; drop table course_user cascade;
+  drop table universities cascade; drop table users cascade; drop table course_user cascade; drop schema public cascade;
 ```
 
  
