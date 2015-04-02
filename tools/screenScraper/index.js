@@ -191,7 +191,7 @@ function createTime(days,time) {
   if(meridiem[1] === 'pm') time[1][0]+=12
 
   //Convert to cron
-  cronStart = time[0][1]+" "+time[0][0]+" *  * "+days
+  cronStart = time[0][1]+" "+time[0][0]+" * * "+days
   duration = (time[1][0] * 60 + time[1][1]) - (time[0][0] * 60 + time[0][1]) //minutes
   return {cron:cronStart,duration:duration*60}
 }

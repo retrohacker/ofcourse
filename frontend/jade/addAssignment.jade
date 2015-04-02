@@ -5,7 +5,7 @@ div.ofcourse-addAssign-box
       input.ofcourse-clean-input.ofcourse-heading(id='title' placeholder='Assignment Name' autofocus)
       select.ofcourse-clean-input(id='cid')
         - each item in locals
-          option(id='#{item.id}') #{item.title} #{item.number} - Section #{item.section}
+          option(id='#{item[0].id}') #{item[0].title} #{item[0].number} - Section #{item[0].section}
       textarea.ofcourse-clean-input(id='desc' rows='3' placeholder='Type a description for this assignment...')
       div#due.ofcourse-date-select
         input.ofcourse-hidden

@@ -1,3 +1,4 @@
+var test;
 var Workspace = Backbone.Router.extend({
   routes:{
     "home": "home",
@@ -50,12 +51,13 @@ var Workspace = Backbone.Router.extend({
   },
   'courses':function(){
     radio.trigger('unrender:page getTaskbar')
+    App.courses.fetch({reset:true})
     var loadingView = new LoadingView({radio: radio}).render('body')
+    
     App.courses.fetch({
       success: function () {
-        var userCoursesParentView = new UserCoursesParentView({radio: radio,
-                                                           collection: App.courses
-                                                          }).render()
+
+      var courseSearchParentView = new CourseSearchParentView({radio: radio}).render()
         radio.trigger('unrender:LoadingView')
       }
     })

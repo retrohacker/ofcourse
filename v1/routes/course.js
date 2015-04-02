@@ -21,8 +21,6 @@ router.post('/',function(req,res) {
   if(!course.set(req.body,{validate:true})) {
     return res.status(400).json({e:course.validationError})
   }
-  //Open DB connection
-  var client = new pg.Client(db.db.connectionParameters)
   async.waterfall([
     function getUserUniversity(cb){
       db.user.getUniversityByUserID(req.user.profile.id,function(e,university) {
@@ -48,16 +46,6 @@ router.post('/',function(req,res) {
       db.user.addParentEvent(parent, function(e,pid){
         return cb(e, cid, pid)
       })
-    },
-    function connect(cid, pid, cb){
-      client.connect(function(e){
-        return cb(e,cid,pid)
-      })
-    },
-    function beginTransaction(cid,pid,cb) {
-      //client.query('BEGIN()', function(e, result){ // This doesn't work with pg-query
-        return cb(null,cid,pid)
-      //})
     },
     function insertEvents(cid, pid, cb){
       // For each cron and duration
@@ -88,7 +76,6 @@ router.post('/',function(req,res) {
     }
   ],
   function(e,pid){
-    client.end()    
     if(e) {
       logger.error('create course error ', e)
       return res.status(500).end(e.stack+"\n"+JSON.stringify(e))
