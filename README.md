@@ -94,7 +94,7 @@ sample Courses:
 clear database:
 ```
   drop table courses cascade; drop table events cascade; drop table fb cascade; drop table parent_events cascade; 
-  drop table universities cascade; drop table users cascade; drop table course_user cascade; drop schema public cascade;
+  drop table universities cascade; drop table users cascade; drop table course_user cascade; drop schema public cascade;create schema public;
 ```
 
  
