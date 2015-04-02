@@ -6,6 +6,8 @@ var CourseModel =  module.exports = Backbone.Model.extend({
   }
 })
 
+CourseModel.unique = ['cid','uid']
+
 module.exports.tableName = "course_user"
 module.exports.types = {
   cid: 'integer references courses(id)',
