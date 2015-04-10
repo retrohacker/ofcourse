@@ -124,6 +124,7 @@ textarea {
 
 .ofcourse-module-full {
   position: absolute;
+  overflow-x: hidden;
   width: 90%;
   height: 80%;
   top: 2.5%;
@@ -320,6 +321,20 @@ textarea {
 
 .ofcourse-empty {
   width: 0px !important;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+ 
+::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: transparent;
 }
 
 html {
