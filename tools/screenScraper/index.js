@@ -138,35 +138,7 @@ console.log(JSON.stringify(siu,null,' '))
 function createTime(days,time) {
   //Convert to military time integers
   time = ''+time
-  days = ''+days
-  days = days.trim().split('').map(function(day) {
-    switch(day) {
-    case 'M':
-      return 'Mon'
-      break
-    case 'T':
-      return 'Tue'
-      break
-    case 'W':
-      return 'Wed'
-      break
-    case 'R':
-      return 'Thu'
-      break
-    case 'F':
-      return 'Fri'
-      break
-    case 'S':
-      return 'Sat'
-      break
-    case 'U':
-      return 'Sun'
-      break
-    default:
-      console.error('Unknown day '+day)
-      return null
-    }
-  }).join()
+
   time = time.split('-')
   // 0 = start 1 = stop
   time[0] = time[0].trim()
@@ -189,10 +161,45 @@ function createTime(days,time) {
   if(time[1][0] === 12) time[1][0] = 0
   if(meridiem[0] === 'pm') time[0][0]+=12
   if(meridiem[1] === 'pm') time[1][0]+=12
+  duration = (time[1][0] * 60 + time[1][1]) - (time[0][0] * 60 + time[0][1]) //minutes
+  time[0][0] += 5 // to UTC
+  var incrDay = false
+  if(time[0][0] > 24) {
+    time[0][0]-=24
+    incrDay = true
+  }
 
+  days = ''+days
+  days = days.trim().split('').map(function(day) {
+    switch(day) {
+    case 'M':
+      return (incrDay) ? 'Tue' : 'Mon'
+      break
+    case 'T':
+      return (incrDay) ? 'Wed' : 'Tue'
+      break
+    case 'W':
+      return (incrDay) ? 'Thu' : 'Wed'
+      break
+    case 'R':
+      return (incrDay) ? 'Fri' : 'Thu'
+      break
+    case 'F':
+      return (incrDay) ? 'Sat' : 'Fri'
+      break
+    case 'S':
+      return (incrDay) ? 'Sun' : 'Sat'
+      break
+    case 'U':
+      return (incrDay) ? 'Mon' : 'Sun'
+      break
+    default:
+      console.error('Unknown day '+day)
+      return null
+    }
+  }).join()
   //Convert to cron
   cronStart = time[0][1]+" "+time[0][0]+" * * "+days
-  duration = (time[1][0] * 60 + time[1][1]) - (time[0][0] * 60 + time[0][1]) //minutes
   return {cron:cronStart,duration:duration*60}
 }
 
