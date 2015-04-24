@@ -33,3 +33,14 @@
 .ofcourse-assignment-action {
   width: 3em;
 }
+
+.ofcourse-assign-header {
+  font-size: 3em;
+  text-align: center;
+  color: #B1B1B1;
+  margin-top: 10px;
+}
+
+.add {
+  overflow-y: hidden;
+}
