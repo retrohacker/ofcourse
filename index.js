@@ -18,7 +18,7 @@ app.get('/',function(req,res) {
   res.send(index)
 })
 
-app.get('/ok',function(req.res) {
+app.get('/ok',function(req,res) {
   res.end('OK')
 })
 
