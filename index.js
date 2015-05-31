@@ -18,6 +18,10 @@ app.get('/',function(req,res) {
   res.send(index)
 })
 
+app.get('/ok',function(req.res) {
+  res.end('OK')
+})
+
 app.get('/favicon.ico',function(req,res) {
   var icon = path.resolve('./frontend','build','static','images','favicon.ico')
   logger.info('Sending ',icon)
